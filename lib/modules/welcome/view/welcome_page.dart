@@ -121,49 +121,49 @@ class WelcomePage extends StatelessWidget {
                       ],
                     ),
                     30.height,
-                    Container(
-                      margin: EdgeInsets.only(left: 10.w, right: 10.w),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: "termsCondition1".tr,
-                                style: secondaryTextStyle(
-                                    color: textColorSecondary,
-                                    size: 54.sp.toInt())),
-                            TextSpan(
-                              text: "termsCondition2".tr,
-                              style: boldTextStyle(
-                                color: textColorPrimary,
-                                size: 54.sp.toInt(),
-                              ),
-                            ),
-                            TextSpan(
-                              text: "termsCondition3".tr,
-                              style: secondaryTextStyle(
-                                color: textColorSecondary,
-                                size: 54.sp.toInt(),
-                              ),
-                            ),
-                            TextSpan(
-                              text: "termsCondition4".tr,
-                              style: boldTextStyle(
-                                color: textColorPrimary,
-                                size: 54.sp.toInt(),
-                              ),
-                            ),
-                            TextSpan(
-                              text: "termsCondition5".tr,
-                              style: secondaryTextStyle(
-                                color: textColorSecondary,
-                                size: 54.sp.toInt(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
+                    // Container(
+                    //   margin: EdgeInsets.only(left: 10.w, right: 10.w),
+                    //   child: RichText(
+                    //     textAlign: TextAlign.center,
+                    //     text: TextSpan(
+                    //       children: [
+                    //         TextSpan(
+                    //             text: "termsCondition1".tr,
+                    //             style: secondaryTextStyle(
+                    //                 color: textColorSecondary,
+                    //                 size: 54.sp.toInt())),
+                    //         TextSpan(
+                    //           text: "termsCondition2".tr,
+                    //           style: boldTextStyle(
+                    //             color: textColorPrimary,
+                    //             size: 54.sp.toInt(),
+                    //           ),
+                    //         ),
+                    //         TextSpan(
+                    //           text: "termsCondition3".tr,
+                    //           style: secondaryTextStyle(
+                    //             color: textColorSecondary,
+                    //             size: 54.sp.toInt(),
+                    //           ),
+                    //         ),
+                    //         TextSpan(
+                    //           text: "termsCondition4".tr,
+                    //           style: boldTextStyle(
+                    //             color: textColorPrimary,
+                    //             size: 54.sp.toInt(),
+                    //           ),
+                    //         ),
+                    //         TextSpan(
+                    //           text: "termsCondition5".tr,
+                    //           style: secondaryTextStyle(
+                    //             color: textColorSecondary,
+                    //             size: 54.sp.toInt(),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 ),
               )

@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:healcare_mobile/modules/chat/chat_page.dart';
+import 'package:healcare_mobile/modules/doctor/doctor_pages.dart';
+import 'package:healcare_mobile/modules/home/home_pages.dart';
+import 'package:healcare_mobile/modules/personal/personal_pages.dart';
+import 'package:healcare_mobile/routes/app_routes.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
@@ -9,15 +15,11 @@ class MainNavigation extends StatefulWidget {
 
 class _MainNavigationState extends State<MainNavigation> {
   int selectedPage = 0;
-  final pages = [];
+  final pages = [HomePage(), ChatPage(), DoctorPage(), PersonalPage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("CHALLENGE 7"),
-      ),
       body: pages[selectedPage],
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -34,7 +36,8 @@ class _MainNavigationState extends State<MainNavigation> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.message), label: "Nhắn tin"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings), label: "Cài đặt")
+                icon: Icon(Icons.local_hospital), label: "Bác sĩ"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Cá nhân")
           ]),
     );
   }

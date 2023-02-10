@@ -47,7 +47,7 @@ class _SplashPageState extends State<SplashPage> {
                   width: 50.w,
                 ),
                 Text(
-                  "Trellis",
+                  "Healthcare",
                   style: TextStyle(
                       color: Colors.blue,
                       fontSize: 150.sp,

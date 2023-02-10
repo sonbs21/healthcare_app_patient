@@ -1,6 +1,14 @@
 import 'package:get/get.dart';
+import 'package:healcare_mobile/modules/chat/chat_binding.dart';
+import 'package:healcare_mobile/modules/chat/chat_page.dart';
+import 'package:healcare_mobile/modules/home/home_binding.dart';
+import 'package:healcare_mobile/modules/home/home_pages.dart';
 import 'package:healcare_mobile/modules/login/login_binding.dart';
 import 'package:healcare_mobile/modules/login/login_page.dart';
+import 'package:healcare_mobile/modules/main-navigation/main_navigation.dart';
+import 'package:healcare_mobile/modules/main-navigation/main_navigation_binding.dart';
+import 'package:healcare_mobile/modules/personal/personal_binding.dart';
+import 'package:healcare_mobile/modules/personal/personal_pages.dart';
 import 'package:healcare_mobile/modules/sign_up/sign_up_binding.dart';
 import 'package:healcare_mobile/modules/sign_up/sign_up_page.dart';
 import 'package:healcare_mobile/modules/splash/splash_binding.dart';
@@ -32,6 +40,27 @@ class AppPages {
       name: AppRoutes.WELCOME,
       page: () => WelcomePage(),
       binding: WelcomeBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.MAIN_NAVIGATION,
+      page: () => MainNavigation(),
+      binding: MainNavigationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.HOME_PAGE,
+      page: () => HomePage(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.CHAT_PAGE,
+      page: () => ChatPage(),
+      binding: ChatBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.PERSONAL_PAGE,
+      page: () => PersonalPage(),
+      binding: PersonalBinding(),
     ),
   ];
 }

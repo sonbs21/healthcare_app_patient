@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:healcare_mobile/modules/login/login_controller.dart';
 import 'package:healcare_mobile/routes/app_routes.dart';
 import 'package:healcare_mobile/utils/auth_button.dart';
-import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 
@@ -97,7 +96,7 @@ class LoginPage extends StatelessWidget {
                 ),
               )
             : Text(
-                "sign_in".tr,
+                "Đăng nhập".tr,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -105,9 +104,10 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
         onClick: () {
-          String email = loginController.emailController.text;
-          String password = loginController.passwordController.text;
-          loginController.signIn(email, password);
+          // String email = loginController.emailController.text;
+          // String password = loginController.passwordController.text;
+          // loginController.signIn(email, password);
+          Get.offNamed(AppRoutes.MAIN_NAVIGATION);
         },
       ),
     );
@@ -164,7 +164,7 @@ class LoginPage extends StatelessWidget {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-          hintText: "Mạt khẩu".tr,
+          hintText: "Mật khẩu".tr,
           prefixIcon: const Icon(Icons.vpn_key),
           suffixIcon: IconButton(
               onPressed: () {
