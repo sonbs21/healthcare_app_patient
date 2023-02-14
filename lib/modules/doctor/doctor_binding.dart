@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:healcare_mobile/modules/doctor/doctor_controller.dart';
+import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
 
 class DoctorBinding extends Bindings {
   @override

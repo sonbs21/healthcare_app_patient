@@ -1,11 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:healcare_mobile/modules/login/login_controller.dart';
-import 'package:healcare_mobile/routes/app_routes.dart';
-import 'package:healcare_mobile/utils/auth_button.dart';
+import 'package:healthcare_mobile/modules/login/login_controller.dart';
+import 'package:healthcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/utils/auth_button.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -44,14 +43,18 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  _buildEmailField(loginController.emailController),
+                  _buildPhoneField(loginController.phoneController),
                   const SizedBox(height: 20),
                   Obx(
-                    () => _buildPasswordField(
-                        loginController.passwordController),
+                    () =>
+                        _buildPasswordField(loginController.passwordController),
                   ),
-                  // const SizedBox(height: 20),
-                  // _buildResetPassword(),
+                  // loginController.isError
+                  //     ? Text(
+                  //         loginController.isError,
+                  //         style: TextStyle(color: Color.red),
+                  //       )
+                  //     : '',
                   const SizedBox(height: 40),
                   _buildSignInButton(),
                   const SizedBox(height: 20),
@@ -104,38 +107,36 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
         onClick: () {
-          // String email = loginController.emailController.text;
-          // String password = loginController.passwordController.text;
-          // loginController.signIn(email, password);
-          Get.offNamed(AppRoutes.MAIN_NAVIGATION);
+          // Get.offNamed(AppRoutes.MAIN_NAVIGATION);
+          String email = loginController.phoneController.text;
+          String password = loginController.passwordController.text;
+          loginController.login(email, password);
         },
       ),
     );
   }
 
-  _buildEmailField(TextEditingController controller) {
+  _buildPhoneField(TextEditingController controller) {
     return TextFormField(
       autofocus: false,
       controller: controller,
       obscureText: false,
       enableSuggestions: false,
       autocorrect: false,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: TextInputType.phone,
       onSaved: (save) {
         controller.text = save!;
       },
       validator: (value) {
         if (value!.isEmpty) {
           return "Nhập số điện thoại".tr;
-        } else if (!(EmailValidator.validate(value))) {
-          return "email_invalid".tr;
         }
         return null;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
           hintText: "Số điện thoại",
-          prefixIcon: const Icon(Icons.email_outlined),
+          prefixIcon: const Icon(Icons.phone),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

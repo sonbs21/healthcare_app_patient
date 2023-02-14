@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healcare_mobile/utils/constant.dart';
+import 'package:healthcare_mobile/utils/constant.dart';
 
 
 class FillOutlineButton extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:healcare_mobile/modules/login/login_controller.dart';
+import 'package:healthcare_mobile/modules/login/login_controller.dart';
 
 class LoginBinding extends Bindings {
   @override

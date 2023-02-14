@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:healcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatefulWidget {

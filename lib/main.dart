@@ -4,10 +4,13 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healcare_mobile/routes/app_pages.dart';
-import 'package:healcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/routes/app_pages.dart';
+import 'package:healthcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/service/local_storage_service.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Get.putAsync(() => LocalStorageService.init());
   runApp(MyApp());
 }
 
@@ -26,13 +29,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-   return ScreenUtilInit(
+    return ScreenUtilInit(
       designSize: const Size(1440, 3040),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, __) => GetMaterialApp(
-        
-      
         fallbackLocale: const Locale('en',
             'US'), // specify the fallback locale in case an invalid locale is selected.
 
@@ -57,4 +58,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-

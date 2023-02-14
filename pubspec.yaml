@@ -1,4 +1,4 @@
-name: healcare_mobile
+name: healthcare_mobile
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -49,10 +49,15 @@ dependencies:
   simple_animations: ^4.2.0
   supercharged: ^2.1.1
   flutter_screenutil: ^5.3.1
+  fl_chart: ^0.60.0
   flutter_localizations:
     sdk: flutter
   get_storage: ^2.0.3
   flag: ^6.0.0
+  velocity_x: ^3.6.0
+  chat_gpt_sdk:
+    git:
+      url: https://github.com/iampawan/Flutter-ChatGPT.git
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +69,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+  build_runner: ^2.1.7
+  json_serializable: '>4.4.0'
+  retrofit_generator: '>=4.0.0 <5.0.0'
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthcare_mobile/utils/constant.dart';
 
 class PersonalPage extends StatefulWidget {
   PersonalPage({Key? key}) : super(key: key);
@@ -10,8 +11,59 @@ class PersonalPage extends StatefulWidget {
 class _PersonalPageState extends State<PersonalPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: (Text('Personal Page')),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        title: const Text('Cá nhân'),
+      ),
+      body: Column(
+        children: [
+          Container(
+            color: Colors.red,
+            child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: kDefaultPadding,
+                    vertical: kDefaultPadding * 0.75),
+                child: Row(
+                  children: [
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundImage: AssetImage(""),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Bùi Sỹ Sơn",
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(height: 8),
+                            Opacity(
+                                opacity: 0.64,
+                                child: Text(
+                                  "Xem thông tin cá nhân",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
+          )
+        ],
+      ),
     );
   }
 }

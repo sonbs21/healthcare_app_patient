@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
-import 'package:healcare_mobile/modules/sign_up/sign_up_controller.dart';
-import 'package:healcare_mobile/routes/app_routes.dart';
-import 'package:healcare_mobile/utils/auth_button.dart';
+import 'package:healthcare_mobile/modules/sign_up/sign_up_controller.dart';
+import 'package:healthcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/utils/auth_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -185,7 +185,8 @@ class SignUpPage extends StatelessWidget {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        hintText: "password".tr,
+        labelText: "Password",
+      
         prefixIcon: const Icon(Icons.vpn_key),
         suffixIcon: IconButton(
             onPressed: () {

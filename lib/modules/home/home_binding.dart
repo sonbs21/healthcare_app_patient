@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:healcare_mobile/modules/home/home_controller.dart';
+import 'package:healthcare_mobile/modules/home/home_controller.dart';
 
 class HomeBinding extends Bindings {
   @override

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:healcare_mobile/routes/app_routes.dart';
 
 class WelcomeController extends GetxController {
 

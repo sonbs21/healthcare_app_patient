@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healcare_mobile/utils/color.dart';
+import 'package:healthcare_mobile/utils/color.dart';
 
 class AuthButton extends StatelessWidget {
   Widget widget;

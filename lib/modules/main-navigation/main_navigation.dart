@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:healcare_mobile/modules/chat/chat_page.dart';
-import 'package:healcare_mobile/modules/doctor/doctor_pages.dart';
-import 'package:healcare_mobile/modules/home/home_pages.dart';
-import 'package:healcare_mobile/modules/personal/personal_pages.dart';
-import 'package:healcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/modules/chat/chat_page.dart';
+import 'package:healthcare_mobile/modules/doctor/doctor_pages.dart';
+import 'package:healthcare_mobile/modules/home/home_controller.dart';
+import 'package:healthcare_mobile/modules/home/home_pages.dart';
+import 'package:healthcare_mobile/modules/main-navigation/main_navigation_controller.dart';
+import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({Key? key}) : super(key: key);
@@ -19,26 +20,92 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[selectedPage],
-      bottomNavigationBar: BottomNavigationBar(
+    return GetBuilder<MainNavigationController>(builder: (controller) {
+      return Scaffold(
+        body: SafeArea(
+          child: IndexedStack(
+            index: controller.tabIndex,
+            children: [HomePage(), ChatPage(), DoctorPage(), PersonalPage()],
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          // unselectedItemColor: Colors.black,
+          // selectedItemColor: Colors.redAccent,
+          onTap: controller.changeTabIndex,
+          currentIndex: controller.tabIndex,
+
+          showSelectedLabels: true,
+          // showUnselectedLabels: false,
+          // type: BottomNavigationBarType.fixed,
+          // backgroundColor: Colors.white,
+          // elevation: 0,
           type: BottomNavigationBarType.fixed,
-          currentIndex: selectedPage,
+          // currentIndex: selectedPage,
           fixedColor: Colors.blueAccent,
           unselectedItemColor: Color(0xFF757575),
-          onTap: (position) {
-            setState(() {
-              selectedPage = position;
-            });
-          },
+          // onTap: (position) {
+          //   setState(() {
+          //     selectedPage = position;
+          //   });
+          // },
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Trang chủ"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.message), label: "Nhắn tin"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.local_hospital), label: "Bác sĩ"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Cá nhân")
-          ]),
+            _bottomNavigationBarItem(
+              icon: Icons.home,
+              label: 'Trang chủ',
+            ),
+            _bottomNavigationBarItem(
+              icon: Icons.message,
+              label: 'Hội thoại',
+            ),
+            _bottomNavigationBarItem(
+              icon: Icons.local_hospital,
+              label: 'Bác sĩ',
+            ),
+            _bottomNavigationBarItem(
+              icon: Icons.person,
+              label: 'Cá nhân',
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+  _bottomNavigationBarItem({IconData? icon, String? label}) {
+    return BottomNavigationBarItem(
+      icon: Icon(icon),
+      label: label,
     );
   }
 }
+
+
+//  body: ,
+//       bottomNavigationBar: BottomNavigationBar(
+//           type: BottomNavigationBarType.fixed,
+//           currentIndex: selectedPage,
+//           fixedColor: Colors.blueAccent,
+//           unselectedItemColor: Color(0xFF757575),
+//           onTap: (position) {
+//             setState(() {
+//               selectedPage = position;
+//             });
+//           },
+//           items: [
+//             _bottomNavigationBarItem(
+//               icon: Icons.home,
+//               label: 'Trang chủ',
+//             ),
+//             _bottomNavigationBarItem(
+//               icon: Icons.message,
+//               label: 'Hội thoại',
+//             ),
+//             _bottomNavigationBarItem(
+//               icon: Icons.local_hospital,
+//               label: 'Bác sĩ',
+//             ),
+//             _bottomNavigationBarItem(
+//               icon: Icons.person,
+//               label: 'Cá nhân',
+//             ),
+//           ]),

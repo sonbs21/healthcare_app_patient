@@ -1,3 +1,10 @@
 import 'package:get/get.dart';
 
-class MainNavigationController extends GetxController {}
+class MainNavigationController extends GetxController {
+  var tabIndex = 0;
+
+  void changeTabIndex(int index) {
+    tabIndex = index;
+    update();
+  }
+}
