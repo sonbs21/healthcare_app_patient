@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/api/rest_api.dart';
 import 'package:healthcare_mobile/models/login/login_request.dart';
+import 'package:healthcare_mobile/repository/user.repository.dart';
 
 import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
@@ -19,28 +20,28 @@ class LoginController extends GetxController {
   var isButtonLoading = false.obs;
   var isButtonLoadingDialog = false.obs;
 
-  final dio = Dio();
 
-  // var authService = Get.find<AuthService>();
+  final userRepository = Get.find<UserRepository>();
 
   void login(String phone, String password) async {
-    final client = RestClient(dio);
+    // final client = RestClient(dio);
     if (formKey.currentState!.validate()) {
       isButtonLoading.value = true;
 
       try {
-        await client
+        await userRepository
             .loginUser(LoginRequest(phone: phone, password: password))
             .then((value) {
+          LocalStorageService.setAccessToken(value.data?.access_token as String);
+
           Get.offAllNamed(AppRoutes.MAIN_NAVIGATION);
         });
       } on DioError catch (e) {
         EasyLoading.showError(e.response?.data['message']);
-
       }
     }
 
-     isButtonLoading.value = false;
+    isButtonLoading.value = false;
   }
 
   void resetPassword(String email) {

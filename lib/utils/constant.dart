@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-const TCAppName = 'Trellis';
+const TCAppName = 'HealthCare';
 
 const isDarkModeOnPref = "isDarkModeOnPref";
 const termsCondition1 = "Bằng cách tạo tài khoản, bạn đồng ý với ";

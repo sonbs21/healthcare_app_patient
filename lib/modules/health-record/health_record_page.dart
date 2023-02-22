@@ -3,12 +3,14 @@ library custom_form_field;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/components/custom_form_field.dart';
+import 'package:healthcare_mobile/modules/health-record/health_record_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/utils/auth_button.dart';
 
 class HealthRecordPage extends StatelessWidget {
   // GlobalKey<FormState> key = GlobalKey<FormState>();
   CustomFormField customFormField = CustomFormField();
+  final healthRecordController = Get.find<HealthRecordController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class HealthRecordPage extends StatelessWidget {
         ),
         body: Scrollbar(
           child: Form(
+          key: healthRecordController.formKey,
               // key: key,
               child: SingleChildScrollView(
             child: Padding(
@@ -30,11 +33,13 @@ class HealthRecordPage extends StatelessWidget {
                   const SizedBox(
                     height: 16.0,
                   ),
-                  _buildTextField("Chiều cao"),
+                  _buildTextField(
+                      "Chiều cao", healthRecordController.heightController),
                   const SizedBox(
                     height: 5.0,
                   ),
-                  _buildTextField("Cân nặng"),
+                  _buildTextField(
+                      "Cân nặng", healthRecordController.weightController),
                   const SizedBox(
                     height: 16.0,
                   ),
@@ -42,11 +47,13 @@ class HealthRecordPage extends StatelessWidget {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  _buildTextField("Tâm thu"),
+                  _buildTextField(
+                      "Tâm thu", healthRecordController.systolicController),
                   const SizedBox(
                     height: 5.0,
                   ),
-                  _buildTextField("Tâm trương"),
+                  _buildTextField(
+                      "Tâm trương", healthRecordController.diastolicController),
                   const SizedBox(
                     height: 16.0,
                   ),
@@ -54,7 +61,8 @@ class HealthRecordPage extends StatelessWidget {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  _buildTextField("Glucose"),
+                  _buildTextField(
+                      "Glucose", healthRecordController.glucoseController),
                   const SizedBox(
                     height: 16.0,
                   ),
@@ -62,7 +70,8 @@ class HealthRecordPage extends StatelessWidget {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  _buildTextField("Cholesterol"),
+                  _buildTextField("Cholesterol",
+                      healthRecordController.cholesterolController),
                   const SizedBox(
                     height: 16.0,
                   ),
@@ -70,21 +79,13 @@ class HealthRecordPage extends StatelessWidget {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  _buildTextField("Nhịp tim"),
+                  _buildTextField("Nhịp tim",
+                      healthRecordController.heartRateIndicatorController),
                   const SizedBox(
                     height: 16.0,
                   ),
-                  AuthButton(
-                    widget: Text(
-                      "Thêm thông tin".tr,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    onClick: () {},
-                  ),
+                  _buildAddInfoButton(),
+
                   // ElevatedButton(
                   //   onPressed: () {
                   //     // Get.offNamed(AppRoutes.HOME_PAGE);
@@ -98,17 +99,52 @@ class HealthRecordPage extends StatelessWidget {
         ));
   }
 
-  _buildTextField(String labelText) {
+  Obx _buildAddInfoButton() {
+    return Obx(
+      () => AuthButton(
+        widget: healthRecordController.isButtonLoading.isTrue
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              )
+            : Text(
+                "Thêm thông tin".tr,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+        onClick: () {
+          // Get.offNamed(AppRoutes.MAIN_NAVIGATION);
+          String height = healthRecordController.heightController.text;
+          String weight = healthRecordController.weightController.text;
+          String systolic = healthRecordController.systolicController.text;
+          String diastolic = healthRecordController.diastolicController.text;
+          String heartRateIndicator =
+              healthRecordController.heartRateIndicatorController.text;
+          String cholesterol =
+              healthRecordController.cholesterolController.text;
+          String glucose = healthRecordController.glucoseController.text;
+          healthRecordController.postHealthRecord(height, weight, systolic,
+              diastolic, heartRateIndicator, cholesterol, glucose);
+        },
+      ),
+    );
+  }
+
+  _buildTextField(String labelText, TextEditingController controller) {
     return TextFormField(
       autofocus: false,
-      // controller: controller,
+      controller: controller,
       obscureText: false,
       enableSuggestions: false,
       autocorrect: false,
       keyboardType: TextInputType.number,
-      // onSaved: (save) {
-      //   controller.text = save!;
-      // },
+      onSaved: (save) {
+        controller.text = save!;
+      },
       validator: (value) {
         return null;
       },

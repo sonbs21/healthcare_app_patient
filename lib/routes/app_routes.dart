@@ -16,5 +16,6 @@ class AppRoutes {
   static const String HEARTBEAT_PAGE = "/heartbeat_page";
   static const String GLUCOSE_PAGE = "/glucose_page";
   static const String CHOLESTEROL_PAGE = "/cholesterol_page";
+  static const String NOTIFICATION_PAGE = "/notification_page";
 
 }

@@ -52,15 +52,33 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(
             height: 16.0,
           ),
-          // _buildFieldSelect('Nhịp tim', Colors.green[100]!),
-          // const SizedBox(
-          //   height: 16.0,
-          // ),
-          // _buildFieldSelect('Glucose', Colors.blue[100]!),
-          // const SizedBox(
-          //   height: 16.0,
-          // ),
-          // _buildFieldSelect('Cholesterol', Colors.orange[200]!)
+          _buildFieldSelect(
+            'Nhịp tim',
+            Colors.green[100]!,
+            () {
+              Get.toNamed(AppRoutes.HEARTBEAT_PAGE);
+            },
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          _buildFieldSelect(
+            'Glucose',
+            Colors.blue[100]!,
+            () {
+              Get.toNamed(AppRoutes.GLUCOSE_PAGE);
+            },
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          _buildFieldSelect(
+            'Cholesterol',
+            Colors.orange[200]!,
+            () {
+              Get.toNamed(AppRoutes.CHOLESTEROL_PAGE);
+            },
+          )
         ]),
       ),
     );

@@ -21,7 +21,7 @@ class _BloodPressurePageState extends State<BloodPressurePage> {
             },
             icon: const Icon(Icons.arrow_back),
           ),
-          title: Text("Huyết Áp"),
+          title: const Text("Huyết Áp"),
         ),
         body: BloodPressureTable());
   }

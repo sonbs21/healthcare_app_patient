@@ -7,8 +7,14 @@ import 'package:healthcare_mobile/modules/chat/chat_binding.dart';
 import 'package:healthcare_mobile/modules/chat/chat_page.dart';
 import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_binding.dart';
 import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_main.dart';
+import 'package:healthcare_mobile/modules/cholesterol/cholesterol_binding.dart';
+import 'package:healthcare_mobile/modules/cholesterol/cholesterol_page.dart';
+import 'package:healthcare_mobile/modules/glucose/glucose_binding.dart';
+import 'package:healthcare_mobile/modules/glucose/glucose_page.dart';
 import 'package:healthcare_mobile/modules/health-record/health-record_binding.dart';
 import 'package:healthcare_mobile/modules/health-record/health_record_page.dart';
+import 'package:healthcare_mobile/modules/heartbeat/heartbeat_binding.dart';
+import 'package:healthcare_mobile/modules/heartbeat/heartbeat_page.dart';
 import 'package:healthcare_mobile/modules/home/home_binding.dart';
 import 'package:healthcare_mobile/modules/home/home_pages.dart';
 import 'package:healthcare_mobile/modules/login/login_binding.dart';
@@ -17,6 +23,8 @@ import 'package:healthcare_mobile/modules/main-navigation/main_navigation.dart';
 import 'package:healthcare_mobile/modules/main-navigation/main_navigation_binding.dart';
 import 'package:healthcare_mobile/modules/messages/messages_binding.dart';
 import 'package:healthcare_mobile/modules/messages/messages_page.dart';
+import 'package:healthcare_mobile/modules/notification/notification_pages.dart';
+import 'package:healthcare_mobile/modules/notification/notification_binding.dart';
 import 'package:healthcare_mobile/modules/personal/personal_binding.dart';
 import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_binding.dart';
@@ -27,11 +35,8 @@ import 'package:healthcare_mobile/modules/welcome/view/welcome_page.dart';
 import 'package:healthcare_mobile/modules/welcome/welcome_binding.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
 
-
-
 class AppPages {
   static var getPages = [
-  
     GetPage(
       name: AppRoutes.LOGIN,
       page: () => LoginPage(),
@@ -47,12 +52,11 @@ class AppPages {
       page: () => SplashPage(),
       binding: SplashBinding(),
     ),
-   GetPage(
+    GetPage(
       name: AppRoutes.WELCOME,
       page: () => WelcomePage(),
       binding: WelcomeBinding(),
     ),
-
     GetPage(
       name: AppRoutes.MAIN_NAVIGATION,
       page: () => MainNavigation(),
@@ -73,7 +77,7 @@ class AppPages {
       page: () => PersonalPage(),
       binding: PersonalBinding(),
     ),
-     GetPage(
+    GetPage(
       name: AppRoutes.MESSAGE_PAGE,
       page: () => MessagesPage(),
       binding: MessagesBinding(),
@@ -83,7 +87,7 @@ class AppPages {
       page: () => ChatGPTMain(),
       binding: ChatGptBinding(),
     ),
-     GetPage(
+    GetPage(
       name: AppRoutes.HEALTH_RECORD_PAGE,
       page: () => HealthRecordPage(),
       binding: HealthRecordBinding(),
@@ -97,6 +101,27 @@ class AppPages {
       name: AppRoutes.BMI_PAGE,
       page: () => BmiPage(),
       binding: BmiBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.HEARTBEAT_PAGE,
+      page: () => HeartbeatPage(),
+      binding: HeartbeatBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.CHOLESTEROL_PAGE,
+      page: () => CholesterolPage(),
+      binding: CholesterolBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.GLUCOSE_PAGE,
+      page: () => GlucosePage(),
+      binding: GlucoseBinding(),
+    ),
+
+     GetPage(
+      name: AppRoutes.NOTIFICATION_PAGE,
+      page: () => NotificationPage(),
+      binding: NotificationBinding(),
     ),
   ];
 }

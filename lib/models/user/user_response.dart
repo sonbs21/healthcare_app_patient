@@ -44,6 +44,7 @@ class PatientResponse {
   String? gender;
   DateTime? dateOfBirth;
   String? address;
+  String? phone;
   String? avatar;
   String? job;
   String? insuranceNumber;
@@ -52,17 +53,18 @@ class PatientResponse {
   String? doctorId;
 
   PatientResponse(
-      {required this.id,
-      required this.fullName,
-      required this.gender,
-      required this.address,
-      required this.avatar,
-      required this.job,
-      required this.insuranceNumber,
-      required this.state,
-      required this.medicalHistory,
-      required this.doctorId,
-      required this.dateOfBirth});
+      {this.id,
+      this.fullName,
+      this.gender,
+      this.address,
+      this.avatar,
+      this.job,
+      this.phone,
+      this.insuranceNumber,
+      this.state,
+      this.medicalHistory,
+      this.doctorId,
+      this.dateOfBirth});
 
   factory PatientResponse.fromJson(Map<String, dynamic> json) =>
       _$PatientResponseFromJson(json);

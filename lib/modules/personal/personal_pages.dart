@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:healthcare_mobile/modules/personal/personal_controller.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
 
 class PersonalPage extends StatefulWidget {
@@ -9,6 +11,8 @@ class PersonalPage extends StatefulWidget {
 }
 
 class _PersonalPageState extends State<PersonalPage> {
+  final personalController = Get.find<PersonalController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +35,8 @@ class _PersonalPageState extends State<PersonalPage> {
                       children: [
                         CircleAvatar(
                           radius: 30,
-                          backgroundImage: AssetImage(""),
+                          backgroundImage: AssetImage(
+                              personalController.userResponse.avatar as String),
                         ),
                       ],
                     ),

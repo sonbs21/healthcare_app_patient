@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatefulWidget {
@@ -25,6 +26,19 @@ class _SplashPageState extends State<SplashPage> {
   Future checkFirstSeen() async {
     await Future.delayed(const Duration(seconds: 4, milliseconds: 30));
     Get.back();
+   /*
+
+    if(LocalStorage.getItem == null && LocalStorage.getItem het han) {
+
+       Get.offNamed(AppRoutes.WELCOME);
+    }
+
+    else{
+
+      // co username, pd
+      call login function
+    }
+   */
     Get.offNamed(AppRoutes.WELCOME);
   }
 
