@@ -5,19 +5,45 @@ import 'package:healthcare_mobile/models/health-record/health_record_response.da
 import 'package:healthcare_mobile/repository/health_record.repository.dart';
 
 class BmiController extends GetxController {
-  var listBmi = <DataResponse>[].obs;
   final healthRecordRepository = Get.find<HealthRecordRepository>();
+  // var listBmi = RxList<DataResponse>([]);
+// List<DataResponse> listBmi = [];
+RxList<DataResponse> listBmi = RxList<DataResponse>([]);
+
   @override
   void onInit() {
-    // listLabelColor.value = Common.getListLabelColor();
-    initListBmi();
-    // loadBoard();
-    // initListMember();
-    // initBoardHistorical();
     super.onInit();
+    initListBmi();
   }
 
-  void initListBmi() {
-    // healthRecordRepository.getBmi().then((value) => listBmi = value.data);
+  void initListBmi() async {
+    final response = await healthRecordRepository.getBmi();
+    if (response.statusCode == 200) {
+      // listBmi = response.data;
+            listBmi.addAll(response.data);
+
+    } else {
+      // Xử lý khi API trả về lỗi
+    }
   }
 }
+// class BmiController extends GetxController {
+//   var listBmi = <DataResponse>[];
+//   final healthRecordRepository = Get.find<HealthRecordRepository>();
+//   @override
+//   void onInit() {
+//     // listLabelColor.value = Common.getListLabelColor();
+//     super.onInit();
+//     initListBmi();
+
+//     // loadBoard();
+//     // initListMember();
+//     // initBoardHistorical();
+//   }
+
+//   void initListBmi() async {
+//     await healthRecordRepository.getBmi().then((value) => listBmi = value.data);
+
+//     print(listBmi);
+//   }
+// }

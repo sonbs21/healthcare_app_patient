@@ -35,9 +35,9 @@ DataResponse _$DataResponseFromJson(Map<String, dynamic> json) => DataResponse(
       diastolic: json['diastolic'] as String?,
       glucose: json['glucose'] as String?,
       cholesterol: json['cholesterol'] as String?,
-      createAt: json['createAt'] == null
+      createdAt: json['createdAt'] == null
           ? null
-          : DateTime.parse(json['createAt'] as String),
+          : DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$DataResponseToJson(DataResponse instance) =>
@@ -52,5 +52,5 @@ Map<String, dynamic> _$DataResponseToJson(DataResponse instance) =>
       'glucose': instance.glucose,
       'cholesterol': instance.cholesterol,
       'healthRecordId': instance.healthRecordId,
-      'createAt': instance.createAt?.toIso8601String(),
+      'createdAt': instance.createdAt?.toIso8601String(),
     };

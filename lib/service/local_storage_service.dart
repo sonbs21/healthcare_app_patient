@@ -22,4 +22,20 @@ class LocalStorageService extends GetxService {
   static void setRefreshToken(String value) async {
     instance.setString(SharePrefConstant.REFRESH_TOKEN, value);
   }
+
+  static String getPhone() {
+    return instance.getString(SharePrefConstant.PHONE) ?? "";
+  }
+
+  static void setPhone(String value) async {
+    instance.setString(SharePrefConstant.PHONE, value);
+  }
+
+  static String getPassword() {
+    return instance.getString(SharePrefConstant.PASSWORD) ?? "";
+  }
+
+  static void setPassword(String value) async {
+    instance.setString(SharePrefConstant.PASSWORD, value);
+  }
 }

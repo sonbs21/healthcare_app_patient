@@ -14,8 +14,18 @@ class ChatPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.purple, Colors.blue],
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
+            ),
+          ),
+        ),
+        // actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
         title: const Text('Nhắn tin'),
+        centerTitle: true,
       ),
       body: Column(children: [
         Container(

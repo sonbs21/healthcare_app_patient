@@ -33,12 +33,14 @@ class Message extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: kDefaultPadding),
       child: Row(
-        mainAxisAlignment: message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment:
+            message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
           if (!message.isSender) ...[
             const CircleAvatar(
               radius: 12,
-              backgroundImage: AssetImage('assets/images/user_2.png'),
+              backgroundImage: NetworkImage(
+                  "https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg"),
             ),
             const SizedBox(
               width: kDefaultPadding / 2,

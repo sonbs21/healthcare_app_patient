@@ -36,7 +36,7 @@ class MessagesPage extends StatelessWidget {
         children: [
           const BackButton(),
           const CircleAvatar(
-            backgroundImage: AssetImage('assets/images/user_2.png'),
+            backgroundImage: NetworkImage("https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg"),
           ),
           const SizedBox(width: kDefaultPadding * 0.75),
           Column(

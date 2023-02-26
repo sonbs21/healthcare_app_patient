@@ -20,7 +20,6 @@ class LoginController extends GetxController {
   var isButtonLoading = false.obs;
   var isButtonLoadingDialog = false.obs;
 
-
   final userRepository = Get.find<UserRepository>();
 
   void login(String phone, String password) async {
@@ -32,7 +31,10 @@ class LoginController extends GetxController {
         await userRepository
             .loginUser(LoginRequest(phone: phone, password: password))
             .then((value) {
-          LocalStorageService.setAccessToken(value.data?.access_token as String);
+          LocalStorageService.setAccessToken(
+              value.data?.access_token as String);
+          LocalStorageService.setPhone(phone);
+          LocalStorageService.setPassword(password);
 
           Get.offAllNamed(AppRoutes.MAIN_NAVIGATION);
         });

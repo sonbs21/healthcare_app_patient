@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:healthcare_mobile/modules/blood_pressure/blood_pressure_table.dart';
+import 'package:healthcare_mobile/modules/home/home_controller.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:healthcare_mobile/models/health-record/health_record_response.dart';
 
 class BloodPressurePage extends StatefulWidget {
   BloodPressurePage({Key? key}) : super(key: key);
@@ -10,19 +14,62 @@ class BloodPressurePage extends StatefulWidget {
 }
 
 class _BloodPressurePageState extends State<BloodPressurePage> {
+  final homeController = Get.find<HomeController>();
+
+  late List<SalesData> _chartData;
+  @override
+  void initState() {
+    // TODO: implement initState
+    _chartData = getChartData(homeController.list.cast<DataResponse>());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            color: Colors.white,
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-          title: const Text("Huyết Áp"),
+    return SafeArea(
+        child: Scaffold(
+      body: SfCartesianChart(
+        title: ChartTitle(text: "Chỉ số huyết áp"),
+        legend: Legend(isVisible: true),
+        series: <ChartSeries>[
+          LineSeries<SalesData, DateTime>(
+              name: "Tâm thu",
+              dataSource: _chartData,
+              xValueMapper: (SalesData sales, _) => sales.date,
+              yValueMapper: (SalesData sales, _) => sales.systolic.toDouble(),
+              dataLabelSettings: DataLabelSettings(isVisible: true)),
+          LineSeries<SalesData, DateTime>(
+              name: "Tâm trương",
+              dataSource: _chartData,
+              xValueMapper: (SalesData sales, _) => sales.date,
+              yValueMapper: (SalesData sales, _) => sales.diastolic.toDouble(),
+              dataLabelSettings: DataLabelSettings(isVisible: true)),
+        ],
+        primaryXAxis: DateTimeAxis(
+          edgeLabelPlacement: EdgeLabelPlacement.shift,
+          dateFormat: DateFormat('dd/MM/yyyy'),
+          labelFormat: '{value}',
         ),
-        body: BloodPressureTable());
+        // primaryYAxis: NumericAxis(numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
+      ),
+    ));
   }
+
+  List<SalesData> getChartData(List<DataResponse> data) {
+    final List<SalesData> salesData = [];
+    for (int i = 0; i < data.length; i++) {
+      DateTime? date = data[i].createdAt;
+      var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
+      salesData.add(SalesData(date, data[i].systolic!, data[i].diastolic!));
+    }
+
+    return salesData;
+  }
+}
+
+class SalesData {
+  SalesData(this.date, this.systolic, this.diastolic);
+  final DateTime date;
+  final String systolic;
+  final String diastolic;
 }

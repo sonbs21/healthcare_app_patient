@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:healthcare_mobile/api/rest_api.dart';
+import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
+import 'package:healthcare_mobile/models/health-record/health_record_response.dart';
 import 'package:healthcare_mobile/models/login/login_request.dart';
 import 'package:healthcare_mobile/models/login/login_response.dart';
+import 'package:healthcare_mobile/models/user/doctor_response.dart';
 import 'package:healthcare_mobile/models/user/user_response.dart';
 
 class UserRepository {
@@ -15,6 +18,16 @@ class UserRepository {
   Future<LoginResponse> loginUser(LoginRequest login) async {
     final client = RestClient(dio);
     return await client.loginUser(login);
+  }
+
+  Future<DoctorResponse> getDoctorById(String id) async {
+    final client = RestClient(dio);
+    return await client.getDoctorById(id);
+  }
+
+  Future<void> logout() async {
+    final client = RestClient(dio);
+    return await client.logout();
   }
 
   // Future<List<UserResponse>> searchUserInWorkspace(

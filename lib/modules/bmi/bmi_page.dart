@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:healthcare_mobile/modules/bmi/bmi_table.dart';
+import 'package:healthcare_mobile/modules/bmi/bmi_controller.dart';
+import 'package:healthcare_mobile/modules/home/home_controller.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:intl/intl.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:healthcare_mobile/models/health-record/health_record_response.dart';
+import 'package:intl/intl.dart';
 
 class BmiPage extends StatefulWidget {
   BmiPage({Key? key}) : super(key: key);
@@ -10,19 +16,70 @@ class BmiPage extends StatefulWidget {
 }
 
 class _BmiPageState extends State<BmiPage> {
+  // @override
+  // Widget build(BuildContext context) => TabBarWidget(
+  //       title: 'Bmi',
+  //       tabs: [
+  //         Tab(icon: Icon(Icons.sort_by_alpha), text: 'Bảng'),
+  //         Tab(icon: Icon(Icons.select_all), text: 'Biểu đồ'),
+  //       ],
+  //       children: [
+  //         BmiTable(),
+  //         BmiChart(),
+  //       ],
+  //     );
+
+  final homeController = Get.find<HomeController>();
+
+  late List<SalesData> _chartData;
+  @override
+  void initState() {
+    // TODO: implement initState
+    _chartData = getChartData(homeController.list.cast<DataResponse>());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            color: Colors.white,
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
-          title: Text("Bmi"),
+    return SafeArea(
+        child: Scaffold(
+      body: SfCartesianChart(
+        title: ChartTitle(text: "Chỉ số BMI"),
+        legend: Legend(isVisible: true),
+        series: <ChartSeries>[
+          LineSeries<SalesData, DateTime>(
+              name: "Chỉ số bmi",
+              color: Colors.grey[400],
+              dataSource: _chartData,
+              xValueMapper: (SalesData sales, _) => sales.date,
+              yValueMapper: (SalesData sales, _) => sales.indexBmi.toDouble(),
+              dataLabelSettings: DataLabelSettings(isVisible: true)),
+        ],
+        primaryXAxis: DateTimeAxis(
+          edgeLabelPlacement: EdgeLabelPlacement.shift,
+          dateFormat: DateFormat('dd/MM/yyyy'),
+          labelFormat: '{value}',
         ),
-        body: BmiTable());
+        // primaryYAxis: NumericAxis(numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
+      ),
+    ));
   }
+
+  List<SalesData> getChartData(List<DataResponse> data) {
+    final List<SalesData> salesData = [];
+    for (int i = 0; i < data.length; i++) {
+      print(data[i].createdAt);
+      DateTime? date = data[i].createdAt;
+      var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
+      salesData.add(SalesData(date, data[i].indexBmi!));
+    }
+
+    return salesData;
+  }
+}
+
+class SalesData {
+  SalesData(this.date, this.indexBmi);
+  final DateTime date;
+  final String indexBmi;
 }

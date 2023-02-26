@@ -50,14 +50,18 @@ dependencies:
   supercharged: ^2.1.1
   flutter_screenutil: ^5.3.1
   fl_chart: ^0.60.0
+  charts_flutter: ^0.12.0
   flutter_localizations:
     sdk: flutter
   get_storage: ^2.0.3
   flag: ^6.0.0
   velocity_x: ^3.6.0
+  cached_network_image: ^3.2.3
+  syncfusion_flutter_charts: ^20.4.51
   chat_gpt_sdk:
     git:
       url: https://github.com/iampawan/Flutter-ChatGPT.git
+  google_maps_flutter: ^2.2.4
 
 dev_dependencies:
   flutter_test:

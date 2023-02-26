@@ -34,7 +34,7 @@ class DataResponse {
   String? glucose;
   String? cholesterol;
   String? healthRecordId;
-  DateTime? createAt;
+  DateTime? createdAt;
 
   DataResponse({
     this.id,
@@ -47,7 +47,7 @@ class DataResponse {
     this.diastolic,
     this.glucose,
     this.cholesterol,
-    this.createAt,
+    this.createdAt,
   });
 
   factory DataResponse.fromJson(Map<String, dynamic> json) =>

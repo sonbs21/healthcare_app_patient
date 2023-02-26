@@ -42,4 +42,9 @@ class HealthRecordRepository {
     final client = RestClient(dio);
     return await client.getGlucose();
   }
+
+  Future<HealthRecordResponse> getHealthRecordAllDay() async {
+    final client = RestClient(dio);
+    return await client.getHealthRecordAllDay();
+  }
 }

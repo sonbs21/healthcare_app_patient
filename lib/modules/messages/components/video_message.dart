@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:healthcare_mobile/models/chats/ChatMessage.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
 
-
 class VideoMessage extends StatelessWidget {
   const VideoMessage({super.key, required this.message});
   final ChatMessage message;
@@ -18,7 +17,8 @@ class VideoMessage extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset('assets/images/Video_Place_Here.png'),
+                child: Image.network(
+                    "https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg"),
               ),
               Container(
                 height: 25,

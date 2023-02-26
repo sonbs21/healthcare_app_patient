@@ -17,85 +17,94 @@ class HealthRecordPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.purple, Colors.blue],
+                begin: Alignment.bottomRight,
+                end: Alignment.topLeft,
+              ),
+            ),
+          ),
           title: Row(
             children: [const BackButton(), const Text('Thông tin sức khỏe')],
           ),
         ),
         body: Scrollbar(
           child: Form(
-          key: healthRecordController.formKey,
+              key: healthRecordController.formKey,
               // key: key,
               child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  _buildTextField(
-                      "Chiều cao", healthRecordController.heightController),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                  _buildTextField(
-                      "Cân nặng", healthRecordController.weightController),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  const Text("Huyết áp"),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  _buildTextField(
-                      "Tâm thu", healthRecordController.systolicController),
-                  const SizedBox(
-                    height: 5.0,
-                  ),
-                  _buildTextField(
-                      "Tâm trương", healthRecordController.diastolicController),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  const Text("Glucose"),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  _buildTextField(
-                      "Glucose", healthRecordController.glucoseController),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  const Text("Cholesterol"),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  _buildTextField("Cholesterol",
-                      healthRecordController.cholesterolController),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  const Text("Nhịp tim"),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  _buildTextField("Nhịp tim",
-                      healthRecordController.heartRateIndicatorController),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  _buildAddInfoButton(),
+                child: Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      _buildTextField(
+                          "Chiều cao", healthRecordController.heightController),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      _buildTextField(
+                          "Cân nặng", healthRecordController.weightController),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      const Text("Huyết áp"),
+                      const SizedBox(
+                        height: 8.0,
+                      ),
+                      _buildTextField(
+                          "Tâm thu", healthRecordController.systolicController),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      _buildTextField("Tâm trương",
+                          healthRecordController.diastolicController),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      const Text("Glucose"),
+                      const SizedBox(
+                        height: 8.0,
+                      ),
+                      _buildTextField(
+                          "Glucose", healthRecordController.glucoseController),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      const Text("Cholesterol"),
+                      const SizedBox(
+                        height: 8.0,
+                      ),
+                      _buildTextField("Cholesterol",
+                          healthRecordController.cholesterolController),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      const Text("Nhịp tim"),
+                      const SizedBox(
+                        height: 8.0,
+                      ),
+                      _buildTextField("Nhịp tim",
+                          healthRecordController.heartRateIndicatorController),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      _buildAddInfoButton(),
 
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     // Get.offNamed(AppRoutes.HOME_PAGE);
-                  //   },
-                  //   child: Text('Thêm thông tin'),
-                  // ),
-                ],
-              ),
-            ),
-          )),
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     // Get.offNamed(AppRoutes.HOME_PAGE);
+                      //   },
+                      //   child: Text('Thêm thông tin'),
+                      // ),
+                    ],
+                  ),
+                ),
+              )),
         ));
   }
 
