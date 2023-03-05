@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) => TabBarWidget(
         title: 'Sức khỏe',
-        tabs: [
+        tabs: const [
           Tab(icon: Icon(Icons.table_chart), text: 'Bảng'),
           Tab(icon: Icon(Icons.bar_chart), text: 'Biểu đồ'),
         ],
@@ -80,76 +80,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       );
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       automaticallyImplyLeading: false,
-  //       actions: [
-  //         IconButton(
-  //             onPressed: () {
-  //               Get.toNamed(AppRoutes.HEALTH_RECORD_PAGE);
-  //             },
-  //             icon: const Icon(Icons.add_circle_outline))
-  //       ],
-  //       title: const Text('Sức khỏe'),
-  //     ),
-  //     body: SafeArea(
-  //       child: ListView(padding: const EdgeInsets.all(16), children: [
-  //         const SizedBox(
-  //           height: 16.0,
-  //         ),
-  //         _buildFieldSelect(
-  //           'BMI',
-  //           Colors.grey[400]!,
-  //           () {
-  //             Get.toNamed(AppRoutes.BMI_PAGE);
-  //           },
-  //         ),
-  //         const SizedBox(
-  //           height: 16.0,
-  //         ),
-  //         _buildFieldSelect(
-  //           'Huyết áp',
-  //           Colors.yellow[200]!,
-  //           () {
-  //             Get.toNamed(AppRoutes.BLOOD_PRESSURE_PAGE);
-  //           },
-  //         ),
-  //         const SizedBox(
-  //           height: 16.0,
-  //         ),
-  //         _buildFieldSelect(
-  //           'Nhịp tim',
-  //           Colors.green[100]!,
-  //           () {
-  //             Get.toNamed(AppRoutes.HEARTBEAT_PAGE);
-  //           },
-  //         ),
-  //         const SizedBox(
-  //           height: 16.0,
-  //         ),
-  //         _buildFieldSelect(
-  //           'Glucose',
-  //           Colors.blue[100]!,
-  //           () {
-  //             Get.toNamed(AppRoutes.GLUCOSE_PAGE);
-  //           },
-  //         ),
-  //         const SizedBox(
-  //           height: 16.0,
-  //         ),
-  //         _buildFieldSelect(
-  //           'Cholesterol',
-  //           Colors.orange[200]!,
-  //           () {
-  //             Get.toNamed(AppRoutes.CHOLESTEROL_PAGE);
-  //           },
-  //         )
-  //       ]),
-  //     ),
-  //   );
-  // }
 
   _buildFieldSelect(text, color, VoidCallback press) {
     return InkWell(

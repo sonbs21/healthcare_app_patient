@@ -38,7 +38,7 @@ class ChatPage extends StatelessWidget {
               const SizedBox(width: kDefaultPadding),
               FillOutlineButton(
                 press: () {
-                  Get.offNamed(AppRoutes.CHAT_GPT_PAGE);
+                  Get.toNamed(AppRoutes.CHAT_GPT_PAGE);
                 },
                 text: 'Chat AI',
                 isFilled: false,

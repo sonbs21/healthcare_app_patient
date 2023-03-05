@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
+import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/widgets/appointment_item.dart';
 import 'package:healthcare_mobile/widgets/my_button.dart';
 
@@ -34,7 +35,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
             disableButton: false,
             bgColor: Color(0xFF5856d6),
             title: "Đặt lịch hẹn",
-            onTap: () {}),
+            onTap: () {
+              Get.toNamed(AppRoutes.APPOINMENT_PAGE);
+            }),
       ),
     );
   }

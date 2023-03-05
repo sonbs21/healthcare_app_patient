@@ -6,9 +6,12 @@ import 'package:healthcare_mobile/modules/bmi/bmi_page.dart';
 import 'package:healthcare_mobile/modules/chat/chat_binding.dart';
 import 'package:healthcare_mobile/modules/chat/chat_page.dart';
 import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_binding.dart';
-import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_main.dart';
+import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_screen.dart';
 import 'package:healthcare_mobile/modules/cholesterol/cholesterol_binding.dart';
 import 'package:healthcare_mobile/modules/cholesterol/cholesterol_page.dart';
+import 'package:healthcare_mobile/modules/doctor/appointment_form.dart';
+import 'package:healthcare_mobile/modules/doctor/appointment_binding.dart';
+import 'package:healthcare_mobile/modules/doctor/doctor_binding.dart';
 import 'package:healthcare_mobile/modules/glucose/glucose_binding.dart';
 import 'package:healthcare_mobile/modules/glucose/glucose_page.dart';
 import 'package:healthcare_mobile/modules/health-record/health-record_binding.dart';
@@ -84,7 +87,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.CHAT_GPT_PAGE,
-      page: () => ChatGPTMain(),
+      page: () => ChatGPTScreen(),
       binding: ChatGptBinding(),
     ),
     GetPage(
@@ -122,6 +125,12 @@ class AppPages {
       name: AppRoutes.NOTIFICATION_PAGE,
       page: () => NotificationPage(),
       binding: NotificationBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.APPOINMENT_PAGE,
+      page: () => AppointmentForm(),
+      binding: AppointmentBinding(),
     ),
   ];
 }

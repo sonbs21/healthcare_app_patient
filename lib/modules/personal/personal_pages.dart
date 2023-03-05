@@ -118,6 +118,49 @@ class PersonalPage extends StatelessWidget {
           const SizedBox(height: 10),
           GestureDetector(
             onTap: () {
+            },
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+              ),
+              child: Row(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.emergency,
+                        color: Colors.red,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Cấp cứu",
+                        style: GoogleFonts.montserrat(
+                          color: Colors.red,
+                          fontSize: 18,
+                          // letterSpacing: 1,
+                          // fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    CupertinoIcons.chevron_forward,
+                    color: Colors.red,
+                    size: 24,
+                  )
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          GestureDetector(
+            onTap: () {
               personalController.logout();
             },
             child: Container(

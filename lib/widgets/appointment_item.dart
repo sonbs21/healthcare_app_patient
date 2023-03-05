@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'avatar_image.dart';
 import 'package:intl/intl.dart';
+import 'package:healthcare_mobile/modules/dialog/fancy_dialog.dart';
 
 class AppointmentItem extends StatelessWidget {
   const AppointmentItem(this.data, {Key? key, this.onTap}) : super(key: key);
@@ -37,7 +38,21 @@ class AppointmentItem extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => FancyDialog(
+                  fullName: data?.fullName,
+                  title: "Thông tin cuộc hẹn",
+                  notes: data?.notes,
+                  phone: data?.phone,
+                  dateOfBirth: data?.dateOfBirth,
+                  dateMeeting: data?.dateMeeting,
+                  timeMeeting: data?.timeMeeting,
+                  statusAppointment: data?.statusAppointment,
+                  doctorName: data?.doctor?.fullName,
+                ));
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 8),
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -49,13 +64,13 @@ class AppointmentItem extends StatelessWidget {
               color: Colors.grey.withOpacity(1),
               spreadRadius: 1,
               blurRadius: 1,
-              offset: Offset(1, 1), // changes position of shadow
+              offset: const Offset(1, 1), // changes position of shadow
             ),
           ],
         ),
         child: Column(
           children: [
-            SizedBox(height: 2),
+            const SizedBox(height: 2),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -72,11 +87,10 @@ class AppointmentItem extends StatelessWidget {
                                         child: Text(data?.fullName,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w700)))),
-                                SizedBox(width: 5),
-                               
+                                const SizedBox(width: 5),
                                 Container(
                                   height: 20,
                                   padding: const EdgeInsets.symmetric(
@@ -91,13 +105,13 @@ class AppointmentItem extends StatelessWidget {
                                     appointmentStatus,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 11, color: Colors.black),
                                   ),
                                 )
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 3,
                             ),
                             Row(
@@ -106,11 +120,11 @@ class AppointmentItem extends StatelessWidget {
                                     child: Text(time,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontSize: 13, color: Colors.grey))),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 6,
                             ),
                             Row(

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:healthcare_mobile/api/rest_api.dart';
+import 'package:healthcare_mobile/models/appointment/appointment_request.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
 
 class AppointmentRepository {
@@ -14,5 +15,10 @@ class AppointmentRepository {
   Future<AppointmentResponse> getAppointmentPatient() async {
     final client = RestClient(dio);
     return await client.getAppointmentPatient();
+  }
+
+  Future<AppointmentResponse> postAppointment(AppointmentRequest dto) async {
+    final client = RestClient(dio);
+    return await client.postAppointment(dto);
   }
 }

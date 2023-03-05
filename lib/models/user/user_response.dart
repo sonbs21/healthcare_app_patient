@@ -6,7 +6,7 @@ part 'user_response.g.dart';
 class UserResponse {
   String message;
   int statusCode;
-  DataResponse? data;
+  DataUserResponse? data;
 
   UserResponse({
     this.data,
@@ -20,21 +20,21 @@ class UserResponse {
 }
 
 @JsonSerializable()
-class DataResponse {
+class DataUserResponse {
   String? id;
   String? phone;
   String? memberId;
   PatientResponse? patient;
 
-  DataResponse(
+  DataUserResponse(
       {required this.id,
       required this.phone,
       required this.memberId,
       required this.patient});
 
-  factory DataResponse.fromJson(Map<String, dynamic> json) =>
-      _$DataResponseFromJson(json);
-  Map<String, dynamic> toJson() => _$DataResponseToJson(this);
+  factory DataUserResponse.fromJson(Map<String, dynamic> json) =>
+      _$DataUserResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$DataUserResponseToJson(this);
 }
 
 @JsonSerializable()

@@ -9,7 +9,7 @@ part of 'user_response.dart';
 UserResponse _$UserResponseFromJson(Map<String, dynamic> json) => UserResponse(
       data: json['data'] == null
           ? null
-          : DataResponse.fromJson(json['data'] as Map<String, dynamic>),
+          : DataUserResponse.fromJson(json['data'] as Map<String, dynamic>),
       statusCode: json['statusCode'] as int,
       message: json['message'] as String,
     );
@@ -21,7 +21,8 @@ Map<String, dynamic> _$UserResponseToJson(UserResponse instance) =>
       'data': instance.data,
     };
 
-DataResponse _$DataResponseFromJson(Map<String, dynamic> json) => DataResponse(
+DataUserResponse _$DataUserResponseFromJson(Map<String, dynamic> json) =>
+    DataUserResponse(
       id: json['id'] as String?,
       phone: json['phone'] as String?,
       memberId: json['memberId'] as String?,
@@ -30,7 +31,7 @@ DataResponse _$DataResponseFromJson(Map<String, dynamic> json) => DataResponse(
           : PatientResponse.fromJson(json['patient'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DataResponseToJson(DataResponse instance) =>
+Map<String, dynamic> _$DataUserResponseToJson(DataUserResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'phone': instance.phone,

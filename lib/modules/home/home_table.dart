@@ -73,7 +73,6 @@ class HomeTable extends StatelessWidget {
         data.glucose
       ];
 
-      print(cells);
 
       return DataRow(cells: getCells(cells));
     }).toList();

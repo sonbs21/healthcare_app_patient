@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:healthcare_mobile/models/appointment/appointment_request.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_day_response.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_request.dart';
@@ -39,6 +40,9 @@ abstract class RestClient {
   @GET('get-appointment-patient')
   Future<AppointmentResponse> getAppointmentPatient();
 
+  @POST('appointment')
+  Future<AppointmentResponse> postAppointment(@Body() AppointmentRequest dto);
+
   @GET('get-bmi')
   Future<HealthRecordResponse> getBmi();
 
@@ -62,5 +66,4 @@ abstract class RestClient {
 
   @POST('user/logout')
   Future<void> logout();
-
 }

@@ -6,7 +6,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_response.dart';
-import 'package:intl/intl.dart';
 
 class BmiPage extends StatefulWidget {
   BmiPage({Key? key}) : super(key: key);
@@ -68,7 +67,6 @@ class _BmiPageState extends State<BmiPage> {
   List<SalesData> getChartData(List<DataResponse> data) {
     final List<SalesData> salesData = [];
     for (int i = 0; i < data.length; i++) {
-      print(data[i].createdAt);
       DateTime? date = data[i].createdAt;
       var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
       salesData.add(SalesData(date, data[i].indexBmi!));
