@@ -33,6 +33,10 @@ class AppointmentItem extends StatelessWidget {
         appointmentStatus = 'Đã hủy';
         colorStatus = Colors.grey[600];
         break;
+      case 'COMPLETED':
+        appointmentStatus = 'Đã hoàn thành';
+        colorStatus = Colors.blue[400];
+        break;
       default:
         break;
     }
@@ -42,6 +46,7 @@ class AppointmentItem extends StatelessWidget {
         showDialog(
             context: context,
             builder: (BuildContext context) => FancyDialog(
+                  id: data?.id,
                   fullName: data?.fullName,
                   title: "Thông tin cuộc hẹn",
                   notes: data?.notes,

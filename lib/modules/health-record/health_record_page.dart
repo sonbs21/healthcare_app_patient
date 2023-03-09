@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:healthcare_mobile/components/custom_form_field.dart';
 import 'package:healthcare_mobile/modules/health-record/health_record_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
-import 'package:healthcare_mobile/utils/auth_button.dart';
+import 'package:healthcare_mobile/components/auth_button.dart';
 
 class HealthRecordPage extends StatelessWidget {
   // GlobalKey<FormState> key = GlobalKey<FormState>();

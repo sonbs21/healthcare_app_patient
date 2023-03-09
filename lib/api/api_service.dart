@@ -7,7 +7,7 @@ import 'package:healthcare_mobile/models/chats/OpenApiModel.dart';
 import 'package:http/http.dart' as http;
 
 const String _BASE_URL = "https://api.openai.com/v1";
-const String _Api_key = "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";
+const String _Api_key = "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";
 
 class ApiServices {
   static Future<List<OpenApiModel>> getModel() async {

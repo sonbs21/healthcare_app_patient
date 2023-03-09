@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/components/custom_form_field.dart';
-import 'package:healthcare_mobile/modules/doctor/appointment_controller.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
 import 'package:healthcare_mobile/modules/health-record/health_record_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
-import 'package:healthcare_mobile/utils/auth_button.dart';
+import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:intl/intl.dart';
 
 class AppointmentForm extends StatefulWidget {
@@ -45,79 +44,82 @@ class _AppointmentFormState extends State<AppointmentForm> {
         ),
         body: Scrollbar(
           child: Form(
-              // key: key,
+              // key: key,/healthRecordController.formKey
+              key: doctorController.formKey,
               child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  _buildTextField(
-                      "Họ và tên",
-                      doctorController.patient?.fullName,
-                      doctorController.fullNameController),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  _buildTextField("Số điện thoại", "3123",
-                      doctorController.phoneController),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  TextFormField(
-                    controller: doctorController.dateController,
-                    decoration: const InputDecoration(
-                        labelText: 'Ngày hẹn',
-                        hintText: 'Chọn ngày',
-                        suffixIcon: Icon(Icons.calendar_today),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0)),
-                    onTap: () => _selectDate(context),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Row(
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
                     children: [
-                      const Text(
-                        "Giờ hẹn:",
-                        style: TextStyle(fontSize: 18),
+                      const SizedBox(
+                        height: 20.0,
                       ),
-                      const SizedBox(width: 10),
-                      Text(
-                        currentValue,
-                        style: TextStyle(fontSize: 18),
+                      _buildTextField(
+                          "Họ và tên", doctorController.fullNameController),
+                      const SizedBox(
+                        height: 20.0,
                       ),
-                      Expanded(
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: ElevatedButton(
-                            child: Text('Chọn giờ hẹn'),
-                            onPressed: () => showCustomDialog(context),
+                      _buildTextField(
+                          "Số điện thoại", doctorController.phoneController),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      TextFormField(
+                        controller: doctorController.dateController,
+                        decoration: const InputDecoration(
+                            labelText: 'Ngày hẹn',
+                            hintText: 'Chọn ngày',
+                            suffixIcon: Icon(Icons.calendar_today),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0)),
+                        onTap: () => _selectDate(context),
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      Row(
+                        children: [
+                          const Text(
+                            "Giờ hẹn:",
+                            style: TextStyle(fontSize: 18),
                           ),
+                          const SizedBox(width: 10),
+                          Text(
+                            currentValue,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: ElevatedButton(
+                                child: Text('Chọn giờ hẹn'),
+                                onPressed: () => showCustomDialog(context),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      TextField(
+                        maxLines: null,
+                        controller: doctorController.notesController,
+                        keyboardType: TextInputType.multiline,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Ghi chú',
+                          hintText: 'Ghi chú',
                         ),
                       ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      _buildAddInfoButton(),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  TextField(
-                    maxLines: null,
-                    controller: doctorController.notesController,
-                    keyboardType: TextInputType.multiline,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Ghi chú',
-                      hintText: 'Ghi chú',
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )),
+                ),
+              )),
         ));
   }
 
@@ -131,7 +133,7 @@ class _AppointmentFormState extends State<AppointmentForm> {
                 ),
               )
             : Text(
-                "Thêm thông tin".tr,
+                "Đặt lịch hẹn".tr,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -142,12 +144,14 @@ class _AppointmentFormState extends State<AppointmentForm> {
           // Get.offNamed(AppRoutes.MAIN_NAVIGATION);
           String fullName = doctorController.fullNameController.text;
           String phone = doctorController.phoneController.text;
-          String timeMeeting = doctorController.timeController.text;
+          String timeMeeting = currentValue;
           String notes = doctorController.notesController.text;
           // String dateMeeting = doctorController.dateController.;
 
           doctorController.postAppointment(
-              fullName, phone, _selectedDate, notes, timeMeeting);
+              fullName, phone, _selectedDate, timeMeeting, notes);
+
+          Get.back();
         },
       ),
     );
@@ -261,23 +265,16 @@ class _AppointmentFormState extends State<AppointmentForm> {
     }
   }
 
-  _buildTextField(String labelText, String? initialValue,
-      TextEditingController controller) {
+  _buildTextField(String labelText, TextEditingController controller) {
     return TextFormField(
       autofocus: false,
-      controller: controller ?? TextEditingController(),
-      initialValue: initialValue ?? '',
+      controller: controller,
       obscureText: false,
       enableSuggestions: false,
       autocorrect: false,
       keyboardType: TextInputType.text,
       onSaved: (save) {
-        if (initialValue != null) {
-          controller.text = initialValue;
-        } else {
-          controller.text = save!;
-        }
-        // controller.text = save!;
+        controller.text = save!;
       },
       validator: (value) {
         return null;

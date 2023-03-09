@@ -1,4 +1,3 @@
-import 'package:healthcare_mobile/models/base_response.dart';
 import 'package:healthcare_mobile/models/login/login_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 

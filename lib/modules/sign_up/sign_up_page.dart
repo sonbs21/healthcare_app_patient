@@ -5,7 +5,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
-import 'package:healthcare_mobile/utils/auth_button.dart';
+import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nb_utils/nb_utils.dart';
 

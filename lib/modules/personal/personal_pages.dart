@@ -6,6 +6,7 @@ import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PersonalPage extends StatelessWidget {
   PersonalPage({Key? key}) : super(key: key);
@@ -117,7 +118,13 @@ class PersonalPage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           GestureDetector(
-            onTap: () {
+            onTap: () async {
+              final phoneNumber = 'tel:115';
+              if (await canLaunch(phoneNumber)) {
+                await launch(phoneNumber);
+              } else {
+                throw 'Không thể gọi đến số điện thoại $phoneNumber';
+              }
             },
             child: Container(
               padding:

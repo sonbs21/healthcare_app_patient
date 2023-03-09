@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/login/login_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
-import 'package:healthcare_mobile/utils/auth_button.dart';
+import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class LoginPage extends StatelessWidget {

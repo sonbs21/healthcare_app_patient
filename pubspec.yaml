@@ -46,16 +46,11 @@ dependencies:
   email_validator: ^2.0.1
   lottie: ^1.2.2
   dio: ^4.0.4
-  simple_animations: ^4.2.0
-  supercharged: ^2.1.1
   flutter_screenutil: ^5.3.1
-  fl_chart: ^0.60.0
   charts_flutter: ^0.12.0
   flutter_localizations:
     sdk: flutter
-  get_storage: ^2.0.3
   flag: ^6.0.0
-  velocity_x: ^3.6.0
   cached_network_image: ^3.2.3
   syncfusion_flutter_charts: ^20.4.51
   chat_gpt_sdk:
@@ -64,7 +59,7 @@ dependencies:
   google_maps_flutter: ^2.2.4
   provider: ^6.0.5
   animated_text_kit: ^4.2.2
-
+  url_launcher: ^6.1.10
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,8 @@
 library fancy_dialog;
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
 import 'package:intl/intl.dart';
 
 // import 'FancyGif.dart';
@@ -93,6 +95,7 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
   TextStyle? descriptionTextStyle;
   String? ok;
   String? cancel;
+  String? id;
   int? theme;
   bool? defaultButtons;
   Widget? actionButtons;
@@ -100,6 +103,7 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    id = widget.id;
     title = widget.title;
     notes = widget.notes;
     fullName = widget.fullName;
@@ -128,6 +132,8 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
     //   ac!.forward();
     super.initState();
   }
+
+  var doctorController = Get.find<DoctorController>();
 
   @override
   Widget build(BuildContext context) {
@@ -328,22 +334,30 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
                   )),
               widget.defaultButtons
                   ? Container(
-                      child: Row(
-                        mainAxisAlignment: theme == 1
-                            ? MainAxisAlignment.end
-                            : MainAxisAlignment.center,
-                        children: <Widget>[
-                          theme == 0
-                              ? customButton(cancel!, cancelColor!, cancelFun!)
-                              : flatButton(cancel!, cancelColor!, cancelFun!),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          theme == 0
-                              ? customButton(ok!, okColor!, okFun!)
-                              : flatButton(ok!, okColor!, okFun!)
-                        ],
-                      ),
+                      child: statusAppointment != 'CANCELED'
+                          ? Row(
+                              mainAxisAlignment: theme == 1
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.center,
+                              children: <Widget>[
+                                // if (statusAppointment != 'CANCEL')
+                                // theme == 0 && statusAppointment != 'CANCEL'
+                                // ?
+                                customButton(cancel!, cancelColor!, cancelFun!),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                customButton(ok!, okColor!, okFun!)
+                              ],
+                            )
+                          : Row(
+                              mainAxisAlignment: theme == 1
+                                  ? MainAxisAlignment.end
+                                  : MainAxisAlignment.center,
+                              children: <Widget>[
+                                customButton(ok!, okColor!, okFun!)
+                              ],
+                            ),
                     )
                   : actionButtons!
             ],
@@ -367,26 +381,27 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
           style: TextStyle(color: Colors.white, fontSize: 15),
         ),
         onPressed: () {
-          f();
+          // f();
+          doctorController.cancelAppointment(id!);
           Navigator.of(context).pop();
         },
       ),
     );
   }
 
-  Widget flatButton(String t, Color c, Function f) {
-    return Container(
-      child: ElevatedButton(
-        key: testKeys[1],
-        child: Text(
-          t,
-          style: TextStyle(color: c, fontSize: 15),
-        ),
-        onPressed: () {
-          f();
-          Navigator.of(context).pop();
-        },
-      ),
-    );
-  }
+  // Widget flatButton(String t, Color c, Function f) {
+  //   return Container(
+  //     child: ElevatedButton(
+  //       key: testKeys[1],
+  //       child: Text(
+  //         t,
+  //         style: TextStyle(color: c, fontSize: 15),
+  //       ),
+  //       onPressed: () {
+  //         f();
+  //         Navigator.of(context).pop();
+  //       },
+  //     ),
+  //   );
+  // }
 }

@@ -15,6 +15,7 @@ class AppointmentPage extends StatefulWidget {
 var doctorController = Get.find<DoctorController>();
 
 class _AppointmentPageState extends State<AppointmentPage> {
+  String dropdownValue = 'Tất cả';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +25,52 @@ class _AppointmentPageState extends State<AppointmentPage> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    DropdownButton<String>(
+                      value: dropdownValue,
+                      onChanged: (String? newValue) {
+                        String status = "";
+                        if (newValue != null) {
+                          setState(() {
+                            switch (newValue) {
+                              case "Đang chờ":
+                                status = 'CREATED';
+                                break;
+                              case 'Chấp thuận':
+                                status = 'APPROVED';
+                                break;
+                              case "Từ chối":
+                                status = 'REFUSED';
+                                break;
+                              case "Đã hủy":
+                                status = 'CANCELED';
+                                break;
+                              case "Đã hoàn thành":
+                                status = 'COMPLETED';
+                                break;
+                              default:
+                                status = "";
+                                break;
+                            }
+                            dropdownValue = newValue;
+                            doctorController.initNewAppointment(status);
+                          });
+                        }
+                      },
+                      items: <String>[
+                        'Tất cả',
+                        'Đang chờ',
+                        'Chấp thuận',
+                        'Từ chối',
+                        'Đã hủy',
+                        "Đã hoàn thành"
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(
                       height: 20,
                     ),
                     getAppointmentList()
@@ -43,10 +89,10 @@ class _AppointmentPageState extends State<AppointmentPage> {
   }
 
   getAppointmentList() {
-    return Column(
+    return Obx(() => Column(
         children: List.generate(
             doctorController.listAppointment.length,
             (index) =>
-                AppointmentItem(doctorController.listAppointment[index])));
+                AppointmentItem(doctorController.listAppointment[index]))));
   }
 }

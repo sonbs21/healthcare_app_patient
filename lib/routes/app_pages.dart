@@ -10,7 +10,6 @@ import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_screen.dart';
 import 'package:healthcare_mobile/modules/cholesterol/cholesterol_binding.dart';
 import 'package:healthcare_mobile/modules/cholesterol/cholesterol_page.dart';
 import 'package:healthcare_mobile/modules/doctor/appointment_form.dart';
-import 'package:healthcare_mobile/modules/doctor/appointment_binding.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_binding.dart';
 import 'package:healthcare_mobile/modules/glucose/glucose_binding.dart';
 import 'package:healthcare_mobile/modules/glucose/glucose_page.dart';
@@ -120,17 +119,10 @@ class AppPages {
       page: () => GlucosePage(),
       binding: GlucoseBinding(),
     ),
-
-     GetPage(
+    GetPage(
       name: AppRoutes.NOTIFICATION_PAGE,
       page: () => NotificationPage(),
       binding: NotificationBinding(),
-    ),
-
-    GetPage(
-      name: AppRoutes.APPOINMENT_PAGE,
-      page: () => AppointmentForm(),
-      binding: AppointmentBinding(),
     ),
   ];
 }

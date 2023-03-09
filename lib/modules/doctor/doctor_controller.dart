@@ -32,15 +32,19 @@ class DoctorController extends GetxController {
   }
 
   void initListAppointment() async {
-    final response = await appointmentRepository.getAppointmentPatient();
+    final response =
+        await appointmentRepository.getAppointmentPatient(1, 10, null);
     final response2 = await userRepository.getMe();
     String? doctorId = '';
     if (response2.statusCode == 200) {
       doctorId = response2.data?.patient?.doctorId;
       patient = response2.data?.patient!;
+      fullNameController.text = patient?.fullName ?? '';
+      phoneController.text = patient?.phone ?? '';
     }
     if (response.statusCode == 200) {
       // listBmi = response.data;
+      listAppointment.clear();
       listAppointment.addAll(response.data);
       print(listAppointment[0].doctor);
     } else {
@@ -53,11 +57,24 @@ class DoctorController extends GetxController {
     }
   }
 
+  void initNewAppointment(String? status) async {
+    print("print:${status}");
+    final response = await appointmentRepository.getAppointmentPatient(
+        1, 10, status);
+    if (response.statusCode == 200) {
+      // listBmi = response.data;
+
+      listAppointment.clear();
+      listAppointment.addAll(response.data);
+    } else {
+      // Xử lý khi API trả về lỗi
+    }
+  }
+
   void postAppointment(String fullName, String phone, DateTime dateMeeting,
       String timeMeeting, String notes) async {
     if (formKey.currentState!.validate()) {
       isButtonLoading.value = true;
-
       try {
         await appointmentRepository
             .postAppointment(AppointmentRequest(
@@ -69,13 +86,27 @@ class DoctorController extends GetxController {
           timeMeeting: timeMeeting,
         ))
             .then((value) {
-          // Get.offAllNamed(AppRoutes.MAIN_NAVIGATION);
+          initListAppointment();
         });
       } on DioError catch (e) {
+        isButtonLoading.value = false;
+
         EasyLoading.showError(e.response?.data['message']);
       }
     }
 
     isButtonLoading.value = false;
+  }
+
+  void cancelAppointment(String id) async {
+    try {
+      await appointmentRepository.cancelAppointment(id).then((value) {
+        // Get.offAllNamed(AppRoutes.MAIN_NAVIGATION);
+        initListAppointment();
+        // listAppointment.refresh();
+      });
+    } on DioError catch (e) {
+      EasyLoading.showError(e.response?.data['message']);
+    }
   }
 }
