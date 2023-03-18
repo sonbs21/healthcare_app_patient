@@ -3,6 +3,8 @@ import 'package:healthcare_mobile/modules/chat/chat_controller.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
 import 'package:healthcare_mobile/modules/home/home_controller.dart';
 import 'package:healthcare_mobile/modules/main-navigation/main_navigation_controller.dart';
+import 'package:healthcare_mobile/modules/messages/messages_controller.dart';
+import 'package:healthcare_mobile/modules/notification/notification_controller.dart';
 import 'package:healthcare_mobile/modules/personal/personal_controller.dart';
 
 class MainNavigationBinding extends Bindings {
@@ -11,7 +13,9 @@ class MainNavigationBinding extends Bindings {
     Get.lazyPut(() => MainNavigationController());
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<ChatController>(() => ChatController());
+    Get.lazyPut<MessagesController>(() => MessagesController());
     Get.lazyPut<DoctorController>(() => DoctorController());
+    Get.lazyPut<NotificationController>(() => NotificationController());
     Get.lazyPut<PersonalController>(() => PersonalController());
   }
 }

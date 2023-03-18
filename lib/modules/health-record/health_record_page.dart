@@ -14,6 +14,41 @@ class HealthRecordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Obx _buildAddInfoButton() {
+      return Obx(
+        () => AuthButton(
+          widget: healthRecordController.isButtonLoading.isTrue
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                )
+              : Text(
+                  "Thêm thông tin".tr,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+          onClick: () {
+            // Get.offNamed(AppRoutes.MAIN_NAVIGATION);
+            String height = healthRecordController.heightController.text;
+            String weight = healthRecordController.weightController.text;
+            String systolic = healthRecordController.systolicController.text;
+            String diastolic = healthRecordController.diastolicController.text;
+            String heartRateIndicator =
+                healthRecordController.heartRateIndicatorController.text;
+            String cholesterol =
+                healthRecordController.cholesterolController.text;
+            String glucose = healthRecordController.glucoseController.text;
+            healthRecordController.postHealthRecord(height, weight, systolic,
+                diastolic, heartRateIndicator, cholesterol, glucose, context);
+          },
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -27,7 +62,7 @@ class HealthRecordPage extends StatelessWidget {
             ),
           ),
           title: Row(
-            children: [const BackButton(), const Text('Thông tin sức khỏe')],
+            children: const [BackButton(), Text('Thông tin sức khỏe')],
           ),
         ),
         body: Scrollbar(
@@ -106,41 +141,6 @@ class HealthRecordPage extends StatelessWidget {
                 ),
               )),
         ));
-  }
-
-  Obx _buildAddInfoButton() {
-    return Obx(
-      () => AuthButton(
-        widget: healthRecordController.isButtonLoading.isTrue
-            ? const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              )
-            : Text(
-                "Thêm thông tin".tr,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-        onClick: () {
-          // Get.offNamed(AppRoutes.MAIN_NAVIGATION);
-          String height = healthRecordController.heightController.text;
-          String weight = healthRecordController.weightController.text;
-          String systolic = healthRecordController.systolicController.text;
-          String diastolic = healthRecordController.diastolicController.text;
-          String heartRateIndicator =
-              healthRecordController.heartRateIndicatorController.text;
-          String cholesterol =
-              healthRecordController.cholesterolController.text;
-          String glucose = healthRecordController.glucoseController.text;
-          healthRecordController.postHealthRecord(height, weight, systolic,
-              diastolic, heartRateIndicator, cholesterol, glucose);
-        },
-      ),
-    );
   }
 
   _buildTextField(String labelText, TextEditingController controller) {

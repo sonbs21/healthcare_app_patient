@@ -9,15 +9,15 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    initListBmi();
+    initList();
   }
 
-  void initListBmi() async {
+  void initList() async {
     final response = await healthRecordRepository.getHealthRecordAllDay();
     if (response.statusCode == 200) {
       // listBmi = response.data;
-            list.addAll(response.data);
-
+      list.clear();
+      list.addAll(response.data);
     } else {
       // Xử lý khi API trả về lỗi
     }

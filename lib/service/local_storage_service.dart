@@ -38,4 +38,20 @@ class LocalStorageService extends GetxService {
   static void setPassword(String value) async {
     instance.setString(SharePrefConstant.PASSWORD, value);
   }
+
+  static String getId() {
+    return instance.getString(SharePrefConstant.ID) ?? "";
+  }
+
+  static void setId(String value) async {
+    instance.setString(SharePrefConstant.ID, value);
+  }
+
+  static String getConversationId() {
+    return instance.getString(SharePrefConstant.CONVERSATIONID) ?? "";
+  }
+
+  static void setConversationId(String value) async {
+    instance.setString(SharePrefConstant.CONVERSATIONID, value);
+  }
 }

@@ -8,6 +8,7 @@ import 'package:healthcare_mobile/models/user/doctor_response.dart';
 import 'package:healthcare_mobile/models/user/user_response.dart';
 import 'package:healthcare_mobile/repository/appointment.repository.dart';
 import 'package:healthcare_mobile/repository/user.repository.dart';
+import 'package:healthcare_mobile/service/local_storage_service.dart';
 
 class DoctorController extends GetxController {
   final appointmentRepository = Get.find<AppointmentRepository>();
@@ -37,6 +38,7 @@ class DoctorController extends GetxController {
     final response2 = await userRepository.getMe();
     String? doctorId = '';
     if (response2.statusCode == 200) {
+      LocalStorageService.setId(response2.data?.patient?.id as String);
       doctorId = response2.data?.patient?.doctorId;
       patient = response2.data?.patient!;
       fullNameController.text = patient?.fullName ?? '';
@@ -59,8 +61,8 @@ class DoctorController extends GetxController {
 
   void initNewAppointment(String? status) async {
     print("print:${status}");
-    final response = await appointmentRepository.getAppointmentPatient(
-        1, 10, status);
+    final response =
+        await appointmentRepository.getAppointmentPatient(1, 10, status);
     if (response.statusCode == 200) {
       // listBmi = response.data;
 

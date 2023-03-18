@@ -74,16 +74,21 @@ class AppPages {
       page: () => ChatPage(),
       binding: ChatBinding(),
     ),
-    GetPage(
+   GetPage(
       name: AppRoutes.PERSONAL_PAGE,
       page: () => PersonalPage(),
       binding: PersonalBinding(),
+    ), 
+     GetPage(
+      name: AppRoutes.APPOINMENT_PAGE,
+      page: () => AppointmentForm(),
+      binding: DoctorBinding(),
     ),
-    GetPage(
-      name: AppRoutes.MESSAGE_PAGE,
-      page: () => MessagesPage(),
-      binding: MessagesBinding(),
-    ),
+    // GetPage(
+    //   name: AppRoutes.MESSAGE_PAGE,
+    //   page: () => MessagesPage(chat: ,),
+    //   binding: MessagesBinding(),
+    // ),
     GetPage(
       name: AppRoutes.CHAT_GPT_PAGE,
       page: () => ChatGPTScreen(),

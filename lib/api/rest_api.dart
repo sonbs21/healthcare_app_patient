@@ -3,11 +3,16 @@ import 'dart:io';
 import 'package:healthcare_mobile/models/appointment/appointment_get_response.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_request.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
+import 'package:healthcare_mobile/models/chats/chat_response.dart';
+import 'package:healthcare_mobile/models/chats/message_request.dart';
+import 'package:healthcare_mobile/models/chats/message_response.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_day_response.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_request.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_response.dart';
+import 'package:healthcare_mobile/models/health-record/record_day_response.dart';
 import 'package:healthcare_mobile/models/login/login_request.dart';
 import 'package:healthcare_mobile/models/login/login_response.dart';
+import 'package:healthcare_mobile/models/notifications/notification_response.dart';
 import 'package:healthcare_mobile/models/user/doctor_response.dart';
 import 'package:healthcare_mobile/models/user/user_response.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
@@ -33,7 +38,7 @@ abstract class RestClient {
   Future<UserResponse> getMe();
 
   @POST('health-record')
-  Future<void> postHealthRecord(@Body() HealthRecordRequest dto);
+  Future<RecordDayResponse> postHealthRecord(@Body() HealthRecordRequest dto);
 
   @GET('health-record-day')
   Future<HealthRecordDayResponse> getHealthRecordDay();
@@ -68,8 +73,18 @@ abstract class RestClient {
   @GET('doctor/{id}')
   Future<DoctorResponse> getDoctorById(@Path("id") String id);
 
+  @GET('chat/{id}')
+  Future<ChatResponse> getChat(@Path("id") String id,
+      @Query("pageSize") int pageSize, @Query("page") int page);
+
+  @POST('chat/{id}')
+  Future<MessageResponse> postChat(@Path("id") String id,@Body() MessageRequest dto);
+
   @GET('health-record-member')
   Future<HealthRecordResponse> getHealthRecordAllDay();
+
+  @GET('get-notifications')
+  Future<NotificationResponse> getNotifications();
 
   @POST('user/logout')
   Future<void> logout();

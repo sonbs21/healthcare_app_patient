@@ -3,11 +3,12 @@ import 'package:healthcare_mobile/api/rest_api.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_day_response.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_request.dart';
 import 'package:healthcare_mobile/models/health-record/health_record_response.dart';
+import 'package:healthcare_mobile/models/health-record/record_day_response.dart';
 
 class HealthRecordRepository {
   final dio = Dio(); // Provide a dio instance
 
-  Future<void> postHealthRecord(
+  Future<RecordDayResponse> postHealthRecord(
       HealthRecordRequest dto) async {
     final client = RestClient(dio);
     return await client.postHealthRecord(dto);

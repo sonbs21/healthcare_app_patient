@@ -2,7 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:healthcare_mobile/models/chats/ChatMessage.dart';
+import 'package:healthcare_mobile/models/chats/chat_response.dart';
 import 'package:healthcare_mobile/modules/messages/components/text_message.dart';
+import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
 
 import 'audio_message.dart';
@@ -14,17 +16,20 @@ class Message extends StatelessWidget {
     required this.message,
   }) : super(key: key);
 
-  final ChatMessage message;
+  final DataMessageResponse message;
   @override
   Widget build(BuildContext context) {
-    Widget messageContaint(ChatMessage message) {
-      switch (message.messageType) {
-        case ChatMessageType.text:
+  var id = LocalStorageService.getId();
+  bool isSender = (message.createdBy == id) as bool;
+
+    Widget messageContaint(DataMessageResponse message) {
+      switch (message.typeMessage) {
+        case 'TEXT':
           return TextMessage(message: message);
-        case ChatMessageType.audio:
-          return AudioMessage(message: message);
-        case ChatMessageType.video:
-          return VideoMessage(message: message);
+        // case 'IMAGE':
+        //   return AudioMessage(message: message);
+        // case 'VIDEO':
+        //   return VideoMessage(message: message);
         default:
           return const SizedBox();
       }
@@ -34,9 +39,9 @@ class Message extends StatelessWidget {
       padding: const EdgeInsets.only(top: kDefaultPadding),
       child: Row(
         mainAxisAlignment:
-            message.isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+            isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          if (!message.isSender) ...[
+          if (!isSender) ...[
             const CircleAvatar(
               radius: 12,
               backgroundImage: NetworkImage(
@@ -47,7 +52,7 @@ class Message extends StatelessWidget {
             )
           ],
           messageContaint(message),
-          if (message.isSender) MessageStatusDot(status: message.messageStatus)
+          // if (isSender) MessageStatusDot(status: message.messageStatus)
         ],
       ),
     );

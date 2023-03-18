@@ -3,4 +3,6 @@ class SharePrefConstant {
   static const String REFRESH_TOKEN = "refresh_token";
   static const String PHONE = "phone";
   static const String PASSWORD = "password";
+  static const String ID = "id";
+  static const String CONVERSATIONID = "conversationId";
 }

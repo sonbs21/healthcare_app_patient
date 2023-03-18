@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:healthcare_mobile/api/rest_api.dart';
-import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
-import 'package:healthcare_mobile/models/health-record/health_record_response.dart';
 import 'package:healthcare_mobile/models/login/login_request.dart';
 import 'package:healthcare_mobile/models/login/login_response.dart';
 import 'package:healthcare_mobile/models/user/doctor_response.dart';

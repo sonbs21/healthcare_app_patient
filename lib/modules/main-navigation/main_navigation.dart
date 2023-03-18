@@ -5,6 +5,7 @@ import 'package:healthcare_mobile/modules/doctor/doctor_pages.dart';
 import 'package:healthcare_mobile/modules/home/home_controller.dart';
 import 'package:healthcare_mobile/modules/home/home_pages.dart';
 import 'package:healthcare_mobile/modules/main-navigation/main_navigation_controller.dart';
+import 'package:healthcare_mobile/modules/notification/notification_pages.dart';
 import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -16,7 +17,13 @@ class MainNavigation extends StatefulWidget {
 
 class _MainNavigationState extends State<MainNavigation> {
   int selectedPage = 0;
-  final pages = [HomePage(), ChatPage(), DoctorPage(), PersonalPage()];
+  final pages = [
+    HomePage(),
+    ChatPage(),
+    DoctorPage(),
+    NotificationPage(),
+    PersonalPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,13 @@ class _MainNavigationState extends State<MainNavigation> {
         body: SafeArea(
           child: IndexedStack(
             index: controller.tabIndex,
-            children: [HomePage(), ChatPage(), DoctorPage(), PersonalPage()],
+            children: [
+              HomePage(),
+              ChatPage(),
+              DoctorPage(),
+              NotificationPage(),
+              PersonalPage()
+            ],
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -60,6 +73,10 @@ class _MainNavigationState extends State<MainNavigation> {
             _bottomNavigationBarItem(
               icon: Icons.local_hospital,
               label: 'Bác sĩ',
+            ),
+            _bottomNavigationBarItem(
+              icon: Icons.notifications,
+              label: 'Thông báo',
             ),
             _bottomNavigationBarItem(
               icon: Icons.person,

@@ -6,7 +6,6 @@ const textColorPrimary = Color(0xFFFFFFFF);
 const textColorSecondary = Color(0xB3FFFFFF);
 const buttonColor = Color(0xFF61BD50);
 
-
 class AppColors {
   AppColors._();
   static const Color blue = Color(0xff4485FD);
@@ -54,4 +53,12 @@ class LightColor {
 
   static const Color black = Color(0xff20262C);
   static const Color lightblack = Color(0xff5F5F60);
+}
+
+class BlurryColors {
+  static const Color infoColor = Color(0xff118AB2);
+  static const Color successColor = Color(0xff05B384);
+  static const Color errorColor = Color(0xffEF476F);
+  static const Color warningColor = Color(0xfff5ab00);
+  static const Color defaultBarrierColor = Colors.black54;
 }

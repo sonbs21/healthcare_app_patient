@@ -4,6 +4,7 @@ import 'package:healthcare_mobile/models/appointment/appointment_get_response.da
 import 'package:healthcare_mobile/models/appointment/appointment_request.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
+import 'package:healthcare_mobile/models/notifications/notification_response.dart';
 
 class AppointmentRepository {
   final dio = Dio(); // Provide a dio instance
@@ -44,6 +45,29 @@ class AppointmentRepository {
   }
   // return await client.getAppointmentPatient();
   // }
+
+  Future<NotificationResponse> getNotification(
+    int? page,
+    int? pageSize,
+  ) async {
+    final queryParams = {
+      'page': page ?? 1,
+      'pageSize': pageSize ?? 20,
+    };
+    // if (status != null) {
+    //   queryParams['status'] = status;
+    // }
+    dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response = await dio.get(
+      'http://10.0.2.2:5000/v1/get-notifications',
+      queryParameters: queryParams,
+    );
+
+    return NotificationResponse.fromJson(response.data);
+  }
 
   Future<AppointmentGetResponse> postAppointment(AppointmentRequest dto) async {
     final client = RestClient(dio);
