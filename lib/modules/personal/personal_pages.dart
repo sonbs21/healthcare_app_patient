@@ -140,7 +140,7 @@ class PersonalPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(
-                        Icons.emergency,
+                        Icons.local_hospital,
                         color: Colors.red,
                       ),
                       const SizedBox(width: 10),

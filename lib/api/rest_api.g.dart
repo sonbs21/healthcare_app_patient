@@ -162,6 +162,27 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<void> emergency() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    await _dio.fetch<void>(_setStreamType<void>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'emergency',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    return null;
+  }
+
+  @override
   Future<AppointmentGetResponse> cancelAppointment(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

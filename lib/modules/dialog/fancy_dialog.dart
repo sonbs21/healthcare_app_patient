@@ -5,144 +5,20 @@ import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
 import 'package:intl/intl.dart';
 
-// import 'FancyGif.dart';
-
-const testKeys = [Key("fancyButtons"), Key("flatButtons")];
-
-class FancyDialog extends StatefulWidget {
-  const FancyDialog(
-      {Key? key,
-      this.title,
-      this.notes,
-      this.fullName,
-      this.phone,
-      this.timeMeeting,
-      this.statusAppointment,
-      this.doctorName,
-      this.dateMeeting,
-      this.dateOfBirth,
-      this.okFun,
-      this.titleTextStyle = const TextStyle(
-          color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
-      this.descriptionTextStyle =
-          const TextStyle(color: Colors.grey, fontSize: 18),
-      this.cancelFun,
-      this.animationType = 1,
-      // this.gifPath = FancyGif.MOVE_FORWARD,
-      this.cancelColor = Colors.grey,
-      this.okColor = Colors.pink,
-      this.cancel = "Hủy lịch hẹn",
-      this.ok = "Đóng",
-      this.defaultButtons = true,
-      this.actionButtons,
-      this.id,
-      this.theme = 0 //default theme is fancy
-      })
-      : super(key: key);
-
-  final String? title;
-  final String? notes;
-  final String? fullName;
-  final String? phone;
-  final String? timeMeeting;
-  final String? statusAppointment;
-  final String? doctorName;
-  final DateTime? dateMeeting;
-  final DateTime? dateOfBirth;
-  final Function? okFun;
-  final Function? cancelFun;
-  final int? animationType;
-  // final String? gifPath;
-  final Color? okColor;
-  final Color? cancelColor;
-  final String? ok;
-  final String? cancel;
-  final TextStyle titleTextStyle;
-  final TextStyle descriptionTextStyle;
-  final int? theme; // 0: fancy , 1:flat
-  final bool defaultButtons;
-  final Widget? actionButtons;
-  final String? id;
-
-  @override
-  GifDialogState createState() {
-    return GifDialogState();
-  }
-}
-
-class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
-  AnimationController? ac;
-  Animation? animation;
-  double? width;
-  double? height;
-  int animationAxis = 0; // 0 for x 1 for y
-
-  String? title;
-  String? notes;
-  String? fullName;
-  String? phone;
-  String? timeMeeting;
-  String? statusAppointment;
-  String? doctorName;
-  DateTime? dateMeeting;
-  DateTime? dateOfBirth;
-  Function? okFun;
-  Function? cancelFun;
-  // String? gifPath;
-  Color? okColor;
-  Color? cancelColor;
-  TextStyle? titleTextStyle;
-  TextStyle? descriptionTextStyle;
-  String? ok;
-  String? cancel;
-  String? id;
-  int? theme;
-  bool? defaultButtons;
-  Widget? actionButtons;
-  int package = 0; //0 user assets ,1 package assets
-
-  @override
-  void initState() {
-    id = widget.id;
-    title = widget.title;
-    notes = widget.notes;
-    fullName = widget.fullName;
-    phone = widget.phone;
-    timeMeeting = widget.timeMeeting;
-    statusAppointment = widget.statusAppointment;
-    doctorName = widget.doctorName;
-    dateMeeting = widget.dateMeeting;
-    dateOfBirth = widget.dateOfBirth;
-    okFun = widget.okFun ?? () {};
-    cancelFun = widget.cancelFun ?? () {};
-    okColor = widget.okColor;
-    cancelColor = widget.cancelColor;
-    // gifPath = widget.gifPath;
-    ok = widget.ok;
-    cancel = widget.cancel;
-    theme = widget.theme;
-    titleTextStyle = widget.titleTextStyle;
-    descriptionTextStyle = widget.descriptionTextStyle;
-    defaultButtons = widget.defaultButtons;
-    actionButtons = widget.actionButtons;
-
-    double? start;
-    int animationType = widget.animationType!;
-
-    //   ac!.forward();
-    super.initState();
-  }
+class FancyDialog extends StatelessWidget {
+  FancyDialog({Key? key, this.data}) : super(key: key);
+  final data;
 
   var doctorController = Get.find<DoctorController>();
 
   @override
   Widget build(BuildContext context) {
-    DateTime? date = dateMeeting;
+    DateTime? date = data?.dateMeeting;
     var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
     String appointmentStatus = '';
     Color? colorStatus = Colors.white;
 
-    switch (statusAppointment) {
+    switch (data?.dateMeeting) {
       case 'CREATED':
         appointmentStatus = 'Đang chờ';
         colorStatus = Colors.yellow[600];
@@ -162,30 +38,30 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
       default:
         break;
     }
-    if (!defaultButtons!)
-      assert(actionButtons != null,
-          '\n***actionButtons cannot be null when defaultButtons is false***\n');
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
-    var dialogWidth = 0.36 * height!;
+    // if (!defaultButtons!)
+    //   assert(actionButtons != null,
+    //       '\n***actionButtons cannot be null when defaultButtons is false***\n');
+    // width = MediaQuery.of(context).size.width;
+    // height = MediaQuery.of(context).size.height;
+    // var dialogWidth = 0.36 * height!;
 
-    assert(MediaQuery.of(context) != null,
-        '\n****context does not contain media query object***\n');
-    assert(title != null, '\n****title is required***\n');
-    assert(notes != null, '\n****description is required***\n');
+    // assert(MediaQuery.of(context) != null,
+    //     '\n****context does not contain media query object***\n');
+    // assert(title != null, '\n****title is required***\n');
+    // assert(notes != null, '\n****description is required***\n');
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pop();
       },
       child: Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(theme == 0 ? 15 : 0),
+          borderRadius: BorderRadius.circular(0),
         ),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(theme == 0 ? 15 : 0),
+            borderRadius: BorderRadius.circular(0),
             color: Colors.white,
           ),
           width: 500,
@@ -195,11 +71,14 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               // image,
-              Padding(
-                padding: const EdgeInsets.all(25),
+              const Padding(
+                padding: EdgeInsets.all(25),
                 child: Text(
-                  title!,
-                  style: titleTextStyle,
+                  "Thông tin cuộc hẹn",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
@@ -218,8 +97,9 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
                               maxLines: 5,
                             ),
                             Text(
-                              fullName!,
-                              style: descriptionTextStyle,
+                              data?.fullName,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 18),
                             ),
                           ],
                         ),
@@ -234,8 +114,9 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
                               maxLines: 5,
                             ),
                             Text(
-                              phone!,
-                              style: descriptionTextStyle,
+                              data?.phone,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 18),
                             ),
                           ],
                         ),
@@ -281,7 +162,8 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
                             ),
                             Text(
                               inputFormat,
-                              style: descriptionTextStyle,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 18),
                             ),
                           ],
                         ),
@@ -296,8 +178,9 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
                               maxLines: 5,
                             ),
                             Text(
-                              timeMeeting!,
-                              style: descriptionTextStyle,
+                              data?.timeMeeting,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 18),
                             ),
                           ],
                         ),
@@ -312,8 +195,9 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
                               maxLines: 5,
                             ),
                             Text(
-                              doctorName!,
-                              style: descriptionTextStyle,
+                              data?.doctor?.fullName,
+                              style: const TextStyle(
+                                  color: Colors.grey, fontSize: 18),
                             ),
                           ],
                         ),
@@ -326,40 +210,34 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
                           maxLines: 5,
                         ),
                         Text(
-                          notes!,
-                          style: descriptionTextStyle,
+                          data?.notes,
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 18),
                         ),
                       ],
                     ),
                   )),
-              widget.defaultButtons
-                  ? Container(
-                      child: statusAppointment != 'CANCELED'
-                          ? Row(
-                              mainAxisAlignment: theme == 1
-                                  ? MainAxisAlignment.end
-                                  : MainAxisAlignment.center,
-                              children: <Widget>[
-                                // if (statusAppointment != 'CANCEL')
-                                // theme == 0 && statusAppointment != 'CANCEL'
-                                // ?
-                                customButton(cancel!, cancelColor!, cancelFun!),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                customButton(ok!, okColor!, okFun!)
-                              ],
-                            )
-                          : Row(
-                              mainAxisAlignment: theme == 1
-                                  ? MainAxisAlignment.end
-                                  : MainAxisAlignment.center,
-                              children: <Widget>[
-                                customButton(ok!, okColor!, okFun!)
-                              ],
-                            ),
+              data?.statusAppointment != 'CANCELED'
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        // if (statusAppointment != 'CANCEL')
+                        // theme == 0 && statusAppointment != 'CANCEL'
+                        // ?
+                        customButton(
+                          "Hủy lịch hẹn",
+                          Colors.grey,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        customButton("Đóng", Colors.pink)
+                      ],
                     )
-                  : actionButtons!
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[customButton("Đóng", Colors.pink)],
+                    ),
             ],
           ),
         ),
@@ -367,10 +245,9 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
     );
   }
 
-  Widget customButton(String t, Color c, Function f) {
+  Widget customButton(String t, Color c) {
     return Container(
       child: ElevatedButton(
-        key: testKeys[0],
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(
               borderRadius: new BorderRadius.circular(30.0)),
@@ -382,26 +259,14 @@ class GifDialogState extends State<FancyDialog> with TickerProviderStateMixin {
         ),
         onPressed: () {
           // f();
-          doctorController.cancelAppointment(id!);
-          Navigator.of(context).pop();
+          if (t == "Đóng") {
+            Get.back();
+          } else {
+            doctorController.cancelAppointment(data?.id);
+            Get.back();
+          }
         },
       ),
     );
   }
-
-  // Widget flatButton(String t, Color c, Function f) {
-  //   return Container(
-  //     child: ElevatedButton(
-  //       key: testKeys[1],
-  //       child: Text(
-  //         t,
-  //         style: TextStyle(color: c, fontSize: 15),
-  //       ),
-  //       onPressed: () {
-  //         f();
-  //         Navigator.of(context).pop();
-  //       },
-  //     ),
-  //   );
-  // }
 }

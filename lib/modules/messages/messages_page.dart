@@ -8,27 +8,14 @@ import 'package:healthcare_mobile/modules/messages/components/message.dart';
 import 'package:healthcare_mobile/modules/messages/messages_controller.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
 
-class MessagesPage extends StatefulWidget {
+class MessagesPage extends StatelessWidget {
   MessagesPage({
     Key? key,
     required this.chat,
   }) : super(key: key);
-  final DataConversationResponse chat;
-  @override
-  _MessagesPage createState() => _MessagesPage();
-}
 
-var messagesController = Get.find<MessagesController>();
-
-class _MessagesPage extends State<MessagesPage> {
+  var messagesController = Get.find<MessagesController>();
   DataConversationResponse? chat;
-
-  @override
-  void initState() {
-    super.initState();
-    chat = widget.chat;
-    messagesController.listMessage;
-  }
 
   // @override
   Widget build(BuildContext context) {
@@ -38,14 +25,15 @@ class _MessagesPage extends State<MessagesPage> {
       body: Column(
         children: [
           Expanded(
-              child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: ListView.builder(
-              itemCount: messagesController.listMessage.length,
-              itemBuilder: (context, index) =>
-                  Message(message: messagesController.listMessage[index]),
-            ),
-          )),
+            child: Obx(() => Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                child: ListView.builder(
+                  itemCount: messagesController.listMessage.length,
+                  itemBuilder: (context, index) =>
+                      Message(message: messagesController.listMessage[index]),
+                ))),
+          ),
           ChatInputField()
         ],
       ),

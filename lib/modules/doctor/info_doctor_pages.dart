@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare_mobile/modules/dialog/rating_dialog.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
 import 'package:healthcare_mobile/utils/color.dart';
 import 'package:healthcare_mobile/utils/theme.dart';
@@ -10,48 +11,8 @@ import 'package:healthcare_mobile/widgets/progress_widget.dart';
 import 'package:healthcare_mobile/widgets/rating_start.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class InfoDoctorPage extends StatefulWidget {
-  InfoDoctorPage({Key? key}) : super(key: key);
-  // final DoctorModel model;
-
-  @override
-  _InfoDoctorPageState createState() => _InfoDoctorPageState();
-}
-
-var doctorController = Get.find<DoctorController>();
-
-class _InfoDoctorPageState extends State<InfoDoctorPage> {
-  // DoctorModel model;
-  var fullName = doctorController.doctor.fullName;
-  var specialize = doctorController.doctor.specialize;
-  var workPlace = doctorController.doctor.workPlace;
-  var description = doctorController.doctor.description;
-  var experience = doctorController.doctor.experience;
-  var countPatient = doctorController.doctor.countPatient;
-  var avatar = doctorController.doctor.avatar;
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Widget _appbar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        BackButton(color: Theme.of(context).primaryColor),
-        // IconButton(
-        //     icon: Icon(
-        //       model.isfavourite ? Icons.favorite : Icons.favorite_border,
-        //       color: model.isfavourite ? Colors.red : LightColor.grey,
-        //     ),
-        //     onPressed: () {
-        //       setState(() {
-        //         model.isfavourite = !model.isfavourite;
-        //       });
-        //     })
-      ],
-    );
-  }
+class InfoDoctorPage extends StatelessWidget {
+  var doctorController = Get.find<DoctorController>();
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +57,7 @@ class _InfoDoctorPageState extends State<InfoDoctorPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                fullName!,
+                                doctorController.doctor.fullName!,
                                 style: titleStyle,
                               ),
                               const SizedBox(
@@ -107,12 +68,12 @@ class _InfoDoctorPageState extends State<InfoDoctorPage> {
                                   color: Theme.of(context).primaryColor),
                               const Spacer(),
                               RatingStar(
-                                rating: 4.5,
+                                rating: doctorController.doctor.rate ?? 5,
                               )
                             ],
                           ),
                           subtitle: Text(
-                            specialize!,
+                            doctorController.doctor.specialize!,
                             style: TextStyles.bodySm.subTitleColor.bold,
                           ),
                         ),
@@ -124,7 +85,8 @@ class _InfoDoctorPageState extends State<InfoDoctorPage> {
                           children: <Widget>[
                             const Spacer(),
                             ProgressWidget(
-                                value: experience.toDouble(),
+                                value: doctorController.doctor.experience
+                                    .toDouble(),
                                 totalValue: 100,
                                 activeColor: LightColor.purpleExtraLight,
                                 backgroundColor:
@@ -134,7 +96,7 @@ class _InfoDoctorPageState extends State<InfoDoctorPage> {
                             const Spacer(),
                             ProgressWidget(
                                 // value: countPatient!,
-                                value: 50,
+                                value: doctorController.doctor.countPatient!,
                                 totalValue: 100,
                                 activeColor: LightColor.purpleLight,
                                 backgroundColor:
@@ -150,14 +112,47 @@ class _InfoDoctorPageState extends State<InfoDoctorPage> {
                         ),
                         Text("Bệnh viện", style: titleStyle).vP16,
                         Text(
-                          workPlace!,
+                          doctorController.doctor.workPlace!,
                           style: TextStyles.body.bold,
                         ),
                         Text("Mô tả", style: titleStyle).vP16,
                         Text(
-                          description!,
+                          doctorController.doctor.description!,
                           style: TextStyles.body.subTitleColor,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            SizedBox(width: 20.h),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          RatingDialog());
+                                },
+                                child: Container(
+                                  height: 56,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: AppColors.blue,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Đánh giá",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5!
+                                          .copyWith(color: AppColors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+//                     ],
+                          ],
+                        ).vP16,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -189,7 +184,6 @@ class _InfoDoctorPageState extends State<InfoDoctorPage> {
                 );
               },
             ),
-            _appbar(),
           ],
         ),
       ),

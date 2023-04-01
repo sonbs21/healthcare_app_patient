@@ -5,23 +5,9 @@ import 'package:healthcare_mobile/models/notifications/notification_response.dar
 import 'package:healthcare_mobile/modules/notification/notification_controller.dart';
 import 'package:intl/intl.dart';
 
-class NotificationPage extends StatefulWidget {
-  const NotificationPage({Key? key}) : super(key: key);
-
-  @override
-  _NotificationPageState createState() => _NotificationPageState();
-}
-
-var notificationController = Get.find<NotificationController>();
-
-class _NotificationPageState extends State<NotificationPage> {
+class NotificationPage extends StatelessWidget {
+  var notificationController = Get.find<NotificationController>();
   // List<dynamic> notifications = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

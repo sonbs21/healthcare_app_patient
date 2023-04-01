@@ -18,7 +18,7 @@ class DoctorController extends GetxController {
   late PatientResponse? patient;
   var formKey = GlobalKey<FormState>();
   var isButtonLoading = false.obs;
-
+var dropdownValue = 'Tất cả'.obs;
   var fullNameController = TextEditingController();
   var phoneController = TextEditingController();
   var dateController = TextEditingController();
@@ -30,6 +30,10 @@ class DoctorController extends GetxController {
     super.onInit();
 
     initListAppointment();
+  }
+
+  void changeDropdownValue(String newValue) {
+    dropdownValue.value = newValue;
   }
 
   void initListAppointment() async {
@@ -48,7 +52,6 @@ class DoctorController extends GetxController {
       // listBmi = response.data;
       listAppointment.clear();
       listAppointment.addAll(response.data);
-      print(listAppointment[0].doctor);
     } else {
       // Xử lý khi API trả về lỗi
     }
@@ -75,6 +78,7 @@ class DoctorController extends GetxController {
 
   void postAppointment(String fullName, String phone, DateTime dateMeeting,
       String timeMeeting, String notes) async {
+        print("___${timeMeeting}");
     if (formKey.currentState!.validate()) {
       isButtonLoading.value = true;
       try {

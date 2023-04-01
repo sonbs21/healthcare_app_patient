@@ -7,14 +7,7 @@ import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/widgets/tabbar_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => TabBarWidget(
         title: 'Sức khỏe',

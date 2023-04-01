@@ -50,6 +50,9 @@ abstract class RestClient {
   Future<AppointmentGetResponse> postAppointment(
       @Body() AppointmentRequest dto);
 
+  @POST('emergency')
+  Future<void> emergency();
+
   @PUT('appointment/{id}/cancel')
   Future<AppointmentGetResponse> cancelAppointment(
     @Path("id") String id,
@@ -78,7 +81,8 @@ abstract class RestClient {
       @Query("pageSize") int pageSize, @Query("page") int page);
 
   @POST('chat/{id}')
-  Future<MessageResponse> postChat(@Path("id") String id,@Body() MessageRequest dto);
+  Future<MessageResponse> postChat(
+      @Path("id") String id, @Body() MessageRequest dto);
 
   @GET('health-record-member')
   Future<HealthRecordResponse> getHealthRecordAllDay();

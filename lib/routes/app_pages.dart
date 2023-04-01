@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:healthcare_mobile/modules/appointment/appointment_form.dart';
 import 'package:healthcare_mobile/modules/blood_pressure/blood_pressure_binding.dart';
 import 'package:healthcare_mobile/modules/blood_pressure/blood_pressure_page.dart';
 import 'package:healthcare_mobile/modules/bmi/bmi_binding.dart';
@@ -9,7 +10,6 @@ import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_binding.dart';
 import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_screen.dart';
 import 'package:healthcare_mobile/modules/cholesterol/cholesterol_binding.dart';
 import 'package:healthcare_mobile/modules/cholesterol/cholesterol_page.dart';
-import 'package:healthcare_mobile/modules/doctor/appointment_form.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_binding.dart';
 import 'package:healthcare_mobile/modules/glucose/glucose_binding.dart';
 import 'package:healthcare_mobile/modules/glucose/glucose_page.dart';

@@ -5,17 +5,9 @@ import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/widgets/appointment_item.dart';
 import 'package:healthcare_mobile/widgets/my_button.dart';
 
-class AppointmentPage extends StatefulWidget {
-  const AppointmentPage({Key? key}) : super(key: key);
+class AppointmentPage extends StatelessWidget {
+  var doctorController = Get.find<DoctorController>();
 
-  @override
-  _AppointmentPageState createState() => _AppointmentPageState();
-}
-
-var doctorController = Get.find<DoctorController>();
-
-class _AppointmentPageState extends State<AppointmentPage> {
-  String dropdownValue = 'Tất cả';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,51 +17,49 @@ class _AppointmentPageState extends State<AppointmentPage> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    DropdownButton<String>(
-                      value: dropdownValue,
-                      onChanged: (String? newValue) {
-                        String status = "";
-                        if (newValue != null) {
-                          setState(() {
-                            switch (newValue) {
-                              case "Đang chờ":
-                                status = 'CREATED';
-                                break;
-                              case 'Chấp thuận':
-                                status = 'APPROVED';
-                                break;
-                              case "Từ chối":
-                                status = 'REFUSED';
-                                break;
-                              case "Đã hủy":
-                                status = 'CANCELED';
-                                break;
-                              case "Đã hoàn thành":
-                                status = 'COMPLETED';
-                                break;
-                              default:
-                                status = "";
-                                break;
+                    Obx(() => DropdownButton<String>(
+                          value: doctorController.dropdownValue.value,
+                          onChanged: (String? newValue) {
+                            String status = "";
+                            if (newValue != null) {
+                              switch (newValue) {
+                                case "Đang chờ":
+                                  status = 'CREATED';
+                                  break;
+                                case 'Chấp thuận':
+                                  status = 'APPROVED';
+                                  break;
+                                case "Từ chối":
+                                  status = 'REFUSED';
+                                  break;
+                                case "Đã hủy":
+                                  status = 'CANCELED';
+                                  break;
+                                case "Đã hoàn thành":
+                                  status = 'COMPLETED';
+                                  break;
+                                default:
+                                  status = "";
+                                  break;
+                              }
+                              doctorController.changeDropdownValue(newValue);
+                              doctorController.initNewAppointment(status);
                             }
-                            dropdownValue = newValue;
-                            doctorController.initNewAppointment(status);
-                          });
-                        }
-                      },
-                      items: <String>[
-                        'Tất cả',
-                        'Đang chờ',
-                        'Chấp thuận',
-                        'Từ chối',
-                        'Đã hủy',
-                        "Đã hoàn thành"
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
+                          },
+                          items: <String>[
+                            'Tất cả',
+                            'Đang chờ',
+                            'Chấp thuận',
+                            'Từ chối',
+                            'Đã hủy',
+                            "Đã hoàn thành"
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        )),
                     const SizedBox(
                       height: 20,
                     ),

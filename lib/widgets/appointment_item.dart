@@ -46,16 +46,7 @@ class AppointmentItem extends StatelessWidget {
         showDialog(
             context: context,
             builder: (BuildContext context) => FancyDialog(
-                  id: data?.id,
-                  fullName: data?.fullName,
-                  title: "Thông tin cuộc hẹn",
-                  notes: data?.notes,
-                  phone: data?.phone,
-                  dateOfBirth: data?.dateOfBirth,
-                  dateMeeting: data?.dateMeeting,
-                  timeMeeting: data?.timeMeeting,
-                  statusAppointment: data?.statusAppointment,
-                  doctorName: data?.doctor?.fullName,
+                  data: data,
                 ));
       },
       child: Container(

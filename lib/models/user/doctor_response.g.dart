@@ -34,6 +34,7 @@ DataDoctorResponse _$DataDoctorResponseFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       experience: json['experience'] as String?,
       workPlace: json['workPlace'] as String?,
+      rate: (json['rate'] as num?)?.toDouble(),
       email: json['email'] as String?,
       countPatient: (json['countPatient'] as num?)?.toDouble(),
       dateOfBirth: json['dateOfBirth'] == null
@@ -56,4 +57,5 @@ Map<String, dynamic> _$DataDoctorResponseToJson(DataDoctorResponse instance) =>
       'workPlace': instance.workPlace,
       'email': instance.email,
       'countPatient': instance.countPatient,
+      'rate': instance.rate,
     };

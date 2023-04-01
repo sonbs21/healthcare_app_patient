@@ -34,6 +34,7 @@ class DataDoctorResponse {
   String? workPlace;
   String? email;
   double? countPatient;
+  double? rate;
 
   DataDoctorResponse(
       {this.id,
@@ -46,6 +47,7 @@ class DataDoctorResponse {
       this.description,
       this.experience,
       this.workPlace,
+      this.rate,
       this.email,
       this.countPatient,
       this.dateOfBirth});

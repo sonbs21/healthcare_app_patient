@@ -1,28 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:healthcare_mobile/components/custom_form_field.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
-import 'package:healthcare_mobile/modules/health-record/health_record_controller.dart';
-import 'package:healthcare_mobile/routes/app_routes.dart';
-import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:intl/intl.dart';
 
-class AppointmentForm extends StatefulWidget {
-  AppointmentForm({Key? key}) : super(key: key);
-
-  @override
-  State<AppointmentForm> createState() => _AppointmentFormState();
-}
-
-var doctorController = Get.find<DoctorController>();
-
-class _AppointmentFormState extends State<AppointmentForm> {
+class AppointmentForm extends StatelessWidget {
   // GlobalKey<FormState> key = GlobalKey<FormState>();
+  var doctorController = Get.find<DoctorController>();
   // TextEditingController _dateController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
+  RxString selectedItem = ''.obs;
   String currentValue = '';
-  String selectedItem = '';
-
+  // String selectedItem = '';
   CustomFormField customFormField = CustomFormField();
   @override
   Widget build(BuildContext context) {
@@ -84,10 +74,10 @@ class _AppointmentFormState extends State<AppointmentForm> {
                             style: TextStyle(fontSize: 18),
                           ),
                           const SizedBox(width: 10),
-                          Text(
-                            currentValue,
-                            style: TextStyle(fontSize: 18),
-                          ),
+                          Obx(() => Text(
+                                selectedItem.value,
+                                style: TextStyle(fontSize: 18),
+                              )),
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerRight,
@@ -144,7 +134,7 @@ class _AppointmentFormState extends State<AppointmentForm> {
           // Get.offNamed(AppRoutes.MAIN_NAVIGATION);
           String fullName = doctorController.fullNameController.text;
           String phone = doctorController.phoneController.text;
-          String timeMeeting = currentValue;
+          String timeMeeting = selectedItem.value;
           String notes = doctorController.notesController.text;
           // String dateMeeting = doctorController.dateController.;
 
@@ -243,11 +233,11 @@ class _AppointmentFormState extends State<AppointmentForm> {
 
     // Sau khi chọn xong giá trị, bạn có thể thực hiện các hành động tiếp theo
     // tại đây, chẳng hạn như cập nhật giá trị trên trang hiện tại.
-    if (selectedItem != null) {
-      setState(() {
-        currentValue = selectedItem;
-      });
-    }
+    // if (selectedItem != null) {
+    //   // setState(() {
+    //     currentValue = selectedItem;
+    //   // });
+    // }
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -257,11 +247,11 @@ class _AppointmentFormState extends State<AppointmentForm> {
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
     if (picked != null && picked != _selectedDate) {
-      setState(() {
-        _selectedDate = picked;
-        doctorController.dateController.text =
-            DateFormat.yMd().format(_selectedDate);
-      });
+      // setState(() {
+      _selectedDate = picked;
+      doctorController.dateController.text =
+          DateFormat.yMd().format(_selectedDate);
+      // });
     }
   }
 
@@ -309,8 +299,9 @@ class _AppointmentFormState extends State<AppointmentForm> {
           textAlign: TextAlign.center,
         ),
         onTap: () {
-          selectedItem = labelText;
-          Navigator.pop(context);
+          selectedItem.value = labelText;
+          Get.back();
+          // Navigator.pop(context);
         },
       ),
     );

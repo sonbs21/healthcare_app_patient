@@ -42,6 +42,9 @@ class _MyAppState extends State<MyApp> {
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (_, __) => GetMaterialApp(
+            // initialBinding: BindingsBuilder(() {
+            //   // Get.lazyPut(() => SocketService());
+            // }),
             fallbackLocale: const Locale('en',
                 'US'), // specify the fallback locale in case an invalid locale is selected.
 

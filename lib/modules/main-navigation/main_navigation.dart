@@ -8,14 +8,8 @@ import 'package:healthcare_mobile/modules/main-navigation/main_navigation_contro
 import 'package:healthcare_mobile/modules/notification/notification_pages.dart';
 import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
 
-class MainNavigation extends StatefulWidget {
-  const MainNavigation({Key? key}) : super(key: key);
+class MainNavigation extends StatelessWidget {
 
-  @override
-  State<MainNavigation> createState() => _MainNavigationState();
-}
-
-class _MainNavigationState extends State<MainNavigation> {
   int selectedPage = 0;
   final pages = [
     HomePage(),
@@ -71,8 +65,8 @@ class _MainNavigationState extends State<MainNavigation> {
               label: 'Hội thoại',
             ),
             _bottomNavigationBarItem(
-              icon: Icons.local_hospital,
-              label: 'Bác sĩ',
+              icon: Icons.calendar_month,
+              label: 'Lịch hẹn',
             ),
             _bottomNavigationBarItem(
               icon: Icons.notifications,
