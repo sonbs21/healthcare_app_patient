@@ -130,7 +130,9 @@ class InfoDoctorPage extends StatelessWidget {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) =>
-                                          RatingDialog());
+                                          RatingDialog(
+                                            id: doctorController.doctorId,
+                                          ));
                                 },
                                 child: Container(
                                   height: 56,
@@ -150,7 +152,6 @@ class InfoDoctorPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-//                     ],
                           ],
                         ).vP16,
                         Row(
@@ -175,7 +176,6 @@ class InfoDoctorPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-//                     ],
                           ],
                         ).vP16
                       ],

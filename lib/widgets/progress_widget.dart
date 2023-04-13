@@ -64,7 +64,6 @@ class _ProgressWidgetState extends State<ProgressWidget>
                 tween: Tween<double>(begin: 0, end: progress),
                 duration: Duration(milliseconds: widget.durationTime),
                 builder: (context, value, child) {
-                  // print(value);
                   return CustomPaint(
                     painter: ProgressPainter(
                       value,

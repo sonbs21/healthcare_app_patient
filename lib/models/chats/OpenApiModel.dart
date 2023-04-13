@@ -16,7 +16,6 @@ class OpenApiModel {
       );
 
   static List<OpenApiModel> modelsFromSnapshot(List modelSnapshot) {
-    print("List: ${modelSnapshot}");
     return modelSnapshot.map((data) => OpenApiModel.fromJson(data)).toList();
   }
 }

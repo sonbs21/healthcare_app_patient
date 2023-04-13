@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomTextWidget extends StatelessWidget {
-  const CustomTextWidget(
+class TextWidget extends StatelessWidget {
+  const TextWidget(
       {Key? key,
       required this.label,
-      this.fontSize = 16,
+      this.fontSize = 18,
       this.color,
       this.fontWeight})
       : super(key: key);

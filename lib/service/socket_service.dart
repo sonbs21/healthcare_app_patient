@@ -12,17 +12,8 @@ class SocketService extends GetxService {
         "autoConnect": false,
         "query": "Authorization=${LocalStorageService.getRefreshToken()}"
       });
-      print('Authorization=${LocalStorageService.getRefreshToken()}');
-      print('Authorization=${socket.connected}');
 
       socket.connect();
-
-      // socket.onConnect((data) {
-      //   print('Connected to Socket.io server');
-      //   // socket.on('newMessage', (data) {
-      //   //   print('Received message: $data');
-      //   // });
-      // });
     } catch (e) {
       print('Error connecting to Socket.io server: $e');
     }

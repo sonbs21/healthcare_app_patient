@@ -45,7 +45,6 @@ class HealthRecordController extends GetxController {
                 glucose: glucose))
             .then((value) {
           homeController.initList();
-          print('object${value.data?.cholesterol}');
           Get.back();
           showDialog(
               context: context,

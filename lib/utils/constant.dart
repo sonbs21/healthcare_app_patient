@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-const TCAppName = 'HealthCare';
+const TCAppName = 'CardioCare';
 
 const isDarkModeOnPref = "isDarkModeOnPref";
 const termsCondition1 = "Bằng cách tạo tài khoản, bạn đồng ý với ";

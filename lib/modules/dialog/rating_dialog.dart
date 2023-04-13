@@ -1,20 +1,19 @@
 library rating_bar_swipe;
 
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart' as rating_bar;
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
 import 'package:healthcare_mobile/utils/color.dart';
 
 class RatingDialog extends StatelessWidget {
-  // double rate = 0.0;
+  RatingDialog({Key? key, this.id}) : super(key: key);
+  String? id;
   RxDouble rate = RxDouble(0.0);
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
+  var doctorController = Get.find<DoctorController>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class RatingDialog extends StatelessWidget {
                   children: [
                     rating_bar.RatingBarIndicator(
                       rating: rate.value,
-                      itemBuilder: (context, index) => Icon(
+                      itemBuilder: (context, index) => const Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
@@ -60,7 +59,7 @@ class RatingDialog extends StatelessWidget {
                           activeTrackColor: Colors.transparent,
                           inactiveTrackColor: Colors.transparent,
                           trackShape: const RectangularSliderTrackShape(),
-                          trackHeight: 500,
+                          trackHeight: 50,
                           disabledThumbColor: Colors.transparent,
                           // thumbColor: Colors.white.withOpacity(0.5) ,
                           thumbShape: const RoundSliderThumbShape(
@@ -101,7 +100,11 @@ class RatingDialog extends StatelessWidget {
                 // SizedBox(width: 20.h),
                 Expanded(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      // Double r = (rate / 10) as Double;
+                      doctorController.postRating(id!, rate.toStringAsFixed(1));
+                      Get.back();
+                    },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                       child: Container(

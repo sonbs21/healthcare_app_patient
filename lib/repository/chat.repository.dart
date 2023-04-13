@@ -18,7 +18,7 @@ class ChatRepository {
       'pageSize': pageSize ?? 20,
     };
 
-    dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
+    dio.options = BaseOptions();
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
 

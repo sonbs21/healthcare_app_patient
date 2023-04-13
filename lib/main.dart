@@ -4,8 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healthcare_mobile/modules/chat_gpt/provider/chat_provider.dart';
-import 'package:healthcare_mobile/modules/chat_gpt/provider/model_provider.dart';
+import 'package:healthcare_mobile/modules/chat/gpt/providers/chats_provider.dart';
+import 'package:healthcare_mobile/modules/chat/gpt/providers/models_provider.dart';
 import 'package:healthcare_mobile/routes/app_pages.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => ModelProvider()),
+          ChangeNotifierProvider(create: (_) => ModelsProvider()),
           ChangeNotifierProvider(create: (_) => ChatProvider())
         ],
         child: ScreenUtilInit(

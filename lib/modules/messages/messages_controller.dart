@@ -29,7 +29,6 @@ class MessagesController extends GetxController {
 
           listMessage.add(messageResponse);
         } catch (e) {
-          print('errr: ${e}');
         }
       });
     });

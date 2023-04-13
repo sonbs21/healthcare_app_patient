@@ -18,7 +18,6 @@ class DoctorPage extends StatelessWidget {
           AppointmentPage(),
           InfoDoctorPage(),
           Container(),
-          // MyMap(),
         ],
       );
 }

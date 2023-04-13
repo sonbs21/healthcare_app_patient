@@ -13,6 +13,7 @@ import 'package:healthcare_mobile/models/health-record/record_day_response.dart'
 import 'package:healthcare_mobile/models/login/login_request.dart';
 import 'package:healthcare_mobile/models/login/login_response.dart';
 import 'package:healthcare_mobile/models/notifications/notification_response.dart';
+import 'package:healthcare_mobile/models/rating/rating_request.dart';
 import 'package:healthcare_mobile/models/user/doctor_response.dart';
 import 'package:healthcare_mobile/models/user/user_response.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
@@ -24,7 +25,7 @@ part 'rest_api.g.dart';
 @RestApi(baseUrl: "http://10.0.2.2:5000/v1/")
 abstract class RestClient {
   factory RestClient(Dio dio, {String? baseUrl}) {
-    dio.options = BaseOptions(receiveTimeout: 60000, connectTimeout: 60000);
+    dio.options = BaseOptions();
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
 
@@ -52,6 +53,9 @@ abstract class RestClient {
 
   @POST('emergency')
   Future<void> emergency();
+
+  @POST('patient/rating')
+  Future<void> postRating(@Body() RatingRequest dto);
 
   @PUT('appointment/{id}/cancel')
   Future<AppointmentGetResponse> cancelAppointment(
