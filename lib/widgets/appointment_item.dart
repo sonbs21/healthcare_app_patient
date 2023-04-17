@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'avatar_image.dart';
 import 'package:intl/intl.dart';
 import 'package:healthcare_mobile/modules/dialog/fancy_dialog.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class AppointmentItem extends StatelessWidget {
   const AppointmentItem(this.data, {Key? key, this.onTap}) : super(key: key);
@@ -71,74 +72,117 @@ class AppointmentItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                    child: Container(
-                        height: 60,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                    child: Container(
-                                        child: Text(data?.fullName,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w700)))),
-                                const SizedBox(width: 5),
-                                Container(
-                                  height: 20,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 13,
-                                    vertical: 3,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: colorStatus,
-                                  ),
-                                  child: Text(
-                                    appointmentStatus,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontSize: 11, color: Colors.black),
-                                  ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                    child: Text(time,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontSize: 13, color: Colors.grey))),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                    child: Text(data?.notes,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(fontSize: 13))),
-                              ],
-                            ),
-                          ],
-                        ))),
+                  child: Container(
+                      height: 60,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                  child: Container(
+                                      child: Text(data?.fullName,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700)))),
+                              const SizedBox(width: 5),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                  child: Text(time,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontSize: 13, color: Colors.grey))),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 6,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                  child: Text(data?.notes,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 13))),
+                            ],
+                          ),
+                        ],
+                      )),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      height: 20,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 13,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: colorStatus,
+                      ),
+                      child: Text(
+                        appointmentStatus,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            const TextStyle(fontSize: 11, color: Colors.black),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Container(
+                      child: (DateTime.now().day == date.day)
+                          ? ElevatedButton(
+                              child: const Text("Vào phòng"),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return CallPage(callID: data?.id);
+                                  }),
+                                );
+                              },
+                            )
+                          : const SizedBox(),
+                    ),
+                  ],
+                )
               ],
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class CallPage extends StatelessWidget {
+  const CallPage({Key? key, required this.callID}) : super(key: key);
+  final String callID;
+  @override
+  Widget build(BuildContext context) {
+    return ZegoUIKitPrebuiltCall(
+      appID:
+          909621478, // Fill in the appID that you  get from ZEGOCLOUD Admin Console.
+      appSign:
+          "111b58d37fa7d7903d411169d42a0d92671455cde73e341869b65f650174c669", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+      userID: 'user_id',
+      userName: 'user_name',
+      callID: callID,
+      // You can also use groupVideo/groupVoice/oneOnOneVoice to make more types of calls.
+      config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+        ..onOnlySelfInRoom = (context) => Navigator.of(context).pop(),
     );
   }
 }

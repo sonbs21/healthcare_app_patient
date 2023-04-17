@@ -1,40 +1,72 @@
-import 'package:flutter/material.dart';
-import 'package:healthcare_mobile/models/chats/ChatMessage.dart';
-import 'package:healthcare_mobile/utils/constant.dart';
+import 'dart:math';
 
-class VideoMessage extends StatelessWidget {
-  const VideoMessage({super.key, required this.message});
-  final ChatMessage message;
+import 'package:flutter/material.dart';
+import 'package:healthcare_mobile/models/chats/chat_response.dart';
+import 'package:healthcare_mobile/modules/messages/messages_controller.dart';
+import 'package:healthcare_mobile/service/local_storage_service.dart';
+import 'package:healthcare_mobile/utils/constant.dart';
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
+import 'package:get/get.dart';
+
+class VideoMessage extends StatefulWidget {
+  VideoMessage({Key? key, required this.message}) : super(key: key) {}
+  final DataMessageResponse message;
+
+  @override
+  State<VideoMessage> createState() => _VideoMessageState();
+}
+
+class _VideoMessageState extends State<VideoMessage> {
+  late VideoPlayerController videoPlayerController;
+  ChewieController? chewieController;
+
+  @override
+  void initState() {
+    _initPlayer(widget.message);
+
+    super.initState();
+  }
+
+  void _initPlayer(DataMessageResponse message) async {
+    videoPlayerController =
+        VideoPlayerController.network(message.file![0].url as String);
+    await videoPlayerController.initialize();
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
+      autoPlay: true,
+      looping: true,
+    );
+
+    print("videoPlayerController:${videoPlayerController}");
+    // print("chewieController:${videoPlayerController}");
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    videoPlayerController.dispose();
+    chewieController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        width: MediaQuery.of(context).size.width * 0.45,
-        child: AspectRatio(
-          aspectRatio: 1.6,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                    "https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg"),
-              ),
-              Container(
-                height: 25,
-                width: 25,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: kPrimaryColor,
-                ),
-                child: Icon(
-                  Icons.play_arrow,
-                  size: 16,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ));
+    print("message.file:${widget.message.file![0].url}");
+
+    print("chewieController:${chewieController}");
+    print("check:${chewieController != null}");
+    return Container(
+      height: 200,
+      width: 300,
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: chewieController != null
+            ? Chewie(
+                controller: chewieController!,
+              )
+            : const CircularProgressIndicator(),
+      ),
+    );
   }
 }

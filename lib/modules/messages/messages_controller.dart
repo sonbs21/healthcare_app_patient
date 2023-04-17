@@ -1,4 +1,6 @@
+import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -6,11 +8,18 @@ import 'package:healthcare_mobile/models/chats/chat_response.dart';
 import 'package:healthcare_mobile/models/chats/message_request.dart';
 import 'package:healthcare_mobile/repository/chat.repository.dart';
 import 'package:healthcare_mobile/service/socket_service.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+import 'package:video_player/video_player.dart';
 
 class MessagesController extends GetxController {
   var chatRepository = Get.find<ChatRepository>();
   var contentController = TextEditingController();
+  late VideoPlayerController videoPlayerController;
+  late ChewieController chewieController;
+  var isDisposed = false.obs;
+  final ScrollController scrollController = ScrollController();
+
   RxList<DataMessageResponse> listMessage = RxList<DataMessageResponse>([]);
   var socketService = Get.find<SocketService>();
 
@@ -18,6 +27,14 @@ class MessagesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // WidgetsBinding.instance!.addPostFrameCallback((_) {
+    //   scrollController.animateTo(
+    //     scrollController.position.maxScrollExtent,
+    //     duration: const Duration(milliseconds: 500),
+    //     curve: Curves.easeOut,
+    //   );
+    //   print("_____12312312312");
+    // });
     socketService.socket.onConnect((data) {
       print('Connected to Socket.io server');
       socketService.socket.on('newMessage', (msg) {
@@ -29,43 +46,89 @@ class MessagesController extends GetxController {
 
           listMessage.add(messageResponse);
         } catch (e) {
+          print('errr: ${e}');
         }
       });
     });
   }
 
+  void initVideoMessage(DataMessageResponse message) async {
+    print("123___${message.file![0].url}");
+    videoPlayerController =
+        VideoPlayerController.network(message.file![0].url as String);
+    print("___${videoPlayerController.value.isInitialized}");
+    await videoPlayerController.initialize();
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
+      aspectRatio: 16 / 9, // tỷ lệ khung hình của video
+      autoPlay: true, // tự động phát video khi khởi động
+      looping: true, // lặp lại video khi phát xong
+    );
+  }
+
   @override
   void onClose() {
-    socketService.socket.off('newMessage');
+    videoPlayerController.dispose();
+    chewieController.dispose();
     super.onClose();
   }
-  // @override
-  // void onInit() {
-  //   super.onInit();
 
-  //   // subscribe to the 'message' event from Socket.io server
-  //   socketService.socket.on('newMessage', (data) {
-  //     print('Received message: $data');
-  //   });
-  // }
-
-  void initListMessage(String id) async {
-    final response = await chatRepository.getMessage(id, 1, 100);
+  void initListMessage(String id, Function onComplete) async {
+    final response = await chatRepository.getMessage(id, 1, 20);
 
     if (response.statusCode == 200) {
       // listBmi = response.data;
       listMessage.clear();
-
       listMessage.addAll(response.data);
-      // onComplete();
+      onComplete();
     } else {
       // Xử lý khi API trả về lỗi
     }
   }
 
-  void postMessage(String id, String content) async {
-    // final client = RestClient(dio);
+  void upload(List<XFile> files, String id, String type) async {
+    try {
+      if (files.isNotEmpty) {
+        List<String> lst = [];
+        await chatRepository.upload(files).then((value) {
+          for (var val in value) {
+            lst.add(val.id);
+          }
+        });
 
+        await chatRepository
+            .postMessage(
+                id, MessageRequest(typeMessage: type, content: "", file: lst))
+            .then((value) {});
+        print('12345_${lst.length}');
+      }
+    } on DioError catch (e) {
+      EasyLoading.showError(e.response?.data['message']);
+    }
+  }
+
+  void uploadFile(List<FilePickerResult> files, String id, String type) async {
+    try {
+      if (files.isNotEmpty) {
+        List<String> lst = [];
+        await chatRepository.uploadFile(files).then((value) {
+          for (var val in value) {
+            lst.add(val.id);
+          }
+        });
+
+        await chatRepository
+            .postMessage(
+                id, MessageRequest(typeMessage: type, content: "", file: lst))
+            .then((value) {});
+        print('12345_${lst.length}');
+      }
+    } on DioError catch (e) {
+      EasyLoading.showError(e.response?.data['message']);
+    }
+  }
+
+  void postMessage(String id, String content) async {
     try {
       await chatRepository
           .postMessage(id,

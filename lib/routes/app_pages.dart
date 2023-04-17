@@ -131,5 +131,6 @@ class AppPages {
       page: () => NotificationPage(),
       binding: NotificationBinding(),
     ),
+    // Hero()
   ];
 }

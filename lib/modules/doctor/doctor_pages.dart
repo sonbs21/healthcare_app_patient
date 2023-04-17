@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:healthcare_mobile/modules/doctor/appointment_pages.dart';
 import 'package:healthcare_mobile/modules/doctor/info_doctor_pages.dart';
+import 'package:healthcare_mobile/modules/doctor/map_pages.dart';
 import 'package:healthcare_mobile/widgets/tabbar_widget.dart';
 
 class DoctorPage extends StatelessWidget {
@@ -17,7 +18,8 @@ class DoctorPage extends StatelessWidget {
         children: [
           AppointmentPage(),
           InfoDoctorPage(),
-          Container(),
+          Container()
+          // MapSample(),
         ],
       );
 }

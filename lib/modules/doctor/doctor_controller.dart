@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_request.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
 import 'package:healthcare_mobile/models/rating/rating_request.dart';
@@ -27,6 +29,7 @@ class DoctorController extends GetxController {
   var dateController = TextEditingController();
   var timeController = TextEditingController();
   var notesController = TextEditingController();
+  LatLng? currentPosition;
   String? doctorId = "";
 
   @override
@@ -34,7 +37,7 @@ class DoctorController extends GetxController {
     super.onInit();
 
     initListAppointment();
-
+    _getCurrentLocation();
     if (doctorId == "") {
       getDoctors();
     }
@@ -141,6 +144,19 @@ class DoctorController extends GetxController {
       });
     } on DioError catch (e) {
       EasyLoading.showError(e.response?.data['message']);
+    }
+  }
+
+  Future<void> _getCurrentLocation() async {
+    print("123213");
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      print("=========${position}");
+
+      currentPosition = LatLng(position.latitude, position.longitude);
+    } catch (e) {
+      print(e);
     }
   }
 }

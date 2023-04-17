@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:healthcare_mobile/components/custom_form_field.dart';
+import 'package:healthcare_mobile/modules/appointment/appointment.controller.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
 import 'package:intl/intl.dart';
 
 class AppointmentForm extends StatelessWidget {
   // GlobalKey<FormState> key = GlobalKey<FormState>();
   var doctorController = Get.find<DoctorController>();
+  var appointmentController = Get.find<AppointmentController>();
   // TextEditingController _dateController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   RxString selectedItem = ''.obs;
   String currentValue = '';
   // String selectedItem = '';
   CustomFormField customFormField = CustomFormField();
+
   @override
   Widget build(BuildContext context) {
+    print("${appointmentController.isDateSelected.value}");
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -62,7 +66,9 @@ class AppointmentForm extends StatelessWidget {
                             suffixIcon: Icon(Icons.calendar_today),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 20.0)),
-                        onTap: () => _selectDate(context),
+                        onTap: () => {
+                          _selectDate(context),
+                        },
                       ),
                       const SizedBox(
                         height: 20.0,
@@ -76,17 +82,35 @@ class AppointmentForm extends StatelessWidget {
                           const SizedBox(width: 10),
                           Obx(() => Text(
                                 selectedItem.value,
-                                style: TextStyle(fontSize: 18),
+                                style: const TextStyle(fontSize: 18),
                               )),
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: ElevatedButton(
-                                child: Text('Chọn giờ hẹn'),
-                                onPressed: () => showCustomDialog(context),
-                              ),
-                            ),
-                          ),
+                          // Visibility(
+                          //   visible:
+                          //       doctorController.dateController.text.isNotEmpty,
+                          //   child: Expanded(
+                          //     child: Align(
+                          //       alignment: Alignment.centerRight,
+                          //       child: ElevatedButton(
+                          //         child: const Text('Chọn giờ hẹn'),
+                          //         onPressed: () => showCustomDialog(context),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          Obx(
+                            () => appointmentController.isDateSelected.value
+                                ? Expanded(
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: ElevatedButton(
+                                        child: const Text('Chọn giờ hẹn'),
+                                        onPressed: () =>
+                                            showCustomDialog(context),
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
+                          )
                         ],
                       ),
                       const SizedBox(
@@ -253,6 +277,9 @@ class AppointmentForm extends StatelessWidget {
           DateFormat.yMd().format(_selectedDate);
       // });
     }
+
+    appointmentController.getAppointmentTime(
+        doctorController.doctorId, doctorController.dateController.text);
   }
 
   _buildTextField(String labelText, TextEditingController controller) {
@@ -283,27 +310,45 @@ class AppointmentForm extends StatelessWidget {
   _dialogSelect(
     String labelText,
   ) {
-    return Container(
-      width: 120,
-      padding: EdgeInsets.all(7.0),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey,
-          width: 1.0,
-        ),
-        borderRadius: BorderRadius.circular(5.0),
-      ),
-      child: InkWell(
-        child: Text(
-          labelText,
-          textAlign: TextAlign.center,
-        ),
-        onTap: () {
-          selectedItem.value = labelText;
-          Get.back();
-          // Navigator.pop(context);
-        },
-      ),
-    );
+    print("_________${labelText}");
+
+    print(
+        "_________${appointmentController.listAppointment.contains(labelText)}");
+    return appointmentController.listAppointment.contains(labelText)
+        ? Container(
+            width: 120,
+            padding: const EdgeInsets.all(7.0),
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 1.0,
+                ),
+                borderRadius: BorderRadius.circular(5.0),
+                color: Colors.grey),
+            child: Text(
+              labelText,
+              textAlign: TextAlign.center,
+            ))
+        : Container(
+            width: 120,
+            padding: EdgeInsets.all(7.0),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: InkWell(
+              child: Text(
+                labelText,
+                textAlign: TextAlign.center,
+              ),
+              onTap: () {
+                selectedItem.value = labelText;
+                Get.back();
+                // Navigator.pop(context);
+              },
+            ));
   }
 }

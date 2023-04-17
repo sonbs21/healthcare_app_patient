@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -29,22 +30,7 @@ class NotificationPage extends StatelessWidget {
                 // actionExtentRatio: 0.25,
                 child: notificationItem(
                     notificationController.listNotification[index]),
-                // secondaryActions: <Widget>[
-                //   Container(
-                //       height: 60,
-                //       color: Colors.grey.shade500,
-                //       child: Icon(
-                //         Icons.info_outline,
-                //         color: Colors.white,
-                //       )),
-                //   Container(
-                //       height: 60,
-                //       color: Colors.red,
-                //       child: Icon(
-                //         Icons.delete_outline_sharp,
-                //         color: Colors.white,
-                //       )),
-                // ],
+
               );
             }));
   }

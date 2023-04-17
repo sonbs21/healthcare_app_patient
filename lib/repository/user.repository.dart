@@ -12,29 +12,51 @@ class UserRepository {
   final dio = Dio(); // Provide a dio instance
 
   Future<UserResponse> getMe() async {
-    final client = RestClient(dio);
-    return await client.getMe();
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response = await dio.get(
+      'http://10.0.2.2:5000/v1/user/me',
+    );
+    return UserResponse.fromJson(response.data);
   }
 
   Future<LoginResponse> loginUser(LoginRequest login) async {
-    final client = RestClient(dio);
-    return await client.loginUser(login);
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response = await dio.post('http://10.0.2.2:5000/v1/auth/user/login',
+        data: {"phone": login.phone, "password": login.password});
+    return LoginResponse.fromJson(response.data);
   }
 
   Future<DoctorResponse> getDoctorById(String id) async {
-    final client = RestClient(dio);
-    return await client.getDoctorById(id);
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response = await dio.get(
+      'http://10.0.2.2:5000/v1/doctor/$id',
+    );
+    return DoctorResponse.fromJson(response.data);
   }
 
   Future<void> postRating(RatingRequest dto) async {
-    final client = RestClient(dio);
-    return await client.postRating(dto);
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response = await dio.post('http://10.0.2.2:5000/v1/auth/user/login',
+        data: {"doctorId": dto.doctorId, "rating": dto.rating});
+    return response.data;
   }
 
-  Future<void> logout() async {
-    final client = RestClient(dio);
-    return await client.logout();
-  }
+  // Future<void> logout() async {
+  //   final client = RestClient(dio);
+  //   return await client.logout();
+  // }
 
   Future<DoctorLstResponse> getDoctors(
     int? page,

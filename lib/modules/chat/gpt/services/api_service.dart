@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class ApiService {
   static Future<List<ModelsModel>> getModels() async {
     String BASE_URL = "https://api.openai.com/v1";
-    String API_KEY = "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";
+    String API_KEY = "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";
     try {
       var response = await http.get(
         Uri.parse("$BASE_URL/models"),
@@ -39,7 +39,7 @@ class ApiService {
   static Future<List<ChatModel>> sendMessage(
       {required String message, required String modelId}) async {
     String BASE_URL = "https://api.openai.com/v1";
-    String API_KEY = "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";
+    String API_KEY = "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";
     try {
       log("modelId $modelId");
       log("message $message");
@@ -47,19 +47,19 @@ class ApiService {
         Uri.parse("$BASE_URL/completions"),
         headers: {
           'Authorization': 'Bearer $API_KEY',
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json; charset=utf-8',
         },
         body: jsonEncode(
           {
-            "model": modelId,
-            "prompt": message,
-            "max_tokens": 300,
+            'model': modelId,
+            'prompt': message,
+            'max_tokens': 300,
           },
         ),
       );
 
       Map jsonResponse = jsonDecode(response.body);
-
+      print("___))(((____${response.body}");
       if (jsonResponse['error'] != null) {
         // print("jsonResponse['error'] ${jsonResponse['error']["message"]}");
         throw HttpException(jsonResponse['error']["message"]);
@@ -67,10 +67,13 @@ class ApiService {
       List<ChatModel> chatList = [];
       if (jsonResponse["choices"].length > 0) {
         // log("jsonResponse[choices]text ${jsonResponse["choices"][0]["text"]}");
+        print("___))ttt(((____${jsonResponse["choices"][0]["text"]}");
+
         chatList = List.generate(
           jsonResponse["choices"].length,
           (index) => ChatModel(
-            msg: jsonResponse["choices"][index]["text"],
+            msg: utf8
+                .decode(jsonResponse["choices"][index]["text"].runes.toList()),
             chatIndex: 1,
           ),
         );

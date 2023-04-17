@@ -1,8 +1,10 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/messages/messages_controller.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatInputField extends StatefulWidget {
   const ChatInputField({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class ChatInputField extends StatefulWidget {
 
 var messagesController = Get.find<MessagesController>();
 var id = LocalStorageService.getConversationId();
+final ImagePicker picker = ImagePicker();
 
 class _ChatInputField extends State<ChatInputField> {
   bool isChange = false;
@@ -75,29 +78,45 @@ class _ChatInputField extends State<ChatInputField> {
                   Expanded(
                     child: TextField(
                       controller: messagesController.contentController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none, hintText: 'Type Message'),
+                      decoration: const InputDecoration(
+                          border: InputBorder.none, hintText: 'Nhập tin nhắn'),
                     ),
                   ),
                   !isChange
                       ? Row(
                           children: [
-                            Icon(
-                              Icons.attach_file,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.color
-                                  ?.withOpacity(0.64),
+                            InkWell(
+                              onTap: () async {
+                                await selectImage();
+                                // List<XFile>? images =
+                                //     await picker.pickMultiImage(
+                                //   imageQuality: 70,
+                                //   maxWidth: 1440,
+                                // );
+                                // messagesController.upload(images, id);
+                              },
+                              child: Icon(
+                                Icons.image,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.color
+                                    ?.withOpacity(0.64),
+                              ),
                             ),
                             SizedBox(width: kDefaultPadding / 4),
-                            Icon(
-                              Icons.camera_alt_outlined,
-                              color: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.color
-                                  ?.withOpacity(0.64),
+                            InkWell(
+                              onTap: () async {
+                                await selectFile();
+                              },
+                              child: Icon(
+                                Icons.attach_file,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.color
+                                    ?.withOpacity(0.64),
+                              ),
                             ),
                           ],
                         )
@@ -126,4 +145,141 @@ class _ChatInputField extends State<ChatInputField> {
       )),
     );
   }
+}
+
+Future<dynamic> selectImage() {
+  return Get.bottomSheet(Container(
+    height: 150,
+    width: Get.width,
+    child: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  List<XFile>? images = await picker.pickMultiImage(
+                    imageQuality: 70,
+                    maxWidth: 1440,
+                  );
+                  messagesController.upload(images, id, 'IMAGE');
+                },
+                child: Card(
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/gallery.png",
+                            height: 60,
+                            width: 60,
+                          ),
+                          Text('Gallery'),
+                        ],
+                      ),
+                    )),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  XFile? images =
+                      await picker.pickImage(source: ImageSource.camera);
+                  List<XFile> arr = [];
+                  arr.add(images!);
+                  messagesController.upload(arr, id, 'IMAGE');
+                },
+                child: Card(
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/camera.png",
+                            height: 60,
+                            width: 60,
+                          ),
+                          Text('Camera'),
+                        ],
+                      ),
+                    )),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  ));
+}
+
+Future<dynamic> selectFile() {
+  return Get.bottomSheet(Container(
+    height: 150,
+    width: Get.width,
+    child: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  final video =
+                      await picker.pickVideo(source: ImageSource.gallery);
+                  List<XFile> arr = [];
+                  arr.add(video!);
+                  messagesController.upload(arr, id, 'VIDEO');
+                },
+                child: Card(
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/video.png",
+                            height: 60,
+                            width: 60,
+                          ),
+                          Text('Video'),
+                        ],
+                      ),
+                    )),
+              ),
+              GestureDetector(
+                onTap: () async {
+                  FilePickerResult? result = await FilePicker.platform
+                      .pickFiles(
+                          type: FileType.custom,
+                          allowMultiple: false,
+                          allowedExtensions: ['xls', 'xlsx', 'doc']);
+                  List<FilePickerResult> arr = [];
+                  arr.add(result!);
+                  messagesController.uploadFile(arr, id, 'FILE');
+                },
+                child: Card(
+                    elevation: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/file.jpg",
+                            height: 60,
+                            width: 60,
+                          ),
+                          Text('File'),
+                        ],
+                      ),
+                    )),
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  ));
 }

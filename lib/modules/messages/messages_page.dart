@@ -29,12 +29,13 @@ class MessagesPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 child: ListView.builder(
+                  controller: messagesController.scrollController,
                   itemCount: messagesController.listMessage.length,
                   itemBuilder: (context, index) =>
                       Message(message: messagesController.listMessage[index]),
                 ))),
           ),
-          ChatInputField()
+          const ChatInputField()
         ],
       ),
     );
@@ -62,9 +63,9 @@ class MessagesPage extends StatelessWidget {
         ],
       ),
       actions: [
-        IconButton(onPressed: () {}, icon: Icon(Icons.call)),
-        IconButton(onPressed: () {}, icon: Icon(Icons.videocam)),
-        SizedBox(
+        IconButton(onPressed: () {}, icon: const Icon(Icons.call)),
+        IconButton(onPressed: () {}, icon: const Icon(Icons.videocam)),
+        const SizedBox(
           width: kDefaultPadding / 2,
         )
       ],

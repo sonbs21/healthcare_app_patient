@@ -47,13 +47,16 @@ class ChatPage extends StatelessWidget {
                       LocalStorageService.setConversationId(
                           chatController.listConversation[index].id as String),
                       messagesController.initListMessage(
-                          chatController.listConversation[index].id ?? ''),
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MessagesPage(
-                                chat: chatController.listConversation[index])),
-                      )
+                          chatController.listConversation[index].id ?? '', () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MessagesPage(
+                                  chat:
+                                      chatController.listConversation[index])),
+                        );
+                      }),
+
                       //      () {
                       //   Navigator.push(
                       //     context,
