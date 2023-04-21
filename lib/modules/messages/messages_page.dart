@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:healthcare_mobile/models/chats/ChatMessage.dart';
 import 'package:healthcare_mobile/models/chats/conversation_response.dart';
 import 'package:healthcare_mobile/modules/messages/components/chat_input_fields.dart';
 import 'package:healthcare_mobile/modules/messages/components/message.dart';
@@ -19,7 +17,6 @@ class MessagesPage extends StatelessWidget {
 
   // @override
   Widget build(BuildContext context) {
-    var t = print('***${messagesController.listMessage.length}****');
     return Scaffold(
       appBar: buildAppBar(),
       body: Column(
@@ -42,7 +39,7 @@ class MessagesPage extends StatelessWidget {
   }
 
   AppBar buildAppBar() {
-    var user = chat?.member.firstWhere((m) => m.user?.id != id)?.user;
+    var user = chat?.member.firstWhere((m) => m.user?.id != id).user;
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
@@ -56,8 +53,7 @@ class MessagesPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(user?.fullName ?? '', style: TextStyle(fontSize: 16)),
-              // Text('Active 3m ago', style: TextStyle(fontSize: 12))
+              Text(user?.fullName ?? '', style:const TextStyle(fontSize: 16)),
             ],
           )
         ],

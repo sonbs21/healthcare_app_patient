@@ -12,6 +12,7 @@ class SignUpController extends GetxController {
   var lastNameController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
+  var dateController = TextEditingController();
   var confirmPasswordController = TextEditingController();
   var isObscurePassword = true.obs;
   var isObscureConfirmPassword = true.obs;

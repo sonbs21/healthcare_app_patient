@@ -47,73 +47,83 @@ class PersonalPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 50),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-            height: 70,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-            ),
-            child: Row(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.person),
-                    const SizedBox(width: 10),
-                    Text(
-                      "Tài khoản",
-                      style: GoogleFonts.montserrat(
-                        color: Colors.black,
-                        fontSize: 18,
-                      ),
-                    )
-                  ],
-                ),
-                const Spacer(),
-                const Icon(
-                  CupertinoIcons.chevron_forward,
-                  color: Colors.black,
-                  size: 24,
-                )
-              ],
+          GestureDetector(
+            onTap: (){
+              Get.toNamed(AppRoutes.PERSONAL_INFO_PAGE);
+            },
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+              ),
+              child: Row(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.person),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Tài khoản",
+                        style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 18,
+                        ),
+                      )
+                    ],
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    CupertinoIcons.chevron_forward,
+                    color: Colors.black,
+                    size: 24,
+                  )
+                ],
+              ),
             ),
           ),
           // const Divider(),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-            height: 70,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-            ),
-            child: Row(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.lock),
-                    const SizedBox(width: 10),
-                    Text(
-                      "Đổi mật khẩu",
-                      style: GoogleFonts.montserrat(
-                        color: Colors.black,
-                        fontSize: 18,
-                        // letterSpacing: 1,
-                        // fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
-                ),
-                const Spacer(),
-                const Icon(
-                  CupertinoIcons.chevron_forward,
-                  color: Colors.black,
-                  size: 24,
-                )
-              ],
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRoutes.CHANGE_PASSWORD_PAGE);
+            },
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+              ),
+              child: Row(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.lock),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Đổi mật khẩu",
+                        style: GoogleFonts.montserrat(
+                          color: Colors.black,
+                          fontSize: 18,
+                          // letterSpacing: 1,
+                          // fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                  const Spacer(),
+                  const Icon(
+                    CupertinoIcons.chevron_forward,
+                    color: Colors.black,
+                    size: 24,
+                  )
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 10),

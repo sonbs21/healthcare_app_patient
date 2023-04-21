@@ -19,17 +19,14 @@ class ApiServices {
           "Authorization": "Bearer $_Api_key"
         },
       );
-      print("response.body:${response.body}");
       Map jsonResponse = jsonDecode(response.body);
       if (jsonResponse["error"] != null) {
         throw HttpException(jsonResponse["error"]["message"]);
       }
       List temp = [];
       for (var value in jsonResponse["data"]) {
-        print("value: ${value}");
         temp.add(value);
       }
-      print("temp:${temp}");
       return OpenApiModel.modelsFromSnapshot(temp);
     } catch (e) {
       log(e.toString());
@@ -41,11 +38,8 @@ class ApiServices {
       {required String msg, required String modelId}) async {
     try {
       // final encodedText = utf8.encode(msg);
-      print('encodedTextmsg: ${msg}');
-      print('encodedTextmodelId: ${modelId}');
       if (modelId != 0) {
         final encodedText = utf8.encode(msg);
-        print('encodedText: ${encodedText}');
       }
 
       var response = await http.post(Uri.parse("$_BASE_URL/completions"),

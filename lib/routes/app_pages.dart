@@ -4,6 +4,8 @@ import 'package:healthcare_mobile/modules/blood_pressure/blood_pressure_binding.
 import 'package:healthcare_mobile/modules/blood_pressure/blood_pressure_page.dart';
 import 'package:healthcare_mobile/modules/bmi/bmi_binding.dart';
 import 'package:healthcare_mobile/modules/bmi/bmi_page.dart';
+import 'package:healthcare_mobile/modules/change-password/change_password_binding.dart';
+import 'package:healthcare_mobile/modules/change-password/change_password_page.dart';
 import 'package:healthcare_mobile/modules/chat/chat_binding.dart';
 import 'package:healthcare_mobile/modules/chat/chat_page.dart';
 import 'package:healthcare_mobile/modules/chat/gpt/screens/gpt_binding.dart';
@@ -29,6 +31,10 @@ import 'package:healthcare_mobile/modules/messages/messages_binding.dart';
 import 'package:healthcare_mobile/modules/messages/messages_page.dart';
 import 'package:healthcare_mobile/modules/notification/notification_pages.dart';
 import 'package:healthcare_mobile/modules/notification/notification_binding.dart';
+import 'package:healthcare_mobile/modules/otp/otp_binding.dart';
+import 'package:healthcare_mobile/modules/otp/otp_page.dart';
+import 'package:healthcare_mobile/modules/personal-info/personal_info_binding.dart';
+import 'package:healthcare_mobile/modules/personal-info/personal_info_pages.dart';
 import 'package:healthcare_mobile/modules/personal/personal_binding.dart';
 import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_binding.dart';
@@ -130,6 +136,21 @@ class AppPages {
       name: AppRoutes.NOTIFICATION_PAGE,
       page: () => NotificationPage(),
       binding: NotificationBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.CHANGE_PASSWORD_PAGE,
+      page: () => ChangePasswordPage(),
+      binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.PERSONAL_INFO_PAGE,
+      binding: PersonalInfoBinding(),
+      page: () => PersonalInfoPage(),
+    ),
+    GetPage(
+      name: AppRoutes.OTP_PAGE,
+      binding: OtpBinding(),
+      page: () => OtpPage(),
     ),
     // Hero()
   ];

@@ -30,16 +30,15 @@ class NotificationPage extends StatelessWidget {
                 // actionExtentRatio: 0.25,
                 child: notificationItem(
                     notificationController.listNotification[index]),
-
               );
             }));
   }
 
   notificationItem(DataNotificationResponse notification) {
-    DateTime? date = notification?.createdAt;
+    DateTime? date = notification.createdAt;
     var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      margin:const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
@@ -54,7 +53,7 @@ class NotificationPage extends StatelessWidget {
             child: Container(
               height: 50,
               width: 50,
-              padding: EdgeInsets.all(10),
+              padding:const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey.shade300,
@@ -74,12 +73,12 @@ class NotificationPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      notification?.title ?? '',
-                      style: TextStyle(
+                      notification.title ?? '',
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold, // in đậm văn bản
                         fontSize: 18.0, // phóng to văn bản
                       ),
@@ -88,19 +87,24 @@ class NotificationPage extends StatelessWidget {
                           .ellipsis, // hiển thị ... khi văn bản vượt quá phạm vi
                       maxLines: 2, // giới hạn số dòng của văn bản
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
-                    Text(notification?.content ?? ''),
-                    SizedBox(
+                    Text(
+                      notification.content ?? '',
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    const SizedBox(
                       height: 8,
                     ),
                     Align(
                       alignment:
                           Alignment.bottomRight, // hoặc Alignment.bottomRight
                       child: Text(
-                        inputFormat ?? '',
-                        style: TextStyle(
+                        inputFormat,
+                        style: const TextStyle(
                           fontSize: 12,
                         ),
                       ),

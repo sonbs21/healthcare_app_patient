@@ -120,7 +120,6 @@ class ChatRepository {
     List<UploadResponse> lst = (response.data as List<dynamic>)
         .map((e) => UploadResponse.fromJson(e))
         .toList();
-    print("+++${lst[0]}");
     return lst;
   }
 }

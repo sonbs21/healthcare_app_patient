@@ -23,8 +23,6 @@ class AppointmentRepository {
     int? pageSize,
     String? status,
   ) async {
-    print('object:${status}');
-    print('object:${status != null || status != ''}');
     final queryParams = {
       'page': page ?? 1,
       'pageSize': pageSize ?? 10,
@@ -78,7 +76,6 @@ class AppointmentRepository {
       'doctorId': doctorId,
       'timeDate': timeDate,
     };
-    print("+==sss==${timeDate}");
 
     dio.options = BaseOptions();
     dio.options.headers['Authorization'] =
@@ -88,9 +85,6 @@ class AppointmentRepository {
       'http://10.0.2.2:5000/v1/appointment-time',
       queryParameters: queryParams,
     );
-
-    print("+====${response.data}");
-
     return AppointmentTimeResponse.fromJson(response.data);
   }
 

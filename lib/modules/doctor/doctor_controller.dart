@@ -29,7 +29,7 @@ class DoctorController extends GetxController {
   var dateController = TextEditingController();
   var timeController = TextEditingController();
   var notesController = TextEditingController();
-  LatLng? currentPosition;
+  Position? currentPosition;
   String? doctorId = "";
 
   @override
@@ -148,15 +148,11 @@ class DoctorController extends GetxController {
   }
 
   Future<void> _getCurrentLocation() async {
-    print("123213");
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      print("=========${position}");
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
 
-      currentPosition = LatLng(position.latitude, position.longitude);
-    } catch (e) {
-      print(e);
-    }
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    currentPosition = position;
   }
 }

@@ -1,18 +1,20 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
-import 'package:healthcare_mobile/components/auth_button.dart';
-import 'package:lottie/lottie.dart';
+import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+enum Gender { MALE, FEMALE }
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key}) : super(key: key);
   final signUpController = Get.find<SignUpController>();
+  DateTime _selectedDate = DateTime.now();
+  Rx<Gender> _character = Gender.MALE.obs;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,7 +41,7 @@ class SignUpPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "register_account".tr,
+                    "Đăng ký".tr,
                     style: const TextStyle(
                       color: Colors.blue,
                       fontSize: 28,
@@ -47,27 +49,48 @@ class SignUpPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 200.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: Get.width / 2.8,
-                        child: _buildFirstNameField(
-                            signUpController.firstNameController),
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      SizedBox(
-                        width: Get.width / 2.8,
-                        child: _buildLastNameField(
-                            signUpController.lastNameController),
-                      ),
-                    ],
+                  _buildNameField(signUpController.firstNameController),
+                  const SizedBox(height: 20),
+                  _buildPhoneField(signUpController.lastNameController),
+                  const SizedBox(height: 20),
+                  _buildDateField(signUpController.dateController, context),
+                  const SizedBox(height: 20),
+                  Obx(
+                    () => Row(
+                      children: <Widget>[
+                        const Text(
+                          'Giới tính:',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Container(
+                          width: 140,
+                          child: ListTile(
+                            title: const Text('Nam'),
+                            leading: Radio<Gender>(
+                              value: Gender.MALE,
+                              groupValue: _character.value,
+                              onChanged: (Gender? value) {
+                                _character.value = value!;
+                              },
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 120,
+                          child: ListTile(
+                            title: const Text('Nữ'),
+                            leading: Radio<Gender>(
+                              value: Gender.FEMALE,
+                              groupValue: _character.value,
+                              onChanged: (Gender? value) {
+                                _character.value = value!;
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 20),
-                  _buildEmailField(signUpController.emailController),
-                  const SizedBox(height: 20),
                   Obx(
                     () => _buildPasswordField(
                         signUpController.passwordController),
@@ -87,7 +110,7 @@ class SignUpPage extends StatelessWidget {
                               ),
                             )
                           : Text(
-                              "sign_up".tr,
+                              "Đăng ký".tr,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -95,10 +118,12 @@ class SignUpPage extends StatelessWidget {
                               ),
                             ),
                       onClick: () {
-                        String email = signUpController.emailController.text;
-                        String password =
-                            signUpController.passwordController.text;
-                        signUpController.signUp(email, password);
+                        // String email = signUpController.emailController.text;
+                        // String password =
+                        //     signUpController.passwordController.text;
+                        // signUpController.signUp(email, password);
+
+                        Get.toNamed(AppRoutes.OTP_PAGE);
                       },
                     ),
                   ),
@@ -107,7 +132,7 @@ class SignUpPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "already_account".tr,
+                        "Bạn đã có tài khoản  ".tr,
                         style: primaryTextStyle(),
                       ),
                       GestureDetector(
@@ -116,7 +141,7 @@ class SignUpPage extends StatelessWidget {
                           Get.toNamed(AppRoutes.LOGIN);
                         },
                         child: Text(
-                          "sign_in".tr,
+                          "Đăng nhập".tr,
                           style: primaryTextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.blue,
@@ -134,7 +159,19 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  _buildEmailField(TextEditingController controller) {
+  _buildDateField(TextEditingController controller, BuildContext context) {
+    //  TextFormField(
+    //                     controller: doctorController.dateController,
+    //                     decoration: const InputDecoration(
+    //                         labelText: 'Ngày hẹn',
+    //                         hintText: 'Chọn ngày',
+    //                         suffixIcon: Icon(Icons.calendar_today),
+    //                         contentPadding: EdgeInsets.symmetric(
+    //                             vertical: 10.0, horizontal: 20.0)),
+    //                     onTap: () => {
+    //                       _selectDate(context),
+    //                     },
+    //                   ),
     return TextFormField(
       autofocus: false,
       controller: controller,
@@ -155,13 +192,31 @@ class SignUpPage extends StatelessWidget {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-          hintText: "Email",
-          prefixIcon: const Icon(Icons.email_outlined),
+          labelText: 'Ngày sinh',
+          prefixIcon: const Icon(Icons.calendar_today),
           contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           )),
+      onTap: () => {
+        _selectDate(context),
+      },
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != _selectedDate) {
+      // setState(() {
+      _selectedDate = picked;
+      signUpController.dateController.text =
+          DateFormat.yMd().format(_selectedDate);
+      // });
+    }
   }
 
   _buildPasswordField(TextEditingController controller) {
@@ -177,16 +232,15 @@ class SignUpPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "please_enter_password".tr;
+          return "Bạn chưa nhập mật khẩu";
         } else if (!(RegExp("^(\\w{6,})\$").hasMatch(value))) {
-          return "password_at_least".tr;
+          return "Mật khẩu phải có ít nhất 6 ký tự";
         }
         return null;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        labelText: "Password",
-      
+        labelText: "Mật khẩu",
         prefixIcon: const Icon(Icons.vpn_key),
         suffixIcon: IconButton(
             onPressed: () {
@@ -217,18 +271,16 @@ class SignUpPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "please_re-enter_password".tr;
-        } else if (!(RegExp("^(\\w{6,})\$").hasMatch(value))) {
-          return "password_at_least".tr;
+          return "Bạn chưa nhập mật khẩu".tr;
         } else if (!(signUpController.passwordController.text ==
             signUpController.confirmPasswordController.text)) {
-          return "password_incorrect".tr;
+          return "Mật khẩu không đúng".tr;
         }
         return null;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        hintText: "re-enter_password".tr,
+        labelText: "Nhập lại mật khẩu".tr,
         prefixIcon: const Icon(Icons.vpn_key),
         suffixIcon: IconButton(
             onPressed: () {
@@ -246,7 +298,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  Widget _buildFirstNameField(TextEditingController controller) {
+  Widget _buildNameField(TextEditingController controller) {
     return TextFormField(
       autofocus: false,
       controller: controller,
@@ -259,13 +311,13 @@ class SignUpPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "please_enter_first_name".tr;
+          return "Chưa nhập thông tin".tr;
         }
         return null;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        hintText: "first_name".tr,
+        labelText: "Họ và tên".tr,
         prefixIcon: const Icon(Icons.border_color),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         border: OutlineInputBorder(
@@ -275,7 +327,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  _buildLastNameField(TextEditingController controller) {
+  _buildPhoneField(TextEditingController controller) {
     return TextFormField(
       autofocus: false,
       controller: controller,
@@ -288,14 +340,14 @@ class SignUpPage extends StatelessWidget {
       },
       validator: (value) {
         if (value!.isEmpty) {
-          return "please_enter_last_name".tr;
+          return "Chưa nhập số điện thoại".tr;
         }
         return null;
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        hintText: "last_name".tr,
-        prefixIcon: const Icon(Icons.border_color),
+        labelText: "Số điện thoại".tr,
+        prefixIcon: const Icon(Icons.phone),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

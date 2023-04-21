@@ -19,7 +19,6 @@ class AppointmentForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("${appointmentController.isDateSelected.value}");
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -310,10 +309,7 @@ class AppointmentForm extends StatelessWidget {
   _dialogSelect(
     String labelText,
   ) {
-    print("_________${labelText}");
 
-    print(
-        "_________${appointmentController.listAppointment.contains(labelText)}");
     return appointmentController.listAppointment.contains(labelText)
         ? Container(
             width: 120,

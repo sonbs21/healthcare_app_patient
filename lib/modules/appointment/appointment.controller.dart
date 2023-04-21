@@ -14,7 +14,6 @@ class AppointmentController extends GetxController {
     DateFormat format =
         DateFormat('M/d/y H:m:s'); // định dạng của chuỗi ngày tháng
     DateTime date = format.parse(dateString);
-    print('22222__${date}');
     final response =
         await appointmentRepository.getAppointmentTime(doctorId, date);
     if (response.statusCode == 200) {

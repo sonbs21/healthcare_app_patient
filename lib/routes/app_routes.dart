@@ -18,5 +18,8 @@ class AppRoutes {
   static const String CHOLESTEROL_PAGE = "/cholesterol_page";
   static const String NOTIFICATION_PAGE = "/notification_page";
   static const String APPOINMENT_PAGE = "/appointment_page";
+  static const String CHANGE_PASSWORD_PAGE = "/change_password_page";
+  static const String PERSONAL_INFO_PAGE = "/personal_info_page";
+  static const String OTP_PAGE = "/otp_page";
 
 }
