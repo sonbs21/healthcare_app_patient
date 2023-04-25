@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:healthcare_mobile/api/rest_api.dart';
 import 'package:healthcare_mobile/models/login/login_request.dart';
 import 'package:healthcare_mobile/models/login/login_response.dart';
 import 'package:healthcare_mobile/models/rating/rating_request.dart';
 import 'package:healthcare_mobile/models/user/doctor_lst_response.dart';
 import 'package:healthcare_mobile/models/user/doctor_response.dart';
+import 'package:healthcare_mobile/models/user/user_request.dart';
 import 'package:healthcare_mobile/models/user/user_response.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
+import 'package:intl/intl.dart';
 
 class UserRepository {
   final dio = Dio(); // Provide a dio instance
@@ -81,11 +82,45 @@ class UserRepository {
     return DoctorLstResponse.fromJson(response.data);
   }
 
-  // Future<List<UserResponse>> searchUserInWorkspace(
-  //     String keyword, int workspace, int boardId) async {
-  //   final client = RestClient(dio);
-  //   return await client.searchUserInWorkspace(keyword, workspace, boardId);
-  // }
+  Future<Response> changePassword(
+    String? oldPassword,
+    String? newPassword,
+    String? confirmNewPassword,
+  ) async {
+    // if (status != null) {
+    //   queryParams['status'] = status;
+    // }
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response =
+        await dio.patch('http://10.0.2.2:5000/v1/user/change-password', data: {
+      "oldPassword": oldPassword,
+      "newPassword": newPassword,
+      "confirmNewPassword": confirmNewPassword,
+    });
+
+    return response;
+  }
+
+  Future<UserResponse> update(UserRequest dto) async {
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+    String formattedDate = DateFormat("yyyy-MM-dd").format(dto.dateOfBirth!);
+    final response = await dio.patch('http://10.0.2.2:5000/v1/patient', data: {
+      "fullName": dto.fullName,
+      "address": dto.address,
+      "gender": dto.gender,
+      "dateOfBirth": formattedDate,
+      "job": dto.job,
+      "fullNameCarer": dto.fullNameCarer,
+      "phoneCarer": dto.phoneCarer,
+    });
+
+    return UserResponse.fromJson(response.data);
+  }
 
   // Future<UserResponse> updateUser(String uid, UserRequest userRequest) async {
   //   final client = RestClient(dio);

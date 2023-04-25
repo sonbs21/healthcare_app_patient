@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:healthcare_mobile/api/rest_api.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_get_response.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_request.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_time_response.dart';
-import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:healthcare_mobile/models/notifications/notification_response.dart';
+import 'package:healthcare_mobile/service/local_storage_service.dart';
+import 'package:intl/intl.dart';
 
 class AppointmentRepository {
   final dio = Dio(); // Provide a dio instance
@@ -92,11 +92,15 @@ class AppointmentRepository {
     dio.options = BaseOptions();
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
+    String formattedDateOfBirth =
+        DateFormat("yyyy-MM-dd").format(dto.dateOfBirth!);
+    String formattedDateMeeting =
+        DateFormat("yyyy-MM-dd").format(dto.dateMeeting!);
 
     final response =
         await dio.post('http://10.0.2.2:5000/v1/appointment', data: {
-      "dateMeeting": dto.dateMeeting,
-      "dateOfBirth": dto.dateOfBirth,
+      "dateMeeting": formattedDateMeeting,
+      "dateOfBirth": formattedDateOfBirth,
       "fullName": dto.fullName,
       "notes": dto.notes,
       "phone": dto.phone,

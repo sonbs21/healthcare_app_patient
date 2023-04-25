@@ -51,6 +51,7 @@ class PatientResponse {
   String? state;
   String? medicalHistory;
   String? doctorId;
+  List<CarerResponse> carer;
 
   PatientResponse(
       {this.id,
@@ -64,9 +65,29 @@ class PatientResponse {
       this.state,
       this.medicalHistory,
       this.doctorId,
+      required this.carer,
       this.dateOfBirth});
 
   factory PatientResponse.fromJson(Map<String, dynamic> json) =>
       _$PatientResponseFromJson(json);
   Map<String, dynamic> toJson() => _$PatientResponseToJson(this);
+}
+
+@JsonSerializable()
+class CarerResponse {
+  String? id;
+  String? fullName;
+  String? phone;
+  String? patientId;
+
+  CarerResponse({
+    this.id,
+    this.fullName,
+    this.patientId,
+    this.phone,
+  });
+
+  factory CarerResponse.fromJson(Map<String, dynamic> json) =>
+      _$CarerResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CarerResponseToJson(this);
 }

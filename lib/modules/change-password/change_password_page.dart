@@ -57,7 +57,7 @@ class ChangePasswordPage extends StatelessWidget {
                   Obx(
                     () => _buildPasswordField(
                         changePasswordController.confirmPasswordController,
-                        "  Nhập lại mật khẩu mới",
+                        "Nhập lại mật khẩu mới",
                         changePasswordController.isObscureConfirmPassword),
                   ),
                   const SizedBox(height: 40),
@@ -90,6 +90,10 @@ class ChangePasswordPage extends StatelessWidget {
                 ),
               ),
         onClick: () {
+          changePasswordController.changePassword(
+              changePasswordController.oldPasswordController.text,
+              changePasswordController.newPasswordController.text,
+              changePasswordController.confirmPasswordController.text);
           // Get.offNamed(AppRoutes.MAIN_NAVIGATION);
         },
       ),

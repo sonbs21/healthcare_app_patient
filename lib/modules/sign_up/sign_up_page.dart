@@ -160,18 +160,6 @@ class SignUpPage extends StatelessWidget {
   }
 
   _buildDateField(TextEditingController controller, BuildContext context) {
-    //  TextFormField(
-    //                     controller: doctorController.dateController,
-    //                     decoration: const InputDecoration(
-    //                         labelText: 'Ngày hẹn',
-    //                         hintText: 'Chọn ngày',
-    //                         suffixIcon: Icon(Icons.calendar_today),
-    //                         contentPadding: EdgeInsets.symmetric(
-    //                             vertical: 10.0, horizontal: 20.0)),
-    //                     onTap: () => {
-    //                       _selectDate(context),
-    //                     },
-    //                   ),
     return TextFormField(
       autofocus: false,
       controller: controller,

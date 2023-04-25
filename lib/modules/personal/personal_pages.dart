@@ -25,8 +25,8 @@ class PersonalPage extends StatelessWidget {
             height: 100,
             color: Colors.grey[200],
             child: Row(
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   radius: 50,
                   backgroundImage: NetworkImage(
                       'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg'),
@@ -37,7 +37,7 @@ class PersonalPage extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                     child: Text(
-                      "Bùi Sỹ Sơn",
+                      personalController.fullName.value,
                       style:
                           TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
                     ),
@@ -48,7 +48,7 @@ class PersonalPage extends StatelessWidget {
           ),
           const SizedBox(height: 50),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               Get.toNamed(AppRoutes.PERSONAL_INFO_PAGE);
             },
             child: Container(

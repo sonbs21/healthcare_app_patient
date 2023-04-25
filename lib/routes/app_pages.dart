@@ -35,6 +35,8 @@ import 'package:healthcare_mobile/modules/otp/otp_binding.dart';
 import 'package:healthcare_mobile/modules/otp/otp_page.dart';
 import 'package:healthcare_mobile/modules/personal-info/personal_info_binding.dart';
 import 'package:healthcare_mobile/modules/personal-info/personal_info_pages.dart';
+import 'package:healthcare_mobile/modules/personal-update/personal_update_binding.dart';
+import 'package:healthcare_mobile/modules/personal-update/personal_update_pages.dart';
 import 'package:healthcare_mobile/modules/personal/personal_binding.dart';
 import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_binding.dart';
@@ -151,6 +153,11 @@ class AppPages {
       name: AppRoutes.OTP_PAGE,
       binding: OtpBinding(),
       page: () => OtpPage(),
+    ),
+    GetPage(
+      name: AppRoutes.PERSONAL_UPDATE_PAGE,
+      binding: PersonalUpdateBinding(),
+      page: () => PersonalUpdatePage(),
     ),
     // Hero()
   ];

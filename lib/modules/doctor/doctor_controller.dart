@@ -120,7 +120,7 @@ class DoctorController extends GetxController {
       } on DioError catch (e) {
         isButtonLoading.value = false;
 
-        EasyLoading.showError(e.response?.data['message']);
+        // EasyLoading.showError(e.response?.data['message']);
       }
     }
 

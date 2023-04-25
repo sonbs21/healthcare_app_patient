@@ -21,7 +21,7 @@ class ChatCard extends StatelessWidget {
   }
 
   _cardItem(DataConversationResponse chat) {
-    var user = chat.member.firstWhere((m) => m.user?.id != id)?.user;
+    var user = chat.member.firstWhere((m) => m.user?.id != id).user;
     DateTime? date = chat.updatedAt;
     var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
 
@@ -42,7 +42,7 @@ class ChatCard extends StatelessWidget {
                 children: [
                   // Stack(
                   //   children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 35,
                     backgroundImage: NetworkImage(
                         "https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg"),

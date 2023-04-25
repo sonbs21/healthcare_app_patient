@@ -52,6 +52,9 @@ PatientResponse _$PatientResponseFromJson(Map<String, dynamic> json) =>
       state: json['state'] as String?,
       medicalHistory: json['medicalHistory'] as String?,
       doctorId: json['doctorId'] as String?,
+      carer: (json['carer'] as List<dynamic>)
+          .map((e) => CarerResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
       dateOfBirth: json['dateOfBirth'] == null
           ? null
           : DateTime.parse(json['dateOfBirth'] as String),
@@ -71,4 +74,21 @@ Map<String, dynamic> _$PatientResponseToJson(PatientResponse instance) =>
       'state': instance.state,
       'medicalHistory': instance.medicalHistory,
       'doctorId': instance.doctorId,
+      'carer': instance.carer,
+    };
+
+CarerResponse _$CarerResponseFromJson(Map<String, dynamic> json) =>
+    CarerResponse(
+      id: json['id'] as String?,
+      fullName: json['fullName'] as String?,
+      patientId: json['patientId'] as String?,
+      phone: json['phone'] as String?,
+    );
+
+Map<String, dynamic> _$CarerResponseToJson(CarerResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'fullName': instance.fullName,
+      'phone': instance.phone,
+      'patientId': instance.patientId,
     };
