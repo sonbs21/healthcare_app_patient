@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/personal/personal_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../../components/auth_button.dart';
@@ -16,8 +17,16 @@ class PersonalInfoPage extends StatelessWidget {
     String gender = personalController.user?.gender == "MALE" ? "Nam" : "Nữ";
     DateTime? dateOfBirth = personalController.user?.dateOfBirth!;
     var inputFormat = DateFormat('dd/MM/yyyy').format(dateOfBirth!);
-    print(
-        "personalController.user?.fullName!__==${personalController.user?.fullName!}");
+    final ImagePicker picker = ImagePicker();
+
+    Future getImage() async {
+      // var image = await picker.pickImage(source: ImageSource.gallery);
+
+      XFile? image = await picker.pickImage(
+        source: ImageSource.gallery,
+      );
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -43,11 +52,14 @@ class PersonalInfoPage extends StatelessWidget {
                   height: 100,
                   child: Row(
                     children: [
-                      const CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(
-                            'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg'),
-                        // radius: 24,
+                      InkWell(
+                        onTap: () {},
+                        child: const CircleAvatar(
+                          radius: 50,
+                          backgroundImage: NetworkImage(
+                              'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg'),
+                          // radius: 24,
+                        ),
                       ),
                       Expanded(
                         child: Padding(
