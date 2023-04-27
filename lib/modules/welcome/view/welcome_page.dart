@@ -1,14 +1,12 @@
+import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/welcome/welcome_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/utils/color.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flag/flag.dart';
 
 class WelcomePage extends StatelessWidget {
   WelcomePage({Key? key}) : super(key: key);
@@ -17,7 +15,7 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: textColorPrimary,
         body: SingleChildScrollView(
           padding: EdgeInsets.all(16.w),
           child: Column(
@@ -258,34 +256,34 @@ class WelcomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              "assets/images/walkthrough1.png",
+              "assets/images/walkthrough1.jpg",
               height: 250,
             ),
             40.height,
             SizedBox(
               width: 300,
-              child: Text(
-                "title_walk_through_1".tr,
-                style: boldTextStyle(
-                  color: textColorPrimary,
-                  size: 20,
-                  letterSpacing: 1,
-                ),
-                textAlign: TextAlign.center,
-              ),
+              // child: Text(
+              //   "title_walk_through_1".tr,
+              //   style: boldTextStyle(
+              //     color: textColorPrimary,
+              //     size: 20,
+              //     letterSpacing: 1,
+              //   ),
+              //   textAlign: TextAlign.center,
+              // ),
             ),
             const SizedBox(
               height: 5,
             ),
-            SizedBox(
-              width: 400,
-              child: Text(
-                "description_walk_through_1".tr,
-                style:
-                    primaryTextStyle(color: textColorPrimary, letterSpacing: 1),
-                textAlign: TextAlign.center,
-              ),
-            ),
+            // SizedBox(
+            //   width: 400,
+            //   child: Text(
+            //     "description_walk_through_1".tr,
+            //     style:
+            //         primaryTextStyle(color: textColorPrimary, letterSpacing: 1),
+            //     textAlign: TextAlign.center,
+            //   ),
+            // ),
             // commonCacheImageWidget(tc_WalkThroughImg1.validate(), height: 230),
           ],
         ),
@@ -295,31 +293,31 @@ class WelcomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            "assets/images/walkthrough2.png",
+            "assets/images/walkthrough2.jpg",
             height: 250,
           ),
           40.height,
           SizedBox(
             width: 250,
-            child: Text(
-              "title_walk_through_2".tr,
-              style: boldTextStyle(
-                  color: textColorPrimary, size: 20, letterSpacing: 1),
-              textAlign: TextAlign.center,
-            ),
+            // child: Text(
+            //   "title_walk_through_2".tr,
+            //   style: boldTextStyle(
+            //       color: textColorPrimary, size: 20, letterSpacing: 1),
+            //   textAlign: TextAlign.center,
+            // ),
           ),
           const SizedBox(
             height: 5,
           ),
-          SizedBox(
-            width: 340,
-            child: Text(
-              "description_walk_through_2".tr,
-              style:
-                  primaryTextStyle(color: textColorPrimary, letterSpacing: 1),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          // SizedBox(
+          //   width: 340,
+          //   child: Text(
+          //     "description_walk_through_2".tr,
+          //     style:
+          //         primaryTextStyle(color: textColorPrimary, letterSpacing: 1),
+          //     textAlign: TextAlign.center,
+          //   ),
+          // ),
         ],
       ),
       Column(
@@ -327,60 +325,60 @@ class WelcomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            "assets/images/walkthrough3.png",
+            "assets/images/walkthrough3.jpg",
             height: 250,
           ),
           40.height,
-          Text(
-            "title_walk_through_3".tr,
-            style: boldTextStyle(
-                color: textColorPrimary, size: 20, letterSpacing: 1),
-          ),
+          // Text(
+          //   "title_walk_through_3".tr,
+          //   style: boldTextStyle(
+          //       color: textColorPrimary, size: 20, letterSpacing: 1),
+          // ),
           const SizedBox(
             height: 5,
           ),
-          SizedBox(
-              width: 260,
-              child: Text(
-                "description_walk_through_3".tr,
-                style: primaryTextStyle(
-                  color: textColorPrimary,
-                  letterSpacing: 1,
-                ),
-                textAlign: TextAlign.center,
-              )),
+          // SizedBox(
+          //     width: 260,
+          //     child: Text(
+          //       "description_walk_through_3".tr,
+          //       style: primaryTextStyle(
+          //         color: textColorPrimary,
+          //         letterSpacing: 1,
+          //       ),
+          //       textAlign: TextAlign.center,
+          //     )),
         ],
       ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "assets/images/walkthrough4.png",
-            height: 250,
-          ),
-          40.height,
-          Text(
-            "title_walk_through_4".tr,
-            style: boldTextStyle(
-                color: textColorPrimary, size: 20, letterSpacing: 1),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          SizedBox(
-            width: 340,
-            child: Text(
-              "description_walk_through_4".tr,
-              style: primaryTextStyle(
-                color: textColorPrimary,
-                letterSpacing: 1,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
+      // Column(
+      //   crossAxisAlignment: CrossAxisAlignment.center,
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     Image.asset(
+      //       "assets/images/walkthrough4.png",
+      //       height: 250,
+      //     ),
+      //     40.height,
+      //     Text(
+      //       "title_walk_through_4".tr,
+      //       style: boldTextStyle(
+      //           color: textColorPrimary, size: 20, letterSpacing: 1),
+      //     ),
+      //     const SizedBox(
+      //       height: 5,
+      //     ),
+      //     SizedBox(
+      //       width: 340,
+      //       child: Text(
+      //         "description_walk_through_4".tr,
+      //         style: primaryTextStyle(
+      //           color: textColorPrimary,
+      //           letterSpacing: 1,
+      //         ),
+      //         textAlign: TextAlign.center,
+      //       ),
+      //     ),
+      //   ],
+      // ),
     ];
   }
 }

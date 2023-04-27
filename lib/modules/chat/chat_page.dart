@@ -28,7 +28,7 @@ class ChatPage extends StatelessWidget {
           ),
         ),
         // actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.search))],
-        title: const Text('Nhắn tin'),
+        title: const Text('Hội thoại'),
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(

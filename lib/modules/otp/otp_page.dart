@@ -1,161 +1,133 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:healthcare_mobile/components/auth_button.dart';
-import 'package:healthcare_mobile/modules/sign_up/sign_up_controller.dart';
-import 'package:healthcare_mobile/routes/app_routes.dart';
-import 'package:intl/intl.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'package:pinput/pinput.dart';
 
-enum Gender { MALE, FEMALE }
-
-class OtpPage extends StatelessWidget {
-  OtpPage({Key? key}) : super(key: key);
-
-  String text = '';
-  void _onKeyboardTap(String value) {
-    text = text + value;
-  }
-
-  Widget otpNumberWidget(int position) {
-    try {
-      return Container(
-        height: 40,
-        width: 40,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 0),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-        child: Center(
-            child: Text(
-          text[position],
-          style: TextStyle(color: Colors.black),
-        )),
-      );
-    } catch (e) {
-      return Container(
-        height: 40,
-        width: 40,
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 0),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
-      );
-    }
-  }
+class OtpPage extends StatefulWidget {
+  const OtpPage({Key? key}) : super(key: key);
 
   @override
+  State<OtpPage> createState() => _OtpPageState();
+}
+
+class _OtpPageState extends State<OtpPage> {
+  @override
   Widget build(BuildContext context) {
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: const TextStyle(
+          fontSize: 20,
+          color: Color.fromRGBO(30, 60, 87, 1),
+          fontWeight: FontWeight.w600),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+      borderRadius: BorderRadius.circular(8),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        color: const Color.fromRGBO(234, 239, 243, 1),
+      ),
+    );
+
     return Scaffold(
-      backgroundColor: Colors.white,
-      // key: loginStore.otpScaffoldKey,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         leading: IconButton(
-          icon: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              color: Color(0xFF6252A7).withAlpha(20),
-            ),
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Color(0xFF503E9D),
-              size: 16,
-            ),
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_rounded,
+            color: Colors.black,
           ),
-          onPressed: () => Navigator.of(context).pop(),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
-        brightness: Brightness.light,
       ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                                'Enter 6 digits verification code sent to your number',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.w500))),
-                        Container(
-                          constraints: const BoxConstraints(maxWidth: 500),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              otpNumberWidget(0),
-                              otpNumberWidget(1),
-                              otpNumberWidget(2),
-                              otpNumberWidget(3),
-                              otpNumberWidget(4),
-                              otpNumberWidget(5),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Container(
-                  //   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  //   constraints: const BoxConstraints(
-                  //       maxWidth: 500
-                  //   ),
-                  //   child: RaisedButton(
-                  //     onPressed: () {
-                  //       // loginStore.validateOtpAndLogin(context, text);
-                  //     },
-                  //     color: MyColors.primaryColor,
-                  //     shape: const RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.all(Radius.circular(14))
-                  //     ),
-                  //     child: Container(
-                  //       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  //       child: Row(
-                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //         children: <Widget>[
-                  //           Text('Confirm', style: TextStyle(color: Colors.white),),
-                  //           Container(
-                  //             padding: const EdgeInsets.all(8),
-                  //             decoration: BoxDecoration(
-                  //               borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  //               color: MyColors.primaryColorLight,
-                  //             ),
-                  //             child: Icon(Icons.arrow_forward_ios, color: Colors.white, size: 16,),
-                  //           )
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // NumericKeyboard(
-                  //   onKeyboardTap: _onKeyboardTap,
-                  //   textColor: MyColors.primaryColorLight,
-                  //   rightIcon: Icon(
-                  //     Icons.backspace,
-                  //     color: MyColors.primaryColorLight,
-                  //   ),
-                  //   rightButtonFn: () {
-                  //     setState(() {
-                  //       text = text.substring(0, text.length - 1);
-                  //     });
-                  //   },
-                  // )
-                ],
+      body: Container(
+        margin: EdgeInsets.only(left: 25, right: 25),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Image.asset(
+              //   'assets/img1.png',
+              //   width: 150,
+              //   height: 150,
+              // ),
+              const SizedBox(
+                height: 25,
               ),
-            )
-          ],
+              const Text(
+                "Xác thực số điện thoại",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              // Text(
+              //   "We need to register your phone without getting started!",
+              //   style: TextStyle(
+              //     fontSize: 16,
+              //   ),
+              //   textAlign: TextAlign.center,
+              // ),
+              const SizedBox(
+                height: 30,
+              ),
+              Pinput(
+                length: 6,
+                // defaultPinTheme: defaultPinTheme,
+                // focusedPinTheme: focusedPinTheme,
+                // submittedPinTheme: submittedPinTheme,
+
+                showCursor: true,
+                onCompleted: (pin) => print(pin),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.green.shade600,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () {},
+                    child: const Text("Xác thực")),
+              ),
+              // Row(
+              //   children: [
+              //     TextButton(
+              //         onPressed: () {
+              //           Navigator.pushNamedAndRemoveUntil(
+              //             context,
+              //             'phone',
+              //             (route) => false,
+              //           );
+              //         },
+              //         child: Text(
+              //           "Edit Phone Number ?",
+              //           style: TextStyle(color: Colors.black),
+              //         ))
+              //   ],
+              // )
+            ],
+          ),
         ),
       ),
     );

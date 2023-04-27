@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:healthcare_mobile/modules/personal-update/personal_update_controller.dart';
 import 'package:healthcare_mobile/modules/personal/personal_controller.dart';
-import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:intl/intl.dart';
 
 enum Gender { MALE, FEMALE }

@@ -10,8 +10,6 @@ import 'package:healthcare_mobile/modules/chat/chat_binding.dart';
 import 'package:healthcare_mobile/modules/chat/chat_page.dart';
 import 'package:healthcare_mobile/modules/chat/gpt/screens/gpt_binding.dart';
 import 'package:healthcare_mobile/modules/chat/gpt/screens/gpt_screen.dart';
-// import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_binding.dart';
-// import 'package:healthcare_mobile/modules/chat_gpt/chat_gpt_screen.dart';
 import 'package:healthcare_mobile/modules/cholesterol/cholesterol_binding.dart';
 import 'package:healthcare_mobile/modules/cholesterol/cholesterol_page.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_binding.dart';
@@ -39,6 +37,8 @@ import 'package:healthcare_mobile/modules/personal-update/personal_update_bindin
 import 'package:healthcare_mobile/modules/personal-update/personal_update_pages.dart';
 import 'package:healthcare_mobile/modules/personal/personal_binding.dart';
 import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
+import 'package:healthcare_mobile/modules/select-doctor/select_doctor_binding.dart';
+import 'package:healthcare_mobile/modules/select-doctor/select_doctor_page.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_binding.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_page.dart';
 import 'package:healthcare_mobile/modules/splash/splash_binding.dart';
@@ -158,6 +158,11 @@ class AppPages {
       name: AppRoutes.PERSONAL_UPDATE_PAGE,
       binding: PersonalUpdateBinding(),
       page: () => PersonalUpdatePage(),
+    ),
+    GetPage(
+      name: AppRoutes.SELECT_DOCTOR_PAGE,
+      binding: SelectDoctorBinding(),
+      page: () => SelectDoctorPage(),
     ),
     // Hero()
   ];

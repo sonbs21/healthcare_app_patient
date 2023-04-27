@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:healthcare_mobile/components/auth_button.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_controller.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/service/auth_service.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 enum Gender { MALE, FEMALE }
 
 class SignUpPage extends StatelessWidget {
+  var authService = Get.find<AuthService>();
   SignUpPage({Key? key}) : super(key: key);
   final signUpController = Get.find<SignUpController>();
   DateTime _selectedDate = DateTime.now();
@@ -49,9 +51,9 @@ class SignUpPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 200.h),
-                  _buildNameField(signUpController.firstNameController),
+                  _buildNameField(signUpController.fullNameController),
                   const SizedBox(height: 20),
-                  _buildPhoneField(signUpController.lastNameController),
+                  _buildPhoneField(signUpController.phoneController),
                   const SizedBox(height: 20),
                   _buildDateField(signUpController.dateController, context),
                   const SizedBox(height: 20),
@@ -122,8 +124,8 @@ class SignUpPage extends StatelessWidget {
                         // String password =
                         //     signUpController.passwordController.text;
                         // signUpController.signUp(email, password);
-
-                        Get.toNamed(AppRoutes.OTP_PAGE);
+                        authService.signInWithPhoneNumber(
+                            signUpController.phoneController.text);
                       },
                     ),
                   ),
@@ -315,7 +317,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  _buildPhoneField(TextEditingController controller) {
+  Widget _buildInsuranceNumberField(TextEditingController controller) {
     return TextFormField(
       autofocus: false,
       controller: controller,
@@ -323,6 +325,122 @@ class SignUpPage extends StatelessWidget {
       enableSuggestions: false,
       autocorrect: false,
       keyboardType: TextInputType.name,
+      onSaved: (save) {
+        controller.text = save!;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Chưa nhập thông tin".tr;
+        }
+        return null;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        labelText: "Số bảo hiểm".tr,
+        prefixIcon: const Icon(Icons.border_color),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildJobField(TextEditingController controller) {
+    return TextFormField(
+      autofocus: false,
+      controller: controller,
+      obscureText: false,
+      enableSuggestions: false,
+      autocorrect: false,
+      keyboardType: TextInputType.name,
+      onSaved: (save) {
+        controller.text = save!;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Chưa nhập thông tin".tr;
+        }
+        return null;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        labelText: "Nghể nghiệp".tr,
+        prefixIcon: const Icon(Icons.border_color),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStateField(TextEditingController controller) {
+    return TextFormField(
+      autofocus: false,
+      controller: controller,
+      obscureText: false,
+      enableSuggestions: false,
+      autocorrect: false,
+      keyboardType: TextInputType.name,
+      onSaved: (save) {
+        controller.text = save!;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Chưa nhập thông tin".tr;
+        }
+        return null;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        labelText: "Trạng thái".tr,
+        prefixIcon: const Icon(Icons.border_color),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMedicalHistoryField(TextEditingController controller) {
+    return TextFormField(
+      autofocus: false,
+      controller: controller,
+      obscureText: false,
+      enableSuggestions: false,
+      autocorrect: false,
+      keyboardType: TextInputType.name,
+      onSaved: (save) {
+        controller.text = save!;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Chưa nhập thông tin".tr;
+        }
+        return null;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        labelText: "Trạng thái".tr,
+        prefixIcon: const Icon(Icons.border_color),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  _buildPhoneField(TextEditingController controller) {
+    return TextFormField(
+      autofocus: false,
+      controller: controller,
+      obscureText: false,
+      enableSuggestions: false,
+      autocorrect: false,
+      keyboardType: TextInputType.phone,
       onSaved: (save) {
         controller.text = save!;
       },

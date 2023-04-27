@@ -30,7 +30,6 @@ class PersonalUpdateController extends GetxController {
           fullNameCarer: nameCarer,
           phoneCarer: phoneCarer));
 
-      print("response___${response.statusCode}");
       if (response.statusCode == 200) {
         final response = await userRepository
             .getMe()

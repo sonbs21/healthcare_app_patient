@@ -49,13 +49,32 @@ class LoginPage extends StatelessWidget {
                     () =>
                         _buildPasswordField(loginController.passwordController),
                   ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.back();
+                          Get.toNamed(AppRoutes.SIGN_UP);
+                        },
+                        child: Text(
+                          "Quên mật khẩu".tr,
+                          style: primaryTextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   // loginController.isError
                   //     ? Text(
                   //         loginController.isError,
                   //         style: TextStyle(color: Color.red),
                   //       )
                   //     : '',
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 25),
                   _buildSignInButton(),
                   const SizedBox(height: 20),
                   Row(

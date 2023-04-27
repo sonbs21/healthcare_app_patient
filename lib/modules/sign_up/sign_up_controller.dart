@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
   var formKey = GlobalKey<FormState>();
-  var firstNameController = TextEditingController();
-  var lastNameController = TextEditingController();
+  var fullNameController = TextEditingController();
+  var phoneController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var dateController = TextEditingController();

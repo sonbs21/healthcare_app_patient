@@ -13,6 +13,7 @@ class PersonalController extends GetxController {
   RxString fullName = "".obs;
   var addressController = TextEditingController();
   String address = "";
+  String avatar = "";
   var jobController = TextEditingController();
   String job = "";
   var nameCarerController = TextEditingController();
@@ -51,8 +52,8 @@ class PersonalController extends GetxController {
     final response = await userRepository.getMe();
     if (response.statusCode == 200) {
       user = response.data!.patient!;
-      print("object___${user?.fullName}");
-
+      print("object___${user?.avatar}");
+      avatar = user?.avatar! ?? "";
       fullNameController.text = user?.fullName! ?? "";
       fullName.value = user?.fullName! ?? "";
       addressController.text = user?.address! ?? "";

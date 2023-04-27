@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,6 +18,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Get.putAsync(() => LocalStorageService.init());
+   await Firebase.initializeApp();
   runApp(MyApp());
   Get.lazyPut(() => AppointmentRepository(), fenix: true);
 

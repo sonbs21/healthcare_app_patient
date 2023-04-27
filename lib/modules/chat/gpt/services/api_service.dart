@@ -36,7 +36,7 @@ class ApiService {
   static Future<List<ChatModel>> sendMessage(
       {required String message, required String modelId}) async {
     String BASE_URL = "https://api.openai.com/v1";
-    String API_KEY = "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";
+    String API_KEY = "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";
     try {
       log("modelId $modelId");
       log("message $message");

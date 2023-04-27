@@ -8,13 +8,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+final personalController = Get.find<PersonalController>();
+
 class PersonalPage extends StatelessWidget {
   PersonalPage({Key? key}) : super(key: key);
 
-  final personalController = Get.find<PersonalController>();
-
+  String avatarUrl = personalController.avatar != ""
+      ? personalController.avatar
+      : 'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg';
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -26,11 +30,23 @@ class PersonalPage extends StatelessWidget {
             color: Colors.grey[200],
             child: Row(
               children: [
-                const CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(
-                      'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg'),
-                  // radius: 24,
+                Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.white,
+                  child: ClipOval(
+                      child: CachedNetworkImage(
+                    imageUrl: "${Uri.encodeFull(avatarUrl)}",
+                  )
+                      // CachedNetworkImage(
+                      //   imageUrl: avatarUrl,
+                      //   placeholder: (context, url) =>
+                      //       const CircularProgressIndicator(),
+                      //   errorWidget: (context, url, error) {
+                      //     return const Icon(Icons.error);
+                      //   },
+                      // ),
+                      ),
                 ),
                 Expanded(
                   child: Padding(

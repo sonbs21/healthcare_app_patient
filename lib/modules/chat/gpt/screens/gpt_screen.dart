@@ -56,7 +56,7 @@ class _GptScreenState extends State<GptScreen> {
         title: const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            "OpenAI's ChatGPT Flutter Example \n@ngjunya",
+            "Chat bot AI",
             maxLines: 2,
             textAlign: TextAlign.center,
           ),

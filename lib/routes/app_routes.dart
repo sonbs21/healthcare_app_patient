@@ -22,4 +22,5 @@ class AppRoutes {
   static const String PERSONAL_INFO_PAGE = "/personal_info_page";
   static const String OTP_PAGE = "/otp_page";
   static const String PERSONAL_UPDATE_PAGE = "/personal_update_page";
+  static const String SELECT_DOCTOR_PAGE = "/select_doctor_page";
 }
