@@ -31,14 +31,20 @@ class LoginController extends GetxController {
         await userRepository
             .loginUser(LoginRequest(phone: phone, password: password))
             .then((value) {
-          LocalStorageService.setAccessToken(
-              value.data?.access_token as String);
-              LocalStorageService.setRefreshToken(
-              value.data?.refresh_token as String);
-          LocalStorageService.setPhone(phone);
-          LocalStorageService.setPassword(password);
+          if (value.data?.role == "PATIENT") {
+            LocalStorageService.setAccessToken(
+                value.data?.access_token as String);
+            LocalStorageService.setRefreshToken(
+                value.data?.refresh_token as String);
+            LocalStorageService.setId(value.data?.memberId as String);
 
-          Get.offAllNamed(AppRoutes.MAIN_NAVIGATION);
+            LocalStorageService.setPhone(phone);
+            LocalStorageService.setPassword(password);
+
+            Get.offAllNamed(AppRoutes.MAIN_NAVIGATION);
+          } else {
+            EasyLoading.showError("Số điện thoại không phù hợp");
+          }
         });
       } on DioError catch (e) {
         EasyLoading.showError(e.response?.data['message']);

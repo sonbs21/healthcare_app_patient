@@ -4,10 +4,11 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService extends GetxService {
   late IO.Socket socket;
-
+// String domain = "http://10.0.2.2:5000";
+  String domain = "https://healthcarebe-production.up.railway.app";
   void connect() {
     try {
-      socket = IO.io('http://10.0.2.2:5000', <String, dynamic>{
+      socket = IO.io(domain, <String, dynamic>{
         "transports": ["websocket"],
         "autoConnect": false,
         "query": "Authorization=${LocalStorageService.getRefreshToken()}"
@@ -15,7 +16,6 @@ class SocketService extends GetxService {
 
       socket.connect();
     } catch (e) {
-      print('Error connecting to Socket.io server: $e');
     }
   }
 

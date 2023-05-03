@@ -48,12 +48,17 @@ class PersonalController extends GetxController {
     Get.offAllNamed(AppRoutes.LOGIN);
   }
 
+  void emergency() async {
+    userRepository.emergency();
+  }
+
   void getInforPersonal() async {
     final response = await userRepository.getMe();
     if (response.statusCode == 200) {
       user = response.data!.patient!;
-      print("object___${user?.avatar}");
-      avatar = user?.avatar! ?? "";
+      avatar = (user?.avatar == ""
+          ? user?.avatar
+          : "https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg")!;
       fullNameController.text = user?.fullName! ?? "";
       fullName.value = user?.fullName! ?? "";
       addressController.text = user?.address! ?? "";

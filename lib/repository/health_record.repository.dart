@@ -5,6 +5,7 @@ import 'package:healthcare_mobile/models/health-record/health_record_request.dar
 import 'package:healthcare_mobile/models/health-record/health_record_response.dart';
 import 'package:healthcare_mobile/models/health-record/record_day_response.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
+import 'package:healthcare_mobile/utils/constant.dart';
 
 class HealthRecordRepository {
   final dio = Dio(); // Provide a dio instance
@@ -15,7 +16,7 @@ class HealthRecordRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response =
-        await dio.post('http://10.0.2.2:5000/v1/health-record', data: {
+        await dio.post('$domain/health-record', data: {
       "height": dto.height,
       "weight": dto.weight,
       "heartRateIndicator": dto.heartRateIndicator,
@@ -33,7 +34,7 @@ class HealthRecordRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/health-record-day',
+      '$domain/health-record-day',
     );
     return HealthRecordDayResponse.fromJson(response.data);
   }
@@ -44,7 +45,7 @@ class HealthRecordRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/get-bmi',
+      '$domain/get-bmi',
     );
     return HealthRecordResponse.fromJson(response.data);
   }
@@ -55,7 +56,7 @@ class HealthRecordRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/get-blood-pressure',
+      '$domain/get-blood-pressure',
     );
     return HealthRecordResponse.fromJson(response.data);
   }
@@ -66,7 +67,7 @@ class HealthRecordRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/get-cholesterol',
+      '$domain/get-cholesterol',
     );
     return HealthRecordResponse.fromJson(response.data);
   }
@@ -77,7 +78,7 @@ class HealthRecordRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/get-heartbeat',
+      '$domain/get-heartbeat',
     );
     return HealthRecordResponse.fromJson(response.data);
   }
@@ -88,7 +89,7 @@ class HealthRecordRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/get-glucose',
+      '$domain/get-glucose',
     );
     return HealthRecordResponse.fromJson(response.data);
   }
@@ -99,7 +100,7 @@ class HealthRecordRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/health-record-member',
+      '$domain/health-record-member',
     );
     return HealthRecordResponse.fromJson(response.data);
   }

@@ -5,19 +5,12 @@ import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_time_response.dart';
 import 'package:healthcare_mobile/models/notifications/notification_response.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
+import 'package:healthcare_mobile/utils/constant.dart';
 import 'package:intl/intl.dart';
 
 class AppointmentRepository {
   final dio = Dio(); // Provide a dio instance
 
-  // Future<void> postHealthRecord(
-  //     HealthRecordRequest dto) async {
-  //   final client = RestClient(dio);
-  //   return await client.postHealthRecord(dto);
-  // }
-
-  // Future<AppointmentResponse> getAppointmentPatient(
-  //     int? page, int? pageSize, String? status) async {
   Future<AppointmentResponse> getAppointmentPatient(
     int? page,
     int? pageSize,
@@ -28,22 +21,18 @@ class AppointmentRepository {
       'pageSize': pageSize ?? 10,
       if (status != null && status != '') 'status': status,
     };
-    // if (status != null) {
-    //   queryParams['status'] = status;
-    // }
+
     dio.options = BaseOptions();
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/get-appointment-patient',
+      '$domain/get-appointment-patient',
       queryParameters: queryParams,
     );
 
     return AppointmentResponse.fromJson(response.data);
   }
-  // return await client.getAppointmentPatient();
-  // }
 
   Future<NotificationResponse> getNotification(
     int? page,
@@ -53,15 +42,13 @@ class AppointmentRepository {
       'page': page ?? 1,
       'pageSize': pageSize ?? 20,
     };
-    // if (status != null) {
-    //   queryParams['status'] = status;
-    // }
+
     dio.options = BaseOptions();
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/get-notifications',
+      '$domain/get-notifications',
       queryParameters: queryParams,
     );
 
@@ -82,7 +69,7 @@ class AppointmentRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/appointment-time',
+      '$domain/appointment-time',
       queryParameters: queryParams,
     );
     return AppointmentTimeResponse.fromJson(response.data);
@@ -97,8 +84,7 @@ class AppointmentRepository {
     String formattedDateMeeting =
         DateFormat("yyyy-MM-dd").format(dto.dateMeeting!);
 
-    final response =
-        await dio.post('http://10.0.2.2:5000/v1/appointment', data: {
+    final response = await dio.post('$domain/appointment', data: {
       "dateMeeting": formattedDateMeeting,
       "dateOfBirth": formattedDateOfBirth,
       "fullName": dto.fullName,
@@ -115,7 +101,7 @@ class AppointmentRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.put(
-      'http://10.0.2.2:5000/v1/appointment/$id/cancel',
+      '$domain/appointment/$id/cancel',
     );
 
     return AppointmentGetResponse.fromJson(response.data);

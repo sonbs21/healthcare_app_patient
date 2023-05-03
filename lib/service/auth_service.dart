@@ -1,29 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:healthcare_mobile/models/login/login_request.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
 
 class AuthService extends GetxController {
   final _auth = FirebaseAuth.instance;
   var verificationId = "".obs;
 
-  Future<void> signInWithPhoneNumber(String phone) async {
+  Future<void> signInWithPhoneNumber(String phone, password) async {
     String phoneNumbers = "+84${phone.substring(1)}";
-    print("+====${phoneNumbers}");
+
+    LoginRequest data = LoginRequest(phone: phone, password: password);
     await _auth.verifyPhoneNumber(
       phoneNumber: phoneNumbers,
-      verificationCompleted: (PhoneAuthCredential credential) {
-        Get.toNamed(AppRoutes.OTP_PAGE);
-      },
+      verificationCompleted: (PhoneAuthCredential credential) {},
       verificationFailed: (FirebaseAuthException e) {
         if (e.code == "invalid-phone-number") {
           Get.snackbar("Error", "The phone number is not valid");
         } else {
-          print("____${e.code}");
           Get.snackbar("Error", "Something went wrong. Try again ${e.code}");
         }
       },
       codeSent: (String verificationId, int? resendToken) {
         this.verificationId.value = verificationId;
+        Get.toNamed(AppRoutes.OTP_PAGE, arguments: data);
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         this.verificationId.value = verificationId;

@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:healthcare_mobile/models/chats/chat_response.dart';
 import 'package:healthcare_mobile/models/chats/message_request.dart';
 import 'package:healthcare_mobile/repository/chat.repository.dart';
+import 'package:healthcare_mobile/routes/app_routes.dart';
+import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:healthcare_mobile/service/socket_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socket_io_client/socket_io_client.dart';
@@ -25,9 +27,8 @@ class MessagesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    
+
     socketService.socket.onConnect((data) {
-      print('Connected to Socket.io server');
       socketService.socket.on('newMessage', (msg) {
         // MessageResponse msga = msg;
         try {
@@ -35,13 +36,10 @@ class MessagesController extends GetxController {
               DataMessageResponse.fromJson(msg['data']);
 
           listMessage.add(messageResponse);
-        } catch (e) {
-        }
+        } catch (e) {}
       });
     });
   }
-
-
 
   void initListMessage(String id, Function onComplete) async {
     final response = await chatRepository.getMessage(id, 1, 20);
@@ -54,6 +52,21 @@ class MessagesController extends GetxController {
     } else {
       // Xử lý khi API trả về lỗi
     }
+  }
+
+  void callVideo(String conversationId, callerId, calleeId) async {
+    // socketService.socket.onConnect((data) {
+    LocalStorageService.setConversationCallId(conversationId);
+    LocalStorageService.setCalleeId(calleeId);
+    LocalStorageService.setCallerId(callerId);
+
+    socketService.socket.emit('call', {
+      "conversationId": conversationId,
+      "callerId": callerId,
+      "calleeId": calleeId
+    });
+    Get.toNamed(AppRoutes.CALL_PAGE, arguments: false);
+    // });
   }
 
   void upload(List<XFile> files, String id, String type) async {

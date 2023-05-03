@@ -38,7 +38,7 @@ class NotificationPage extends StatelessWidget {
     DateTime? date = notification.createdAt;
     var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
     return Container(
-      margin:const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.black,
@@ -53,7 +53,7 @@ class NotificationPage extends StatelessWidget {
             child: Container(
               height: 50,
               width: 50,
-              padding:const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.grey.shade300,
@@ -114,6 +114,13 @@ class NotificationPage extends StatelessWidget {
               ),
             ),
           ),
+          notification.typeNotification == "EMERGENCY"
+              ? GestureDetector(
+                onTap: () {
+                  
+                },
+                child: Text(notification.url ?? ""))
+              : const SizedBox()
           // notification.postImage != '' ?
           //   Container(
           //     width: 50,

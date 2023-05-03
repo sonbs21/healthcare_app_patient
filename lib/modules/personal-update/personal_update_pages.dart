@@ -162,13 +162,10 @@ class PersonalUpdatePage extends StatelessWidget {
                                     ),
                                   ),
                             onClick: () {
-                              print(
-                                  "personalController.dateController___${personalController.dateController.text}");
 
                               DateTime date = DateFormat("dd/MM/yyyy").parse(
                                   personalController.dateController.text);
 
-                              print("date___${date}");
                               personalUpdateController.updatePersonal(
                                   personalController.fullNameController.text,
                                   personalController.addressController.text,

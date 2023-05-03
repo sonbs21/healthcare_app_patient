@@ -10,10 +10,9 @@ class LoginResponse {
 
   LoginResponse({
     this.data,
-     this.statusCode,
-     this.message,
+    this.statusCode,
+    this.message,
   });
-
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) =>
       _$LoginResponseFromJson(json);
@@ -24,8 +23,14 @@ class LoginResponse {
 class DataResponse {
   String access_token;
   String refresh_token;
+  String? role;
+  String? memberId;
 
-  DataResponse({required this.access_token, required this.refresh_token});
+  DataResponse(
+      {required this.access_token,
+      required this.refresh_token,
+      this.role,
+      this.memberId});
 
   factory DataResponse.fromJson(Map<String, dynamic> json) =>
       _$DataResponseFromJson(json);

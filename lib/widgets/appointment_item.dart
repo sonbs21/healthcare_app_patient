@@ -142,7 +142,7 @@ class AppointmentItem extends StatelessWidget {
                       height: 6,
                     ),
                     Container(
-                      child: (DateTime.now().day == date.day)
+                      child: (DateTime.now().day == date.day && data?.statusAppointment == "APPROVED")
                           ? ElevatedButton(
                               child: const Text("Vào phòng"),
                               onPressed: () {

@@ -37,11 +37,9 @@ class PersonalUpdateController extends GetxController {
             .then((value) => Get.offNamed(AppRoutes.PERSONAL_INFO_PAGE));
       }
       //     .then((value) {
-      //   print("object__${value.data!.patient?.fullName}");
       //   personalController.getInforPersonal();
       // }).then((value) => Get.back());
     } on DioError catch (e) {
-      print("response___${e}");
     }
     // }
   }

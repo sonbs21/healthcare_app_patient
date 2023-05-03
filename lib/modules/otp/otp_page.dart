@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:healthcare_mobile/modules/otp/otp_controller.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpPage extends StatefulWidget {
@@ -10,6 +11,9 @@ class OtpPage extends StatefulWidget {
 }
 
 class _OtpPageState extends State<OtpPage> {
+  final otpController = Get.find<OtpController>();
+  String otp = "";
+
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -94,7 +98,7 @@ class _OtpPageState extends State<OtpPage> {
                 // submittedPinTheme: submittedPinTheme,
 
                 showCursor: true,
-                onCompleted: (pin) => print(pin),
+                onCompleted: (pin) => otp = pin ,
               ),
               const SizedBox(
                 height: 20,
@@ -107,7 +111,9 @@ class _OtpPageState extends State<OtpPage> {
                         primary: Colors.green.shade600,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {},
+                    onPressed: () {
+                      otpController.verifyOTP(otp);
+                    },
                     child: const Text("Xác thực")),
               ),
               // Row(

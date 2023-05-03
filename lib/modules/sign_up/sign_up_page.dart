@@ -102,6 +102,22 @@ class SignUpPage extends StatelessWidget {
                     () => _buildConfirmPasswordField(
                         signUpController.confirmPasswordController),
                   ),
+                  const SizedBox(height: 20),
+                  _buildAddressField(signUpController.addressController),
+                  const SizedBox(height: 20),
+                  _buildInsuranceNumberField(
+                      signUpController.insuranceNumberController),
+                  const SizedBox(height: 20),
+                  _buildJobField(signUpController.jobController),
+                  const SizedBox(height: 20),
+                  _buildStateField(signUpController.stateController),
+                  const SizedBox(height: 20),
+                  _buildMedicalHistoryField(
+                      signUpController.medicalHistoryController),
+                  const SizedBox(height: 20),
+                  _buildNameField(signUpController.nameCarerController),
+                  const SizedBox(height: 20),
+                  _buildPhoneField(signUpController.phoneCarerController),
                   const SizedBox(height: 40),
                   Obx(
                     () => AuthButton(
@@ -124,8 +140,23 @@ class SignUpPage extends StatelessWidget {
                         // String password =
                         //     signUpController.passwordController.text;
                         // signUpController.signUp(email, password);
-                        authService.signInWithPhoneNumber(
-                            signUpController.phoneController.text);
+                        // Get.toNamed(AppRoutes.OTP_PAGE);
+                        signUpController.signUp(
+                            signUpController.phoneController.text,
+                            signUpController.passwordController.text,
+                            signUpController.fullNameController.text,
+                            // ignore: unrelated_type_equality_checks
+                            _character == Gender.MALE ? "MALE" : "FEMALE",
+                            signUpController.addressController.text,
+                            signUpController.insuranceNumberController.text,
+                            signUpController.jobController.text,
+                            signUpController.stateController.text,
+                            signUpController.medicalHistoryController.text,
+                            signUpController.phoneCarerController,
+                            signUpController.nameCarerController,
+                            _selectedDate);
+                        // authService.signInWithPhoneNumber(
+                        //     signUpController.phoneController.text);
                       },
                     ),
                   ),
@@ -198,8 +229,8 @@ class SignUpPage extends StatelessWidget {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+        firstDate: DateTime(1900, 8),
+        lastDate: DateTime(2050));
     if (picked != null && picked != _selectedDate) {
       // setState(() {
       _selectedDate = picked;
@@ -346,6 +377,35 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
+  Widget _buildAddressField(TextEditingController controller) {
+    return TextFormField(
+      autofocus: false,
+      controller: controller,
+      obscureText: false,
+      enableSuggestions: false,
+      autocorrect: false,
+      keyboardType: TextInputType.name,
+      onSaved: (save) {
+        controller.text = save!;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          return "Chưa nhập thông tin".tr;
+        }
+        return null;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+        labelText: "Địa chỉ".tr,
+        prefixIcon: const Icon(Icons.border_color),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
   Widget _buildJobField(TextEditingController controller) {
     return TextFormField(
       autofocus: false,
@@ -376,22 +436,14 @@ class SignUpPage extends StatelessWidget {
   }
 
   Widget _buildStateField(TextEditingController controller) {
-    return TextFormField(
+    return TextField(
       autofocus: false,
       controller: controller,
       obscureText: false,
       enableSuggestions: false,
       autocorrect: false,
-      keyboardType: TextInputType.name,
-      onSaved: (save) {
-        controller.text = save!;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Chưa nhập thông tin".tr;
-        }
-        return null;
-      },
+      keyboardType: TextInputType.multiline,
+      maxLines: 3,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         labelText: "Trạng thái".tr,
@@ -405,26 +457,18 @@ class SignUpPage extends StatelessWidget {
   }
 
   Widget _buildMedicalHistoryField(TextEditingController controller) {
-    return TextFormField(
+    return TextField(
       autofocus: false,
       controller: controller,
       obscureText: false,
       enableSuggestions: false,
       autocorrect: false,
-      keyboardType: TextInputType.name,
-      onSaved: (save) {
-        controller.text = save!;
-      },
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Chưa nhập thông tin".tr;
-        }
-        return null;
-      },
+      keyboardType: TextInputType.multiline,
+      maxLines: 4,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-        labelText: "Trạng thái".tr,
-        prefixIcon: const Icon(Icons.border_color),
+        labelText: "Lịch sử khám".tr,
+        // prefixIcon: const Icon(Icons.border_color),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

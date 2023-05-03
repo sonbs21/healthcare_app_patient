@@ -18,7 +18,6 @@ class PersonalPage extends StatelessWidget {
       : 'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg';
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -37,16 +36,7 @@ class PersonalPage extends StatelessWidget {
                   child: ClipOval(
                       child: CachedNetworkImage(
                     imageUrl: "${Uri.encodeFull(avatarUrl)}",
-                  )
-                      // CachedNetworkImage(
-                      //   imageUrl: avatarUrl,
-                      //   placeholder: (context, url) =>
-                      //       const CircularProgressIndicator(),
-                      //   errorWidget: (context, url, error) {
-                      //     return const Icon(Icons.error);
-                      //   },
-                      // ),
-                      ),
+                  )),
                 ),
                 Expanded(
                   child: Padding(
@@ -104,7 +94,8 @@ class PersonalPage extends StatelessWidget {
           // const Divider(),
           GestureDetector(
             onTap: () {
-              Get.toNamed(AppRoutes.CHANGE_PASSWORD_PAGE);
+              Get.toNamed(AppRoutes.CALL_PAGE);
+              // Get.toNamed(AppRoutes.SELECT_DOCTOR_PAGE);
             },
             child: Container(
               padding:
@@ -145,12 +136,14 @@ class PersonalPage extends StatelessWidget {
           const SizedBox(height: 10),
           GestureDetector(
             onTap: () async {
-              final phoneNumber = 'tel:115';
-              if (await canLaunch(phoneNumber)) {
-                await launch(phoneNumber);
-              } else {
-                throw 'Không thể gọi đến số điện thoại $phoneNumber';
-              }
+              // final phoneNumber = 'tel:115';
+              // if (await canLaunch(phoneNumber)) {
+              //   await launch(phoneNumber);
+              // } else {
+              //   throw 'Không thể gọi đến số điện thoại $phoneNumber';
+              // }
+
+              personalController.emergency();
             },
             child: Container(
               padding:

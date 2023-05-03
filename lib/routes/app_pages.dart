@@ -4,6 +4,10 @@ import 'package:healthcare_mobile/modules/blood_pressure/blood_pressure_binding.
 import 'package:healthcare_mobile/modules/blood_pressure/blood_pressure_page.dart';
 import 'package:healthcare_mobile/modules/bmi/bmi_binding.dart';
 import 'package:healthcare_mobile/modules/bmi/bmi_page.dart';
+import 'package:healthcare_mobile/modules/call/call_binding.dart';
+import 'package:healthcare_mobile/modules/call/call_page.dart';
+import 'package:healthcare_mobile/modules/call_video/call_video_binding.dart';
+import 'package:healthcare_mobile/modules/call_video/call_video_page.dart';
 import 'package:healthcare_mobile/modules/change-password/change_password_binding.dart';
 import 'package:healthcare_mobile/modules/change-password/change_password_page.dart';
 import 'package:healthcare_mobile/modules/chat/chat_binding.dart';
@@ -39,6 +43,8 @@ import 'package:healthcare_mobile/modules/personal/personal_binding.dart';
 import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
 import 'package:healthcare_mobile/modules/select-doctor/select_doctor_binding.dart';
 import 'package:healthcare_mobile/modules/select-doctor/select_doctor_page.dart';
+import 'package:healthcare_mobile/modules/select-doctor/widget/info_select_doctor_binding.dart';
+import 'package:healthcare_mobile/modules/select-doctor/widget/info_select_doctor_pages.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_binding.dart';
 import 'package:healthcare_mobile/modules/sign_up/sign_up_page.dart';
 import 'package:healthcare_mobile/modules/splash/splash_binding.dart';
@@ -163,6 +169,21 @@ class AppPages {
       name: AppRoutes.SELECT_DOCTOR_PAGE,
       binding: SelectDoctorBinding(),
       page: () => SelectDoctorPage(),
+    ),
+    GetPage(
+      name: AppRoutes.INFO_SELECT_DOCTOR_PAGE,
+      binding: InfoSelectDoctorBinding(),
+      page: () => InfoSelectDoctorPage(),
+    ),
+    GetPage(
+      name: AppRoutes.CALL_PAGE,
+      binding: CallBinding(),
+      page: () => CallPage(),
+    ),
+     GetPage(
+      name: AppRoutes.CALL_VIDEO_PAGE,
+      binding: CallVideoBinding(),
+      page: () => CallScreen(),
     ),
     // Hero()
   ];

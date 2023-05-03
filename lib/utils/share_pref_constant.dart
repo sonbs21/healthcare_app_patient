@@ -5,4 +5,8 @@ class SharePrefConstant {
   static const String PASSWORD = "password";
   static const String ID = "id";
   static const String CONVERSATIONID = "conversationId";
+  static const String CONVERSATION_CALL_ID = "conversationCallId";
+  static const String CALLER_ID = "callerId";
+  static const String CALLEE_ID = "calleeId";
+  static const String CALL_NAME = "callName";
 }

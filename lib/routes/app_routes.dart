@@ -23,4 +23,7 @@ class AppRoutes {
   static const String OTP_PAGE = "/otp_page";
   static const String PERSONAL_UPDATE_PAGE = "/personal_update_page";
   static const String SELECT_DOCTOR_PAGE = "/select_doctor_page";
+  static const String INFO_SELECT_DOCTOR_PAGE = "/info_select_doctor_page";
+  static const String CALL_PAGE = "/call_page";
+  static const String CALL_VIDEO_PAGE = "/call_video_page";
 }

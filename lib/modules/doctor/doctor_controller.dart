@@ -50,7 +50,6 @@ class DoctorController extends GetxController {
   void initListAppointment() async {
     final response2 = await userRepository.getMe();
     if (response2.statusCode == 200) {
-      LocalStorageService.setId(response2.data?.patient?.id as String);
       doctorId = response2.data?.patient?.doctorId;
       if (doctorId == "") {
         return;

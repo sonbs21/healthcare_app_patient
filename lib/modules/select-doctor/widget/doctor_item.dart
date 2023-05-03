@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:healthcare_mobile/models/user/doctor_response.dart';
+import 'package:healthcare_mobile/modules/select-doctor/select_doctor_controller.dart';
+import 'package:healthcare_mobile/routes/app_routes.dart';
 // import 'avatar_image.dart';
 import 'package:intl/intl.dart';
 
 class DoctorItem extends StatelessWidget {
   DoctorItem(this.data, {Key? key, this.onTap}) : super(key: key);
   // final calendarController = Get.find<CalendarController>();
-
+  final selectDoctorController = Get.find<SelectDoctorController>();
   final data;
   final GestureTapCallback? onTap;
   // final direction = AppState.of(context)!.direction;
   @override
   Widget build(BuildContext context) {
-    DateTime? date = data?.dateMeeting;
-    var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
-    String timeMeeting = data?.timeMeeting;
-    String? time = '$inputFormat + $timeMeeting';
-    String appointmentStatus = '';
-    Color? colorStatus = Colors.white;
+    // DateTime? date = data?.dateMeeting;
+    // var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
+    // String timeMeeting = data?.timeMeeting;
+    // String? time = '$inputFormat + $timeMeeting';
+    // String appointmentStatus = '';
+    // Color? colorStatus = Colors.white;
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed(AppRoutes.INFO_SELECT_DOCTOR_PAGE, arguments: data);
+      },
       child: Container(
         margin: const EdgeInsets.only(top: 8),
         // padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -47,11 +52,11 @@ class DoctorItem extends StatelessWidget {
             motion: BehindMotion(),
             children: [
               SlidableAction(
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.green,
                 foregroundColor: Colors.white,
-                icon: Icons.delete,
+                icon: Icons.check,
                 onPressed: (_) {
-                  // calendarController.approveAppointment(data?.id);
+                  selectDoctorController.selectDoctor(data.id);
                 },
               )
             ],
@@ -77,7 +82,7 @@ class DoctorItem extends StatelessWidget {
                                   children: <Widget>[
                                     Expanded(
                                         child: Container(
-                                            child: Text(data?.fullName,
+                                            child: Text(data.fullName ?? "",
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 style: const TextStyle(
@@ -85,24 +90,6 @@ class DoctorItem extends StatelessWidget {
                                                     fontWeight:
                                                         FontWeight.w700)))),
                                     const SizedBox(width: 5),
-                                    Container(
-                                      height: 20,
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 13,
-                                        vertical: 3,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: colorStatus,
-                                      ),
-                                      child: Text(
-                                        appointmentStatus,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontSize: 11, color: Colors.black),
-                                      ),
-                                    )
                                   ],
                                 ),
                                 const SizedBox(
@@ -111,7 +98,7 @@ class DoctorItem extends StatelessWidget {
                                 Row(
                                   children: <Widget>[
                                     Container(
-                                        child: Text(time,
+                                        child: Text(data.workPlace ?? "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
@@ -125,7 +112,7 @@ class DoctorItem extends StatelessWidget {
                                 Row(
                                   children: <Widget>[
                                     Expanded(
-                                        child: Text(data?.notes,
+                                        child: Text(data.specialize ?? "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(fontSize: 13))),

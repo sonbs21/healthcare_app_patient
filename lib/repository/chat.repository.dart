@@ -7,6 +7,7 @@ import 'package:healthcare_mobile/models/chats/message_request.dart';
 import 'package:healthcare_mobile/models/chats/message_response.dart';
 import 'package:healthcare_mobile/models/chats/upload_response.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
+import 'package:healthcare_mobile/utils/constant.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ChatRepository {
@@ -26,7 +27,7 @@ class ChatRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/conversation',
+      '$domain/conversation',
       queryParameters: queryParams,
     );
 
@@ -50,7 +51,7 @@ class ChatRepository {
         "Bearer ${LocalStorageService.getAccessToken()}";
 
     final response = await dio.get(
-      'http://10.0.2.2:5000/v1/chat/$id',
+      '$domain/chat/$id',
       queryParameters: queryParams,
     );
 
@@ -62,7 +63,7 @@ class ChatRepository {
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
 
-    final response = await dio.post('http://10.0.2.2:5000/v1/chat/$id', data: {
+    final response = await dio.post('$domain/chat/$id', data: {
       "content": dto.content,
       "file": dto.file,
       "typeMessage": dto.typeMessage,
@@ -91,7 +92,7 @@ class ChatRepository {
     }
 
     Response<dynamic> response =
-        await dio.post('http://10.0.2.2:5000/v1/upload', data: formData);
+        await dio.post('$domain/upload', data: formData);
     List<UploadResponse> lst = (response.data as List<dynamic>)
         .map((e) => UploadResponse.fromJson(e))
         .toList();
@@ -116,7 +117,7 @@ class ChatRepository {
       ));
     }
     Response<dynamic> response =
-        await dio.post('http://10.0.2.2:5000/v1/upload', data: formData);
+        await dio.post('$domain/upload', data: formData);
     List<UploadResponse> lst = (response.data as List<dynamic>)
         .map((e) => UploadResponse.fromJson(e))
         .toList();

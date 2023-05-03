@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/dialog/rating_dialog.dart';
 import 'package:healthcare_mobile/modules/doctor/doctor_controller.dart';
+import 'package:healthcare_mobile/modules/select-doctor/select_doctor_controller.dart';
+import 'package:healthcare_mobile/modules/select-doctor/widget/info_select_doctor_controller.dart';
 import 'package:healthcare_mobile/utils/color.dart';
 import 'package:healthcare_mobile/utils/theme.dart';
 import 'package:healthcare_mobile/utils/extention.dart';
@@ -12,7 +14,9 @@ import 'package:healthcare_mobile/widgets/rating_start.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class InfoSelectDoctorPage extends StatelessWidget {
-  var doctorController = Get.find<DoctorController>();
+  // var infoSelectDoctorController = Get.find<DoctorController>();
+  final infoSelectDoctorController = Get.find<InfoSelectDoctorController>();
+  final selectDoctorController = Get.find<SelectDoctorController>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +61,8 @@ class InfoSelectDoctorPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                doctorController.doctor.fullName!,
+                                infoSelectDoctorController.doctor?.fullName! ??
+                                    "",
                                 style: titleStyle,
                               ),
                               const SizedBox(
@@ -68,12 +73,15 @@ class InfoSelectDoctorPage extends StatelessWidget {
                                   color: Theme.of(context).primaryColor),
                               const Spacer(),
                               RatingStar(
-                                rating: doctorController.doctor.rate ?? 5,
+                                rating:
+                                    infoSelectDoctorController.doctor?.rate ??
+                                        5,
                               )
                             ],
                           ),
                           subtitle: Text(
-                            doctorController.doctor.specialize!,
+                            infoSelectDoctorController.doctor?.specialize! ??
+                                "",
                             style: TextStyles.bodySm.subTitleColor.bold,
                           ),
                         ),
@@ -85,8 +93,7 @@ class InfoSelectDoctorPage extends StatelessWidget {
                           children: <Widget>[
                             const Spacer(),
                             ProgressWidget(
-                                value: doctorController.doctor.experience
-                                    .toDouble(),
+                                value: 5,
                                 totalValue: 100,
                                 activeColor: LightColor.purpleExtraLight,
                                 backgroundColor:
@@ -96,7 +103,9 @@ class InfoSelectDoctorPage extends StatelessWidget {
                             const Spacer(),
                             ProgressWidget(
                                 // value: countPatient!,
-                                value: doctorController.doctor.countPatient!,
+                                value: infoSelectDoctorController
+                                        .doctor?.countPatient! ??
+                                    0,
                                 totalValue: 100,
                                 activeColor: LightColor.purpleLight,
                                 backgroundColor:
@@ -112,37 +121,33 @@ class InfoSelectDoctorPage extends StatelessWidget {
                         ),
                         Text("Bệnh viện", style: titleStyle).vP16,
                         Text(
-                          doctorController.doctor.workPlace!,
+                          infoSelectDoctorController.doctor?.workPlace! ?? "",
                           style: TextStyles.body.bold,
                         ),
                         Text("Mô tả", style: titleStyle).vP16,
                         Text(
-                          doctorController.doctor.description!,
+                          infoSelectDoctorController.doctor?.description! ?? "",
                           style: TextStyles.body.subTitleColor,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            SizedBox(width: 20.h),
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) =>
-                                          RatingDialog(
-                                            id: doctorController.doctorId,
-                                          ));
-                                },
+                        GestureDetector(
+                          onTap: () {
+                            selectDoctorController.selectDoctor(
+                                infoSelectDoctorController.doctor?.id! ?? "");
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              SizedBox(width: 20.h),
+                              Expanded(
                                 child: Container(
                                   height: 56,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
-                                    color: AppColors.blue,
+                                    color: AppColors.red,
                                   ),
                                   child: Center(
                                     child: Text(
-                                      "Đánh giá",
+                                      "Chọn bác sĩ",
                                       style: Theme.of(context)
                                           .textTheme
                                           .headline5!
@@ -151,33 +156,9 @@ class InfoSelectDoctorPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ).vP16,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            SizedBox(width: 20.h),
-                            Expanded(
-                              child: Container(
-                                height: 56,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: AppColors.red,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Chọn bác sĩ",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline5!
-                                        .copyWith(color: AppColors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ).vP16
+                            ],
+                          ).vP16,
+                        )
                       ],
                     ),
                   ),

@@ -25,10 +25,14 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
 DataResponse _$DataResponseFromJson(Map<String, dynamic> json) => DataResponse(
       access_token: json['access_token'] as String,
       refresh_token: json['refresh_token'] as String,
+      role: json['role'] as String?,
+      memberId: json['memberId'] as String?,
     );
 
 Map<String, dynamic> _$DataResponseToJson(DataResponse instance) =>
     <String, dynamic>{
       'access_token': instance.access_token,
       'refresh_token': instance.refresh_token,
+      'role': instance.role,
+      'memberId': instance.memberId,
     };

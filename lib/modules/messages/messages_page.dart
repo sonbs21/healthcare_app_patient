@@ -4,6 +4,7 @@ import 'package:healthcare_mobile/models/chats/conversation_response.dart';
 import 'package:healthcare_mobile/modules/messages/components/chat_input_fields.dart';
 import 'package:healthcare_mobile/modules/messages/components/message.dart';
 import 'package:healthcare_mobile/modules/messages/messages_controller.dart';
+import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
 
 class MessagesPage extends StatelessWidget {
@@ -14,6 +15,7 @@ class MessagesPage extends StatelessWidget {
 
   var messagesController = Get.find<MessagesController>();
   DataConversationResponse? chat;
+  var userId = LocalStorageService.getId();
 
   // @override
   Widget build(BuildContext context) {
@@ -22,24 +24,24 @@ class MessagesPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: Obx(() => Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: ListView.builder(
-                  controller: messagesController.scrollController,
-                  itemCount: messagesController.listMessage.length,
-                  itemBuilder: (context, index) =>
-                      Message(message: messagesController.listMessage[index]),
-                ))),
-          ),
-          const ChatInputField()
+              child: Obx(
+            () => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              child: ListView.builder(
+                itemCount: messagesController.listMessage.length,
+                itemBuilder: (context, index) =>
+                    Message(message: messagesController.listMessage[index]),
+              ),
+            ),
+          )),
+          ChatInputField()
         ],
       ),
     );
   }
 
   AppBar buildAppBar() {
-    var user = chat?.member.firstWhere((m) => m.user?.id != id).user;
+    var user = chat?.member.firstWhere((m) => m.user?.id != userId)?.user;
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
@@ -53,15 +55,22 @@ class MessagesPage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(user?.fullName ?? '', style:const TextStyle(fontSize: 16)),
+              Text(user?.fullName ?? '', style: TextStyle(fontSize: 16)),
+              // Text('Active 3m ago', style: TextStyle(fontSize: 12))
             ],
           )
         ],
       ),
       actions: [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.call)),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.videocam)),
-        const SizedBox(
+        // IconButton(onPressed: () {}, icon: Icon(Icons.call)),
+        IconButton(
+            onPressed: () {
+              messagesController.callVideo(
+                  chat?.id ?? "", userId, user?.id ?? "");
+              LocalStorageService.setCallName(user?.fullName as String);
+            },
+            icon: Icon(Icons.videocam)),
+        SizedBox(
           width: kDefaultPadding / 2,
         )
       ],
