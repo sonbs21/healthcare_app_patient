@@ -35,12 +35,18 @@ import 'package:healthcare_mobile/modules/notification/notification_pages.dart';
 import 'package:healthcare_mobile/modules/notification/notification_binding.dart';
 import 'package:healthcare_mobile/modules/otp/otp_binding.dart';
 import 'package:healthcare_mobile/modules/otp/otp_page.dart';
+import 'package:healthcare_mobile/modules/otp_pass/otp_pass_binding.dart';
+import 'package:healthcare_mobile/modules/otp_pass/otp_pass_page.dart';
 import 'package:healthcare_mobile/modules/personal-info/personal_info_binding.dart';
 import 'package:healthcare_mobile/modules/personal-info/personal_info_pages.dart';
 import 'package:healthcare_mobile/modules/personal-update/personal_update_binding.dart';
 import 'package:healthcare_mobile/modules/personal-update/personal_update_pages.dart';
 import 'package:healthcare_mobile/modules/personal/personal_binding.dart';
 import 'package:healthcare_mobile/modules/personal/personal_pages.dart';
+import 'package:healthcare_mobile/modules/phone_pass/phone_pass_binding.dart';
+import 'package:healthcare_mobile/modules/phone_pass/phone_pass_pages.dart';
+import 'package:healthcare_mobile/modules/reset_password/reset_password_binding.dart';
+import 'package:healthcare_mobile/modules/reset_password/reset_password_page.dart';
 import 'package:healthcare_mobile/modules/select-doctor/select_doctor_binding.dart';
 import 'package:healthcare_mobile/modules/select-doctor/select_doctor_page.dart';
 import 'package:healthcare_mobile/modules/select-doctor/widget/info_select_doctor_binding.dart';
@@ -180,10 +186,26 @@ class AppPages {
       binding: CallBinding(),
       page: () => CallPage(),
     ),
-     GetPage(
+    GetPage(
       name: AppRoutes.CALL_VIDEO_PAGE,
       binding: CallVideoBinding(),
       page: () => CallScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.PHONE_PASS_PAGE,
+      binding: PhonePassBinding(),
+      page: () => PhonePassPage(),
+    ),
+
+    GetPage(
+      name: AppRoutes.OTP_PASS_PAGE,
+      binding: OtpPassBinding(),
+      page: () => OtpPassPage(),
+    ),
+    GetPage(
+      name: AppRoutes.RESET_PASSWORD_PAGE,
+      binding: ResetPasswordBinding(),
+      page: () => ResetPasswordPage(),
     ),
     // Hero()
   ];

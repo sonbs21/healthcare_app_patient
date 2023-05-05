@@ -55,8 +55,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.back();
-                          Get.toNamed(AppRoutes.SIGN_UP);
+                          Get.toNamed(AppRoutes.PHONE_PASS_PAGE);
                         },
                         child: Text(
                           "Quên mật khẩu".tr,

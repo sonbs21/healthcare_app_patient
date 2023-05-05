@@ -94,7 +94,7 @@ class PersonalPage extends StatelessWidget {
           // const Divider(),
           GestureDetector(
             onTap: () {
-              Get.toNamed(AppRoutes.CALL_PAGE);
+              Get.toNamed(AppRoutes.CHANGE_PASSWORD_PAGE);
               // Get.toNamed(AppRoutes.SELECT_DOCTOR_PAGE);
             },
             child: Container(

@@ -27,6 +27,26 @@ class UserRepository {
     return UserResponse.fromJson(response.data);
   }
 
+  Future<Response> resetPassword(
+    String? phone,
+    String? newPassword,
+    String? confirmNewPassword,
+  ) async {
+    // if (status != null) {
+    //   queryParams['status'] = status;
+    // }
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response = await dio.patch('$domain/user/update-password', data: {
+      "phone": phone,
+      "newPassword": newPassword,
+      "confirmNewPassword": confirmNewPassword,
+    });
+
+    return response;
+  }
 
   Future<PersonResponse> getPerson(String id) async {
     dio.options = BaseOptions();
@@ -57,8 +77,8 @@ class UserRepository {
     // final carers = [
     //   {"phone": phoneCarer, "fullName": nameCarer}
     // ];
-    final response = await dio
-        .post('$domain/auth/user/register/patient', data: {
+    final response =
+        await dio.post('$domain/auth/user/register/patient', data: {
       "phone": dto.phone,
       "password": dto.password,
       "fullName": dto.fullName,
@@ -111,8 +131,8 @@ class UserRepository {
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
 
-    final response = await dio.put('$domain/patient/select',
-        data: {"doctorId": dto.doctorId});
+    final response = await dio
+        .put('$domain/patient/select', data: {"doctorId": dto.doctorId});
     return response.data;
   }
 
@@ -156,8 +176,7 @@ class UserRepository {
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
 
-    final response =
-        await dio.patch('$domain/user/change-password', data: {
+    final response = await dio.patch('$domain/user/change-password', data: {
       "oldPassword": oldPassword,
       "newPassword": newPassword,
       "confirmNewPassword": confirmNewPassword,

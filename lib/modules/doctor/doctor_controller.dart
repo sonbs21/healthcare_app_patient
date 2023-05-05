@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_request.dart';
 import 'package:healthcare_mobile/models/appointment/appointment_response.dart';
 import 'package:healthcare_mobile/models/rating/rating_request.dart';
@@ -30,6 +31,7 @@ class DoctorController extends GetxController {
   var timeController = TextEditingController();
   var notesController = TextEditingController();
   Position? currentPosition;
+  List<Marker> markers = [];
   String? doctorId = "";
 
   @override
@@ -37,7 +39,9 @@ class DoctorController extends GetxController {
     super.onInit();
 
     initListAppointment();
-    _getCurrentLocation();
+    _getCurrentLocation().then((value) => _addMarker(
+        LatLng(currentPosition!.latitude, currentPosition!.longitude)));
+
     if (doctorId == "") {
       getDoctors();
     }
@@ -45,6 +49,44 @@ class DoctorController extends GetxController {
 
   void changeDropdownValue(String newValue) {
     dropdownValue.value = newValue;
+  }
+
+  void _addMarker(LatLng latLng) async {
+    // Create a new Places instance
+    final places =
+        GoogleMapsPlaces(apiKey: "AIzaSyBRm7R6WMe0kidaFKn7LB4V_W3lvX-Ft4w");
+
+    // Perform a nearby search around the current location
+    final response = await places.searchNearbyWithRadius(
+      Location(
+        lat: latLng.latitude,
+        lng: latLng.longitude,
+      ),
+      5000,
+      type: "hospital",
+    );
+
+    // Clear the existing markers
+    markers.clear();
+
+    // Add a marker for each result
+    for (var result in response.results) {
+      markers.add(
+        Marker(
+          markerId: MarkerId(result.placeId),
+          position: LatLng(
+            result.geometry?.location.lat ?? 0,
+            result.geometry?.location.lng ?? 0,
+          ),
+          infoWindow: InfoWindow(
+            title: result.name,
+            snippet: result.vicinity,
+          ),
+        ),
+      );
+    }
+
+    // setState(() {});
   }
 
   void initListAppointment() async {

@@ -257,8 +257,10 @@ Future<dynamic> selectFile() {
                           allowMultiple: false,
                           allowedExtensions: ['xls', 'xlsx', 'doc']);
                   List<FilePickerResult> arr = [];
-                  arr.add(result!);
-                  messagesController.uploadFile(arr, id, 'FILE');
+                  if (result != null) {
+                    arr.add(result!);
+                    messagesController.uploadFile(arr, id, 'FILE');
+                  }
                 },
                 child: Card(
                     elevation: 5,

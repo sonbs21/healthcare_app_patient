@@ -26,7 +26,7 @@ class InfoDoctorPage extends StatelessWidget {
         bottom: false,
         child: Stack(
           children: <Widget>[
-            Image.network(
+            Image.network(doctorController.doctor.avatar ??
                 "https://img.freepik.com/premium-vector/doctor-icon-avatar-white_136162-58.jpg?w=2000"),
             DraggableScrollableSheet(
               maxChildSize: .8,

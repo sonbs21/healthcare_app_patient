@@ -26,4 +26,7 @@ class AppRoutes {
   static const String INFO_SELECT_DOCTOR_PAGE = "/info_select_doctor_page";
   static const String CALL_PAGE = "/call_page";
   static const String CALL_VIDEO_PAGE = "/call_video_page";
+  static const String OTP_PASS_PAGE = "/otp_pass_page";
+  static const String PHONE_PASS_PAGE = "/phone_pass_page";
+  static const String RESET_PASSWORD_PAGE = "/reset_password_page";
 }

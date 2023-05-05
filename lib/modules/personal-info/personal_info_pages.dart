@@ -54,10 +54,10 @@ class PersonalInfoPage extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {},
-                        child: const CircleAvatar(
+                        child: CircleAvatar(
                           radius: 50,
-                          backgroundImage: NetworkImage(
-                              'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg'),
+                          backgroundImage:
+                              NetworkImage(personalController.avatar),
                           // radius: 24,
                         ),
                       ),

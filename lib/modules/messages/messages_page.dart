@@ -41,7 +41,7 @@ class MessagesPage extends StatelessWidget {
   }
 
   AppBar buildAppBar() {
-    var user = chat?.member.firstWhere((m) => m.user?.id != userId)?.user;
+    var user = chat?.member.firstWhere((m) => m.user?.id != userId).user;
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
@@ -69,8 +69,8 @@ class MessagesPage extends StatelessWidget {
                   chat?.id ?? "", userId, user?.id ?? "");
               LocalStorageService.setCallName(user?.fullName as String);
             },
-            icon: Icon(Icons.videocam)),
-        SizedBox(
+            icon: const Icon(Icons.videocam)),
+        const SizedBox(
           width: kDefaultPadding / 2,
         )
       ],

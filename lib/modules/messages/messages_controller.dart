@@ -35,7 +35,7 @@ class MessagesController extends GetxController {
           DataMessageResponse messageResponse =
               DataMessageResponse.fromJson(msg['data']);
 
-          listMessage.add(messageResponse);
+          listMessage.insert(0, messageResponse);
         } catch (e) {}
       });
     });

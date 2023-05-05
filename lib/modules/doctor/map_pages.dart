@@ -31,6 +31,7 @@ class _MapPageState extends State<MapPage> {
                 doctorController.currentPosition!.longitude),
             zoom: 11.0,
           ),
+          markers: Set.from(doctorController.markers),
           myLocationEnabled: true),
     );
   }
