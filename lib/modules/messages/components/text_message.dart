@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:healthcare_mobile/models/chats/ChatMessage.dart';
 import 'package:healthcare_mobile/models/chats/chat_response.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:healthcare_mobile/utils/constant.dart';

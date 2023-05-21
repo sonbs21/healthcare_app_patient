@@ -8,7 +8,6 @@ import 'package:healthcare_mobile/modules/messages/components/text_message.dart'
 import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:healthcare_mobile/utils/constant.dart';
 
-import 'audio_message.dart';
 import 'video_message.dart';
 
 class Message extends StatelessWidget {

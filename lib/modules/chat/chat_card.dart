@@ -42,9 +42,9 @@ class ChatCard extends StatelessWidget {
                 children: [
                   // Stack(
                   //   children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 35,
-                    backgroundImage: NetworkImage(
+                    backgroundImage: NetworkImage(user?.avatar ??
                         "https://thumbs.dreamstime.com/b/male-avatar-icon-flat-style-male-user-icon-cartoon-man-avatar-hipster-vector-stock-91462914.jpg"),
                   ),
                   // if (chat.isActive)
@@ -81,12 +81,11 @@ class ChatCard extends StatelessWidget {
                           Opacity(
                               opacity: 0.64,
                               child: Text(
-                                chat.lastMessage?.content ??
-                                    "hii hasd adiwe sadasid sadashu asduahsdu asdasud adasd",
+                                chat.lastMessage?.content ?? "",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               )),
-                        ],
+                        ], 
                       ),
                     ),
                   ),

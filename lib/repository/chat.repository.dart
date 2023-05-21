@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:healthcare_mobile/api/rest_api.dart';
+import 'package:healthcare_mobile/models/chats/chat_ai_request.dart';
+import 'package:healthcare_mobile/models/chats/chat_ai_response.dart';
 import 'package:healthcare_mobile/models/chats/chat_response.dart';
 import 'package:healthcare_mobile/models/chats/conversation_response.dart';
 import 'package:healthcare_mobile/models/chats/message_request.dart';
@@ -43,9 +45,7 @@ class ChatRepository {
       'page': page ?? 1,
       'pageSize': pageSize ?? 10,
     };
-    // if (status != null) {
-    //   queryParams['status'] = status;
-    // }
+
     dio.options = BaseOptions();
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
@@ -56,6 +56,17 @@ class ChatRepository {
     );
 
     return ChatResponse.fromJson(response.data);
+  }
+
+  Future<ChatAiResponse> chatAiMessage(ChatAiRequest dto) async {
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response =
+        await dio.post('$domain/message', data: {"question": dto.question});
+
+    return ChatAiResponse.fromJson(response.data);
   }
 
   Future<MessageResponse> postMessage(String id, MessageRequest dto) async {

@@ -36,11 +36,10 @@ class AppointmentRepository {
 
   Future<NotificationResponse> getNotification(
     int? page,
-    int? pageSize,
   ) async {
     final queryParams = {
       'page': page ?? 1,
-      'pageSize': pageSize ?? 20,
+      'pageSize': 10,
     };
 
     dio.options = BaseOptions();
@@ -73,6 +72,18 @@ class AppointmentRepository {
       queryParameters: queryParams,
     );
     return AppointmentTimeResponse.fromJson(response.data);
+  }
+
+  Future<Response> readAllNotification() async {
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response = await dio.put(
+      '$domain/notification/read-all',
+    );
+
+    return response;
   }
 
   Future<AppointmentGetResponse> postAppointment(AppointmentRequest dto) async {

@@ -5,6 +5,8 @@ import 'package:healthcare_mobile/repository/user.repository.dart';
 import 'package:healthcare_mobile/routes/app_routes.dart';
 import 'package:healthcare_mobile/service/local_storage_service.dart';
 import 'package:intl/intl.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PersonalController extends GetxController {
   final userRepository = Get.find<UserRepository>();
@@ -25,6 +27,7 @@ class PersonalController extends GetxController {
   // String medicalHistory = "";
   String gender = "";
   DateTime? time;
+  Position? currentPosition;
 
   var isCancelFullName = true.obs;
   var isCancelAddress = true.obs;
@@ -49,7 +52,19 @@ class PersonalController extends GetxController {
   }
 
   void emergency() async {
-    userRepository.emergency();
+    LocationPermission permission;
+    permission = await Geolocator.requestPermission();
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    userRepository.emergency("${position.latitude}", "${position.longitude}");
+
+    final phoneNumber = 'tel:115';
+    if (await canLaunch(phoneNumber)) {
+      await launch(phoneNumber);
+    } else {
+      throw 'Không thể gọi đến số điện thoại $phoneNumber';
+    }
   }
 
   void getInforPersonal() async {

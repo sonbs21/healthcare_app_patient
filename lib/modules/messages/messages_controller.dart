@@ -56,6 +56,8 @@ class MessagesController extends GetxController {
 
   void callVideo(String conversationId, callerId, calleeId) async {
     // socketService.socket.onConnect((data) {
+    print("conversationId $conversationId:");
+
     LocalStorageService.setConversationCallId(conversationId);
     LocalStorageService.setCalleeId(calleeId);
     LocalStorageService.setCallerId(callerId);

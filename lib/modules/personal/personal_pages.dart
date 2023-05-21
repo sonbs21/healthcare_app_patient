@@ -135,15 +135,9 @@ class PersonalPage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           GestureDetector(
-            onTap: () async {
-              // final phoneNumber = 'tel:115';
-              // if (await canLaunch(phoneNumber)) {
-              //   await launch(phoneNumber);
-              // } else {
-              //   throw 'Không thể gọi đến số điện thoại $phoneNumber';
-              // }
-
+            onTap: ()  {
               personalController.emergency();
+              
             },
             child: Container(
               padding:

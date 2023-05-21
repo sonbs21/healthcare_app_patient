@@ -110,19 +110,17 @@ class UserRepository {
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
 
-    final response = await dio.post('$domain/auth/user/login',
+    final response = await dio.post('$domain/patient/rating',
         data: {"doctorId": dto.doctorId, "rating": dto.rating});
     return response.data;
   }
 
-  Future<void> emergency() async {
+  Future<void> emergency(String lat, lng) async {
     dio.options = BaseOptions();
     dio.options.headers['Authorization'] =
         "Bearer ${LocalStorageService.getAccessToken()}";
-
-    final response = await dio.post(
-      '$domain/emergency',
-    );
+    final response =
+        await dio.post('$domain/emergency', data: {"lat": lat, "lng": lng});
     return response.data;
   }
 
@@ -136,10 +134,14 @@ class UserRepository {
     return response.data;
   }
 
-  // Future<void> logout() async {
-  //   final client = RestClient(dio);
-  //   return await client.logout();
-  // }
+  Future<void> revokeDoctor() async {
+    dio.options = BaseOptions();
+    dio.options.headers['Authorization'] =
+        "Bearer ${LocalStorageService.getAccessToken()}";
+
+    final response = await dio.put('$domain/patient/revoke');
+    return response.data;
+  }
 
   Future<DoctorLstResponse> getDoctors(
     int? page,

@@ -241,11 +241,11 @@ class GifDialogState extends State<RecordDialog> with TickerProviderStateMixin {
         break;
       case 'LOW':
         bloodPressureStatus = 'Thấp';
-        colorCholesterolStatus = Colors.red[600];
+        colorBloodPressureStatus = Colors.red[600];
         break;
       case 'HIGH':
         bloodPressureStatus = 'Cao';
-        colorCholesterolStatus = Colors.red[600];
+        colorBloodPressureStatus = Colors.red[600];
         break;
       default:
         break;
@@ -605,10 +605,10 @@ class GifDialogState extends State<RecordDialog> with TickerProviderStateMixin {
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: colorCholesterolStatus,
+                                  color: colorBloodPressureStatus,
                                 ),
                                 child: Text(
-                                  cholesterolStatus,
+                                  bloodPressureStatus,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
@@ -638,7 +638,9 @@ class GifDialogState extends State<RecordDialog> with TickerProviderStateMixin {
                           mainAxisAlignment: theme == 1
                               ? MainAxisAlignment.end
                               : MainAxisAlignment.center,
-                          children: <Widget>[customButton(ok!, okColor!, okFun!)],
+                          children: <Widget>[
+                            customButton(ok!, okColor!, okFun!)
+                          ],
                         ),
                       )
                     : actionButtons!

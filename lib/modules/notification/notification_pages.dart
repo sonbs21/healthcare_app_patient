@@ -12,6 +12,7 @@ class NotificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    notificationController.readAll();
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -37,9 +38,31 @@ class NotificationPage extends StatelessWidget {
   notificationItem(DataNotificationResponse notification) {
     DateTime? date = notification.createdAt;
     var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
+    Color? colorStatus = Colors.white;
+    switch (notification.typeNotification) {
+      case 'WARNING':
+        colorStatus = Colors.yellow[600];
+        break;
+      case 'REMIND':
+        colorStatus = Colors.green[600];
+        break;
+      case 'EMERGENCY':
+        colorStatus = Colors.red[600];
+        break;
+      case 'SYSTEM':
+        colorStatus = Colors.grey[600];
+        break;
+      case 'APPOINTMENT':
+        colorStatus = Colors.blue[400];
+        break;
+      default:
+        break;
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
+        color: colorStatus,
         border: Border.all(
           color: Colors.black,
         ),
@@ -116,10 +139,7 @@ class NotificationPage extends StatelessWidget {
           ),
           notification.typeNotification == "EMERGENCY"
               ? GestureDetector(
-                onTap: () {
-                  
-                },
-                child: Text(notification.url ?? ""))
+                  onTap: () {}, child: Text(notification.url ?? ""))
               : const SizedBox()
           // notification.postImage != '' ?
           //   Container(

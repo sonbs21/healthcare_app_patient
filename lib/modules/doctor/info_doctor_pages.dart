@@ -67,9 +67,6 @@ class InfoDoctorPage extends StatelessWidget {
                                   size: 18,
                                   color: Theme.of(context).primaryColor),
                               const Spacer(),
-                              RatingStar(
-                                rating: doctorController.doctor.rate ?? 5,
-                              )
                             ],
                           ),
                           subtitle: Text(
@@ -77,9 +74,8 @@ class InfoDoctorPage extends StatelessWidget {
                             style: TextStyles.bodySm.subTitleColor.bold,
                           ),
                         ),
-                        const Divider(
-                          thickness: .3,
-                          color: LightColor.grey,
+                        RatingStar(
+                          rating: doctorController.doctor.rate ?? 5,
                         ),
                         Row(
                           children: <Widget>[
@@ -154,30 +150,35 @@ class InfoDoctorPage extends StatelessWidget {
                             ),
                           ],
                         ).vP16,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            SizedBox(width: 20.h),
-                            Expanded(
-                              child: Container(
-                                height: 56,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  color: AppColors.red,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Hủy bác sĩ",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline5!
-                                        .copyWith(color: AppColors.white),
+                        InkWell(
+                          onTap: () {
+                            doctorController.revokeDoctors();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              SizedBox(width: 20.h),
+                              Expanded(
+                                child: Container(
+                                  height: 56,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: AppColors.red,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Hủy bác sĩ",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5!
+                                          .copyWith(color: AppColors.white),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ).vP16
+                            ],
+                          ).vP16,
+                        )
                       ],
                     ),
                   ),

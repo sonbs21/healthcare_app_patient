@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:healthcare_mobile/modules/chat/gpt/providers/chats_provider.dart';
+import 'package:healthcare_mobile/modules/chat/gpt/screens/gpt_controller.dart';
 import 'package:healthcare_mobile/modules/chat/gpt/services/services.dart';
 import 'package:healthcare_mobile/modules/chat/gpt/widgets/chat_widget.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +22,7 @@ class GptScreen extends StatefulWidget {
 
 class _GptScreenState extends State<GptScreen> {
   bool _isTyping = false;
+  var gptController = Get.find<GptController>();
 
   late TextEditingController textEditingController;
   late ScrollController _listScrollController;
@@ -43,97 +46,108 @@ class _GptScreenState extends State<GptScreen> {
   // List<ChatModel> chatList = [];
   @override
   Widget build(BuildContext context) {
-    final modelsProvider = Provider.of<ModelsProvider>(context);
-    final chatProvider = Provider.of<ChatProvider>(context);
+    // final modelsProvider = Provider.of<ModelsProvider>(context);
+    // final chatProvider = Provider.of<ChatProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80,
-        elevation: 2,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset(AssetsManager.openaiLogo),
-        ),
-        title: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            "Chat bot AI",
-            maxLines: 2,
-            textAlign: TextAlign.center,
+        appBar: AppBar(
+          toolbarHeight: 80,
+          elevation: 2,
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(AssetsManager.openaiLogo),
           ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await Services.showModalSheet(context: context);
-            },
-            icon: const Icon(Icons.more_vert_rounded, color: Colors.white),
+          title: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Chat bot AI",
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
           ),
-        ],
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Flexible(
-              child: ListView.builder(
-                  controller: _listScrollController,
-                  itemCount: chatProvider.getChatList.length, //chatList.length,
-                  itemBuilder: (context, index) {
-                    return ChatWidget(
-                      msg: chatProvider
-                          .getChatList[index].msg, // chatList[index].msg,
-                      chatIndex: chatProvider.getChatList[index]
-                          .chatIndex, //chatList[index].chatIndex,
-                    );
-                  }),
-            ),
-            if (_isTyping) ...[
-              const SpinKitThreeBounce(
-                color: Colors.white,
-                size: 18,
-              ),
-            ],
-            const SizedBox(
-              height: 15,
-            ),
-            Material(
-              color: const Color(0xFF444654),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        focusNode: focusNode,
-                        style: const TextStyle(color: Colors.white),
-                        controller: textEditingController,
-                        onSubmitted: (value) async {
-                          await sendMessageFCT(
-                              modelsProvider: modelsProvider,
-                              chatProvider: chatProvider);
-                        },
-                        decoration: const InputDecoration.collapsed(
-                            hintText: "Nhập tin nhắn",
-                            hintStyle: TextStyle(color: Colors.grey)),
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () async {
-                          await sendMessageFCT(
-                              modelsProvider: modelsProvider,
-                              chatProvider: chatProvider);
-                        },
-                        icon: const Icon(
-                          Icons.send,
-                          color: Colors.white,
-                        ))
-                  ],
-                ),
-              ),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await Services.showModalSheet(context: context);
+              },
+              icon: const Icon(Icons.more_vert_rounded, color: Colors.white),
             ),
           ],
         ),
-      ),
-    );
+        body: SafeArea(
+          child: Obx(
+            () => Column(
+              children: [
+                Flexible(
+                  child: ListView.builder(
+                      controller: _listScrollController,
+                      itemCount:
+                          gptController.lstMessageAi.length, //chatList.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            ChatWidget(
+                                msg: gptController.lstMessageAi[index].msg ??
+                                    "", // chatList[index].msg,
+                                chatIndex:
+                                    gptController.lstMessageAi[index].index),
+                            gptController.isLoading.isTrue
+                                ? const ChatWidget(
+                                    msg: "Đang trả lời", // chatList[index].msg,
+                                    chatIndex: 0)
+                                : const SizedBox(),
+                          ],
+                        );
+                      }),
+                ),
+                if (_isTyping) ...[
+                  const SpinKitThreeBounce(
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                ],
+                const SizedBox(
+                  height: 15,
+                ),
+                Material(
+                  color: const Color(0xFF444654),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            focusNode: focusNode,
+                            style: const TextStyle(color: Colors.white),
+                            controller: gptController.textEditingController,
+                            onSubmitted: (value) async {
+                              gptController.chatAiMessage(
+                                  gptController.textEditingController.text);
+                            },
+                            decoration: const InputDecoration.collapsed(
+                                hintText: "Nhập tin nhắn",
+                                hintStyle: TextStyle(color: Colors.grey)),
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () async {
+                              gptController.chatAiMessage(
+                                  gptController.textEditingController.text);
+                              // await sendMessageFCT(
+                              //     modelsProvider: modelsProvider,
+                              //     chatProvider: chatProvider);
+                            },
+                            icon: const Icon(
+                              Icons.send,
+                              color: Colors.white,
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 
   void scrollListToEND() {

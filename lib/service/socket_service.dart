@@ -15,8 +15,7 @@ class SocketService extends GetxService {
       });
 
       socket.connect();
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   @override

@@ -55,7 +55,6 @@ const String myDarkCyanColor = "#0097A7";
 const String myGreyColor = "#9E9E9E";
 const String myDarkGreyColor = "#616161";
 
-
 const kPrimaryColor = Color(0xFF00BF6D);
 const kSecondaryColor = Color(0xFFFE9901);
 const kContentColorLightTheme = Color(0xFF1D1D35);
@@ -65,5 +64,5 @@ const kErrorColor = Color(0xFFF03738);
 
 const kDefaultPadding = 10.0;
 
-  // String domain = "http://10.0.2.2:5000/v1";
+// String domain = "http://10.0.2.2:5000/v1";
  const String domain = "https://healthcarebe-production.up.railway.app/v1";

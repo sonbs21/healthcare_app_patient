@@ -17,27 +17,7 @@ class FancyDialog extends StatelessWidget {
     var inputFormat = DateFormat('dd/MM/yyyy').format(date!);
     String appointmentStatus = '';
     Color? colorStatus = Colors.white;
-
-    switch (data?.dateMeeting) {
-      case 'CREATED':
-        appointmentStatus = 'Đang chờ';
-        colorStatus = Colors.yellow[600];
-        break;
-      case 'APPROVED':
-        appointmentStatus = 'Chấp nhận';
-        colorStatus = Colors.green[600];
-        break;
-      case 'REFUSED':
-        appointmentStatus = 'Từ chối';
-        colorStatus = Colors.red[600];
-        break;
-      case 'CANCELED':
-        appointmentStatus = 'Đã hủy';
-        colorStatus = Colors.grey[600];
-        break;
-      default:
-        break;
-    }
+    print("data?.statusAppointment:${data?.statusAppointment}");
     // if (!defaultButtons!)
     //   assert(actionButtons != null,
     //       '\n***actionButtons cannot be null when defaultButtons is false***\n');
@@ -217,8 +197,13 @@ class FancyDialog extends StatelessWidget {
                       ],
                     ),
                   )),
-              data?.statusAppointment != 'CANCELED'
+              data?.statusAppointment == 'CANCELED' ||
+                      data?.statusAppointment == 'COMPLETED'
                   ? Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[customButton("Đóng", Colors.pink)],
+                    )
+                  : Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         // if (statusAppointment != 'CANCEL')
@@ -234,10 +219,6 @@ class FancyDialog extends StatelessWidget {
                         customButton("Đóng", Colors.pink)
                       ],
                     )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[customButton("Đóng", Colors.pink)],
-                    ),
             ],
           ),
         ),

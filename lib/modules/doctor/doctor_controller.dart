@@ -13,7 +13,7 @@ import 'package:healthcare_mobile/models/user/doctor_response.dart';
 import 'package:healthcare_mobile/models/user/user_response.dart';
 import 'package:healthcare_mobile/repository/appointment.repository.dart';
 import 'package:healthcare_mobile/repository/user.repository.dart';
-import 'package:healthcare_mobile/service/local_storage_service.dart';
+import 'package:healthcare_mobile/routes/app_routes.dart';
 
 class DoctorController extends GetxController {
   final appointmentRepository = Get.find<AppointmentRepository>();
@@ -33,6 +33,7 @@ class DoctorController extends GetxController {
   Position? currentPosition;
   List<Marker> markers = [];
   String? doctorId = "";
+  RxInt tmp = 0.obs;
 
   @override
   void onInit() {
@@ -114,6 +115,8 @@ class DoctorController extends GetxController {
     if (response3.statusCode == 200) {
       doctor = response3.data!;
     }
+
+    check();
   }
 
   void initNewAppointment(String? status) async {
@@ -127,6 +130,8 @@ class DoctorController extends GetxController {
     } else {
       // Xử lý khi API trả về lỗi
     }
+
+    check();
   }
 
   void getDoctors() async {
@@ -139,6 +144,12 @@ class DoctorController extends GetxController {
     } else {
       // Xử lý khi API trả về lỗi
     }
+  }
+
+  void revokeDoctors() async {
+    final response = await userRepository
+        .revokeDoctor()
+        .then((value) => Get.offAllNamed(AppRoutes.SELECT_DOCTOR_PAGE));
   }
 
   void postAppointment(String fullName, String phone, DateTime dateMeeting,
@@ -170,7 +181,9 @@ class DoctorController extends GetxController {
 
   void cancelAppointment(String id) async {
     try {
-      await appointmentRepository.cancelAppointment(id).then((value) {});
+      await appointmentRepository.cancelAppointment(id).then((value) {
+        check();
+      });
     } on DioError catch (e) {
       EasyLoading.showError(e.response?.data['message']);
     }
@@ -184,8 +197,22 @@ class DoctorController extends GetxController {
         final response = await userRepository.getDoctorById(_doctorId);
       });
     } on DioError catch (e) {
+      print(e.message);
       EasyLoading.showError(e.response?.data['message']);
     }
+  }
+
+  Future<void> refreshListAppointment() async {
+    // Thực hiện công việc làm mới, ví dụ: gọi lại API hoặc thực hiện tác vụ khác
+
+    // Đợi một khoảng thời gian giả lập (ví dụ: 2 giây) để tải lại dữ liệu
+    await Future.delayed(Duration(seconds: 2));
+
+    // Đánh dấu làm mới hoàn thành bằng cách gọi phương thức refreshCompleted()
+    // refreshCompleted();
+
+    // Thực hiện các công việc cần thiết để làm mới dữ liệu
+    initListAppointment();
   }
 
   Future<void> _getCurrentLocation() async {
@@ -195,5 +222,16 @@ class DoctorController extends GetxController {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     currentPosition = position;
+  }
+
+  void check() {
+    for (var value in listAppointment) {
+      tmp.value = 0;
+      print("value.statusAppointment:${value.statusAppointment}");
+      if (value.statusAppointment == "CREATED" ||
+          value.statusAppointment == "APPROVED") {
+        tmp.value = tmp.value + 1;
+      }
+    }
   }
 }

@@ -28,6 +28,8 @@ class MessagesPage extends StatelessWidget {
             () => Padding(
               padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
               child: ListView.builder(
+                controller: messagesController.scrollController,
+                reverse: true,
                 itemCount: messagesController.listMessage.length,
                 itemBuilder: (context, index) =>
                     Message(message: messagesController.listMessage[index]),

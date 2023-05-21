@@ -21,7 +21,7 @@ class ChatWidget extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                chatIndex == 0
+                chatIndex == 1
                     ? const Icon(
                         Icons.person_pin,
                         color: Colors.blue,
