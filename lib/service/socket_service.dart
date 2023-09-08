@@ -5,7 +5,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 class SocketService extends GetxService {
   late IO.Socket socket;
 // String domain = "http://10.0.2.2:5000";
-  String domain = "https://healthcarebe-production.up.railway.app";
+  String domain = "https://healthcarebe-production-64c6.up.railway.app";
   void connect() {
     try {
       socket = IO.io(domain, <String, dynamic>{

@@ -168,6 +168,7 @@ class DoctorController extends GetxController {
         ))
             .then((value) {
           initListAppointment();
+          check();
         });
       } on DioError catch (e) {
         isButtonLoading.value = false;
@@ -225,6 +226,8 @@ class DoctorController extends GetxController {
   }
 
   void check() {
+    print("value.statusAppointment:${listAppointment}");
+
     for (var value in listAppointment) {
       tmp.value = 0;
       print("value.statusAppointment:${value.statusAppointment}");
@@ -233,5 +236,6 @@ class DoctorController extends GetxController {
         tmp.value = tmp.value + 1;
       }
     }
+    print("value.statusAppointment:${tmp.value}");
   }
 }

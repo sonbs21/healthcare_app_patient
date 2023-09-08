@@ -71,13 +71,13 @@ class AppointmentPage extends StatelessWidget {
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(left: 40, right: 10),
-        child: MyButton(
+        child: Obx(() => MyButton(
             disableButton: doctorController.tmp.value >= 3 ? true : false,
             bgColor: Color(0xFF5856d6),
             title: "Đặt lịch hẹn",
             onTap: () {
               Get.toNamed(AppRoutes.APPOINMENT_PAGE);
-            }),
+            })),
       ),
     );
   }

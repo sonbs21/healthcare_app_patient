@@ -42,7 +42,7 @@ class _ProgressWidgetState extends State<ProgressWidget>
 
   @override
   Widget build(BuildContext context) {
-    final dimenstion = (AppTheme.fullWidth(context) - 10) * .3;
+    final dimenstion = (MediaQuery.of(context).size.width - 10) * .3;
     if (activeColor == null) {
       activeColor = Theme.of(context).primaryColor;
     }

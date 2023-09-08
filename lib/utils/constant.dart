@@ -65,4 +65,4 @@ const kErrorColor = Color(0xFFF03738);
 const kDefaultPadding = 10.0;
 
 // String domain = "http://10.0.2.2:5000/v1";
- const String domain = "https://healthcarebe-production.up.railway.app/v1";
+ const String domain = "https://healthcarebe-production-64c6.up.railway.app/v1";

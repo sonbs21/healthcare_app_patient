@@ -32,6 +32,49 @@ class HealthRecordController extends GetxController {
       BuildContext context) async {
     if (formKey.currentState!.validate()) {
       isButtonLoading.value = true;
+      final vH = int.parse(height);
+      final vW = int.parse(weight);
+      final vS = int.parse(systolic);
+      final vD = int.parse(diastolic);
+      final vG = int.parse(glucose);
+      final vHR = int.parse(heartRateIndicator);
+      final vC = int.parse(cholesterol);
+      if(vH < 0){
+        Get.snackbar("Cảnh báo", "Chỉ số chiều cao không đúng");
+        isButtonLoading.value = false;
+        return;
+      }
+      if(vW < 0){
+        Get.snackbar("Cảnh báo", "Chỉ số cân nặng không đúng");
+        isButtonLoading.value = false;
+        return;
+      }
+      if(vS < 0){
+        Get.snackbar("Cảnh báo", "Chỉ số huyết áp không đúng");
+        isButtonLoading.value = false;
+        return;
+      }
+      if(vD < 0){
+        Get.snackbar("Cảnh báo", "Chỉ số huyết áp không đúng");
+        isButtonLoading.value = false;
+        return;
+      }
+      if(vG < 0){
+        Get.snackbar("Cảnh báo", "Chỉ số glucose không đúng");
+        isButtonLoading.value = false;
+        return;
+      }
+      if(vHR < 0){
+        Get.snackbar("Cảnh báo", "Chỉ số nhịp tim không đúng");
+        isButtonLoading.value = false;
+        return;
+      }
+      if(vC < 0){
+        Get.snackbar("Cảnh báo", "Chỉ số cholesterol không đúng");
+        isButtonLoading.value = false;
+        return;
+      }
+
 
       try {
         await healthRecordRepository

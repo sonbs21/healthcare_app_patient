@@ -155,7 +155,9 @@ class HealthRecordPage extends StatelessWidget {
         controller.text = save!;
       },
       validator: (value) {
-        return null;
+        if (value!.isEmpty) {
+          return "Bạn chưa nhập thông tin".tr;
+        }
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(

@@ -94,15 +94,19 @@ class AppointmentRepository {
         DateFormat("yyyy-MM-dd").format(dto.dateOfBirth!);
     String formattedDateMeeting =
         DateFormat("yyyy-MM-dd").format(dto.dateMeeting!);
+    print("dto:$dto");
 
     final response = await dio.post('$domain/appointment', data: {
       "dateMeeting": formattedDateMeeting,
+      // "dateMeeting": dto.dateOfBirth!,
       "dateOfBirth": formattedDateOfBirth,
+      // "dateOfBirth": dto.dateMeeting,
       "fullName": dto.fullName,
       "notes": dto.notes,
       "phone": dto.phone,
       "timeMeeting": dto.timeMeeting
     });
+    print("${response.data}");
     return AppointmentGetResponse.fromJson(response.data);
   }
 
